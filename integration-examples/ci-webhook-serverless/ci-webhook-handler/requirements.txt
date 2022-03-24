@@ -1,0 +1,2 @@
+# dependencies for current version
+signalfx

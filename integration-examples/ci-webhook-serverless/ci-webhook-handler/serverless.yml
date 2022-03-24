@@ -1,0 +1,69 @@
+service: ci-webhook-handler
+frameworkVersion: '2'
+
+plugins:
+  - serverless-python-requirements
+
+provider:
+  name: aws
+  runtime: python3.8
+  lambdaHashingVersion: '20201221'
+  iam:
+    role:
+      statements: # permissions for all of your functions can be set here
+        - Effect: Allow
+          Action: # Gives permission to specific DynamoDB tables in all regions
+            - dynamodb:DescribeTable
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:BatchGetItem
+            - dynamodb:PutItem
+            - dynamodb:BatchWriteItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource: 'arn:aws:dynamodb:*:*:table/webhookEventsTable'
+        - Effect: Allow
+          Action: # Gives permission to read secret via SecretsManager in all regions
+            - secretsmanager:ListSecretVersionIds
+            - secretsmanager:DescribeSecret
+            - secretsmanager:GetResourcePolicy
+            - secretsmanager:GetSecretValue
+          Resource: 'arn:aws:secretsmanager:*:*:secret:SignalFx/Ingest-*'
+
+functions:
+  ciwebhook:
+    handler: handler.ciwebhook
+    events:
+      - httpApi:
+          path: /
+          method: post
+
+resources:
+  Resources:
+    eventsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: webhookEventsTable
+        AttributeDefinitions:
+          - AttributeName: buildId
+            AttributeType: S
+          - AttributeName: buildStep
+            AttributeType: S
+        KeySchema:
+          - AttributeName: buildId
+            KeyType: HASH
+          - AttributeName: buildStep
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    authToken:
+      Type: AWS::SecretsManager::Secret
+      Properties:
+        Description: SignalFx Endpoint and Token Info
+        Name: SignalFx/Ingest
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
