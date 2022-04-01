@@ -1,16 +1,4 @@
-# Contribution repository for Splunk Observability Content
-
-This repository exists to enable sharing of content. No formal testing is
-required so it just might work. Some examples of content which would fit here
-
-* Dashboards
-* Detectors
-* API Examples
-* Usage Reports
-* OTel Example Configurations
-* Links to Other Relevant Projects
-
-## General Recommendations for Dashboard Content for Reuse
+# General Recommendations for Dashboard Content for Reuse
 
 There are many customer use cases for dashboards, and any dashboard which provides
 insight to customers isn't wrong. There are some patterns we have found which
