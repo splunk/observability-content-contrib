@@ -29,8 +29,8 @@ views are used when promoting a detector set to Navigator Views.
   utilization metrics by filesystem so that the user knows exactly what
   resource is approaching exhaustion.
 
-1. **External KPIs** :
+3. **External KPIs** :
 
-1. **Internal KPIs** :
+4. **Internal KPIs** :
 
-1. **Detector Variables** :
+5. **Detector Variables** :
