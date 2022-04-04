@@ -29,7 +29,7 @@ views are used when promoting a dashboard set to Navigator Views.
   utilization metrics by filesystem so that the user knows exactly what
   resource is approaching exhaustion.
 
-1. **External KPIs** :
+1. **External KPIs** : 
 
 1. **Internal KPIs** :
 
