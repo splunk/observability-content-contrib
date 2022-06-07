@@ -23,6 +23,11 @@ jobs:
           allowlist: dependabot[bot]
           remote-organization-name: splunk
           remote-repository-name: cla-agreement
+          custom-pr-sign-comment: "I have read the CLA and I hereby accept the Terms"
+          create-file-commit-message: "For example: Creating file for storing CLA Signatures"
+          signed-commit-message: "$contributorName has signed the CLA in #$pullRequestNo"
+          custom-notsigned-prcomment: "All contributors have NOT signed the CLA (Contributor License Agreement) Document. To sign the document please copy the below text and paste it into a comment on this Pull Request."
+          custom-allsigned-prcomment: "****CLA Assistant Lite bot**** All contributors have signed the CLA  ✍️ ✅"
   CodeOfConduct:
     runs-on: ubuntu-latest
     steps:
@@ -42,5 +47,5 @@ jobs:
           custom-pr-sign-comment: "I have read the Code of Conduct and I hereby accept the Terms"
           create-file-commit-message: "For example: Creating file for storing COC Signatures"
           signed-commit-message: "$contributorName has signed the COC in #$pullRequestNo"
-          custom-notsigned-prcomment: "All contributors have NOT signed the COC Document"
+          custom-notsigned-prcomment: "All contributors have NOT signed the COC Document. To sign the document please copy the below text and paste it into a comment on this Pull Request."
           custom-allsigned-prcomment: "****CLA Assistant Lite bot**** All contributors have signed the COC  ✍️ ✅"
