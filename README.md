@@ -9,3 +9,6 @@ required so it just might work. Some examples of content which would fit here
 * Usage Reports
 * OTel Example Configurations
 * Links to Other Relevant Projects
+
+## Contributions
+All contributors must sign the CLA and Code of Conduct. You will be prompted by the cla-assistant workflow action during your Pull Request.
