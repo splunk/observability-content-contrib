@@ -14,13 +14,6 @@ resource "signalfx_dashboard" "RUM-Exec" {
         width    = 3
     }
     chart {
-        chart_id = signalfx_list_chart.RUM-Exec_11.id
-        column   = 9
-        height   = 2
-        row      = 4
-        width    = 3
-    }
-    chart {
         chart_id = signalfx_list_chart.RUM-Exec_3.id
         column   = 9
         height   = 2
