@@ -242,7 +242,7 @@ resource "signalfx_list_chart" "RUM-Exec_3" {
     hide_missing_values     = false
     max_delay               = 0
     max_precision           = 2
-    name                    = "Web Vitals - FID"
+    name                    = "Web Vitals"
     program_text            = <<-EOF
         A = data('rum.webvitals_fid.time.ns.p75').scale(0.000001).mean(cycle='month', cycle_start='1d', partial_values=True).mean().publish(label='A')
         B = data('rum.webvitals_lcp.time.ns.p75').scale(0.000001).mean(cycle='month', cycle_start='1d', partial_values=True).mean().publish(label='B')

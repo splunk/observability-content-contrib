@@ -24,15 +24,51 @@ Metric Name: logs.events.count
 
 ```
 
-## Screenshots
-APM / IMM (RED Metrics) overview:
+## Sections
+### APM / IMM (RED Metrics) overview:
+- Provides 4 week and 12 week comparisons of R.E.D./L.E.T.S. metric, better known as the "Golden Signals"
+  - Latency
+  - Error rates
+  - Total request rates
+  - Host saturation 
+
 ![Splunk Observability APM / IMM Executive Overview!](./images/apm-imm-overview.png "APM / IMM Executive Overview")
 
-Logs overview:
+### Logs overview:
+- Provides 4 week and 12 week comparisons of Log Observer usage
+  - Logs received per day by token
+  - Profiling logs received per day by token
+  - Logs per day by severity (requires setting up the [Log Observer metric](#log-observer-severity-metric) mentioned above)
+
 ![Splunk Observability Log Observer Executive Overview!](./images/logging-overview.png "Logs Executive Overview")
 
-Real User Monitoring (RUM) overview:
+### Real User Monitoring (RUM) overview:
+- Provides 12 week comparisons of RUM metrics
+  - RUM Browser request rate
+  - RUM Browser error rates
+  - RUM Browser latency (p75)
+  - RUM Browser Web Vitals (p75)
+  - RUM App request rate
+  - RUM App errors
+  - RUM App latency (p75)
+  - RUM App crash count
+  - RUM Workflow request rate
+  - RUM Workflow errors
+  - RUM Workflow latency (p75)
+
 ![Splunk Observability RUM Executive Overview!](./images/RUM-overview.png "Real User Monitoring Executive Overview")
 
-Billing overview:
+### Billing overview:
+- Provides 4 week and 12 week comparisons of "Billable Metrics"
+  - APM Hosts
+  - APM Span Bytes Received
+  - APM Troubleshooting Metric Sets
+  - APM Traces Per Minute (TMP)
+  - IMM Hosts
+  - IMM Custom Metrics
+  - IMM High Resolution Metrics
+  - IMM Data Points per Minute (DPM)
+  - Log Observer ingest bytes
+  - Log Observer ingest bytes per host
+
 ![Splunk Observability Billing Executive Overview!](./images/billing-overview.png "Billing Executive Overview")
