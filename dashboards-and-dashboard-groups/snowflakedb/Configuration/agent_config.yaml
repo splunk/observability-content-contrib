@@ -1,3 +1,4 @@
+### This `config_sources` block with `include:` is required to reference other files
 config_sources:
   include:
 
