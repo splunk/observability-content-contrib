@@ -79,7 +79,7 @@ Metric Name: logs.events.count
     func="gosnowflake.(*snowflakeConn).queryContextInternal" file="connection.go:356"
     ```
     You need to enable a default warehouse for the account your OTEL agent is using in Snowflake
-2. the `config_sources` block must be in your agent configuration file or you will not be able to reference the `snowflake-metrics.yaml` file:
+2. the `config_sources` block must be in your [agent configuration file](./Configuration/agent_config.yaml) or you will not be able to reference the `snowflake-metrics.yaml` file:
     ```
     config_sources:
       include:
@@ -91,6 +91,8 @@ Sometimes metrics may look different than expected due to the latency of Snowfla
 https://docs.snowflake.com/en/sql-reference/account-usage.html#account-usage-views
 
 The time between any action happening in snowflake and it being countable for metrics is 45 minutes.
+
+For this reason (and Snowflake credit considerations) our suggested cadence for picking up metrics is `3600` seconds (1 hour)
 
 **Example:**
 1. 100 failed logins happen at 12:45pm. 

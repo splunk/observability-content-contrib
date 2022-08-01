@@ -1,0 +1,52 @@
+{
+  "authorizedWriters" : {
+    "teams" : [ ],
+    "users" : [ ]
+  },
+  "customProperties" : { },
+  "description" : "",
+  "detectorOrigin" : "Standard",
+  "labelResolutions" : {
+    "SnowflakeDB - Long Queries in Small/X-Small warehouses" : 5000
+  },
+  "maxDelay" : 0,
+  "minDelay" : 0,
+  "name" : "SnowflakeDB - Long Queries in Small/X-Small warehouses",
+  "overMTSLimit" : false,
+  "packageSpecifications" : "",
+  "parentDetectorId" : null,
+  "programText" : "F = data('snowflake.total_elapsed_time.avg', filter=filter('WAREHOUSE_SIZE', 'Small', 'X-Small'), extrapolation='last_value').mean(by=['DATABASE_NAME', 'SCHEMA_NAME', 'QUERY_TYPE', 'WAREHOUSE_SIZE', 'USER_NAME']).mean(over='1h').publish(label='F')\ndetect(when(F > threshold(600000))).publish('SnowflakeDB - Long Queries in Small/X-Small warehouses')",
+  "rules" : [ {
+    "description" : "The value of Long Running Queries in Small or X-Small warehouse is above 600000.",
+    "detectLabel" : "SnowflakeDB - Long Queries in Small/X-Small warehouses",
+    "disabled" : false,
+    "notifications" : [ ],
+    "parameterizedBody" : "{{#if anomalous}}\n\nDatabase Name: \"{{dimensions.DATABASE_NAME}}\"\nWarehouse Size: \"{{dimensions.WAREHOUSE_SIZE}}\"\nSchema Name: \"{{dimensions.SCHEMA_NAME}}\"\nUsername: \"{{dimensions.USER_NAME}}\"\n\n\tRule \"{{{ruleName}}}\" in detector \"{{{detectorName}}}\" triggered at {{dateTimeFormat timestamp format=\"full\"}}.\n{{else}}\n\tRule \"{{{ruleName}}}\" in detector \"{{{detectorName}}}\" cleared at {{dateTimeFormat timestamp format=\"full\"}}.\n{{/if}}\n\n{{#if anomalous}}\nTriggering condition: {{{readableRule}}} (Milliseconds)\n{{/if}}\n\n{{#if anomalous}}Signal value for snowflake.total_elapsed_time.avg is in breaching condition: {{inputs.F.value}}\n{{else}}Current signal value for snowflake.total_elapsed_time.avg - Mean by DATABASE_NAME,SCHEMA_NAME,QUERY_TYPE,WAREHOUSE_SIZE: {{inputs.F.value}} \n{{/if}}(Milliseconds)\n\n{{#notEmpty dimensions}}\nSignal details:\n{{{dimensions}}}\n{{/notEmpty}}\n\n{{#if anomalous}}\n{{#if runbookUrl}}Runbook: {{{runbookUrl}}}{{/if}}\n{{#if tip}}Tip: {{{tip}}}{{/if}}\n{{/if}}",
+    "parameterizedSubject" : "{{ruleSeverity}} Alert: ({{{detectorName}}}) Database Name: \"{{dimensions.DATABASE_NAME}}\" Warehouse Size: \"{{dimensions.WAREHOUSE_SIZE}}\"",
+    "runbookUrl" : "",
+    "severity" : "Major",
+    "tip" : ""
+  } ],
+  "sf_metricsInObjectProgramText" : null,
+  "tags" : [ ],
+  "teams" : [ ],
+  "timezone" : "",
+  "visualizationOptions" : {
+    "disableSampling" : false,
+    "publishLabelOptions" : [ {
+      "displayName" : "Long Running Queries in Small or X-Small warehouse",
+      "label" : "F",
+      "paletteIndex" : 13,
+      "valuePrefix" : null,
+      "valueSuffix" : null,
+      "valueUnit" : "Millisecond"
+    } ],
+    "showDataMarkers" : true,
+    "showEventLines" : false,
+    "time" : {
+      "range" : 3600000,
+      "rangeEnd" : 0,
+      "type" : "relative"
+    }
+  }
+}

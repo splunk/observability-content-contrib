@@ -5,6 +5,7 @@ These examples expect you are using the [`splunk-otel-collector`](https://github
 
 1. [`agent_config.yaml`](./agent_config.yaml) Contains receiver, exporter, pipeline configuration
     - The receiver entries for Snowflake can be found under `smartagent/sql`
+    - **NOTE:** Resolution of `3600` seconds (1 hour) is recommended due to the latency between actions happening and then showing up in the `SNOWFLAKE/ACCOUNT_USAGE` db view. It is possible to collect at a higher interval but is not recommended.
 2. [`splunk-otel-collector.conf`](./splunk-otel-collector.conf) Contains referenced variables like snowflake username / password, and Splunk Observability token, etc
     - Add your Splunk Observability token in `SPLUNK_ACCESS_TOKEN`
     - Add your Snowflake User to `SNOWFLAKE_USER` (the user MUST have a role that allows access to the `SNOWFLAKE/ACCOUNT_USAGE` db view)
