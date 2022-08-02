@@ -2,6 +2,8 @@
 
 This folder contains detectors that may be useful when working with Snowflake.
 
+## Snowflake Metrics Configuration
+Please see [configuration examples](../../dashboards-and-dashboard-groups/snowflakedb/Configuration/) for help getting metrics from Snowflake into Splunk Observability.
 ## Importing Detectors
 Two options exist:  
 1. Edit and send the Detector JSON [via API](https://dev.splunk.com/observability/reference/api/detectors/latest#endpoint-create-single-detector)

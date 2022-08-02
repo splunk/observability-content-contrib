@@ -70,6 +70,9 @@ Metric Name: logs.events.count
   - Queries by % of cache hits
   - Queries by partitions scanned
 
+## Detectors
+Detectors for Snowflake in Splunk Observability can be found in the [detectors folder](../../detectors/snowflakedb/) of this repository.
+
 ## Troubleshooting 
 
 ### Troubleshooting Configurations
