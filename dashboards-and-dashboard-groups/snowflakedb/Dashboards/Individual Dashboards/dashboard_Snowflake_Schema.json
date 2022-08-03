@@ -6,8 +6,6 @@
         "creator": null,
         "customProperties": {},
         "description": "Bytes Scanned, Written, and Deleted (sum 1h)",
-        "id": "FYnUpayAYAA",
-        "importOf": "FXo3g3QAcAA",
         "lastUpdated": 0,
         "lastUpdatedBy": null,
         "name": "Data Ingest (In Bytes)",
@@ -848,7 +846,7 @@
           "unitPrefix": "Metric"
         },
         "packageSpecifications": "",
-        "programText": "A = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', maxExtrapolations=2, resolution=900000).sum(by=['DATABASE_NAME', 'SCHEMA_NAME']).publish(label='Schema Errors')\nB = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', resolution=900000).sum().publish(label='Internal Errors')",
+        "programText": "A = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', maxExtrapolations=2, resolution=900000).sum(by=['DATABASE_NAME', 'SCHEMA_NAME']).publish(label='Schema Errors')\nB = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*') and (not filter('DATABASE_NAME', '*')), extrapolation='zero', resolution=900000).sum().publish(label='Internal Errors')",
         "relatedDetectorIds": [],
         "tags": null
       }
@@ -1014,8 +1012,7 @@
       "tags": null
     }
   },
-  "hashCode": 1504990241,
-  "id": "FYnU6cWAgAE",
+  "hashCode": 1348545138,
   "modelVersion": 1,
   "packageType": "DASHBOARD"
 }

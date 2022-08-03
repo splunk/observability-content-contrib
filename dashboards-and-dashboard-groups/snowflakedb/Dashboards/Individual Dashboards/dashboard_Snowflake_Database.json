@@ -848,7 +848,7 @@
           "unitPrefix": "Metric"
         },
         "packageSpecifications": "",
-        "programText": "A = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', maxExtrapolations=2, resolution=900000).sum(by=['DATABASE_NAME']).publish(label='DB Errors')\nB = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', resolution=900000).sum().publish(label='Internal Errors')",
+        "programText": "A = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', maxExtrapolations=2, resolution=900000).sum(by=['DATABASE_NAME']).publish(label='DB Errors')\nB = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*') and (not filter('DATABASE_NAME', '*')), extrapolation='zero', resolution=900000).sum().publish(label='Internal Errors')",
         "relatedDetectorIds": [],
         "tags": null
       }
@@ -1014,7 +1014,7 @@
       "tags": null
     }
   },
-  "hashCode": 1363711851,
+  "hashCode": 772527011,
   "id": "FYnU6b3AYAI",
   "modelVersion": 1,
   "packageType": "DASHBOARD"

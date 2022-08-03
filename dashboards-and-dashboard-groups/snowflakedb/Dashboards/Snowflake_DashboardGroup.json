@@ -186,7 +186,7 @@
           "unitPrefix": "Metric"
         },
         "packageSpecifications": "",
-        "programText": "A = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', maxExtrapolations=2, resolution=900000).sum(by=['DATABASE_NAME']).publish(label='A')\nB = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', resolution=900000).sum().publish(label='B')",
+        "programText": "A = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', maxExtrapolations=2, resolution=900000).sum(by=['DATABASE_NAME']).publish(label='A')\nB = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*') and (not filter('DATABASE_NAME', '*')), extrapolation='zero', resolution=900000).sum().publish(label='B')",
         "relatedDetectorIds": [],
         "tags": null
       }
@@ -5751,7 +5751,7 @@
           "secondaryVisualization": "None",
           "showSparkLine": false,
           "time": {
-            "range": 900000,
+            "range": 21600000,
             "rangeEnd": 0,
             "type": "relative"
           },
@@ -5760,8 +5760,10 @@
           "unitPrefix": "Metric"
         },
         "packageSpecifications": "",
-        "programText": "A = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero').sum(over='1h').sum().publish(label='A')",
-        "relatedDetectorIds": [],
+        "programText": "A = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero').sum(over='1h').sum().publish(label='A')\nB = alerts(detector_id='FZPmFxbAcAw').publish(label='B')",
+        "relatedDetectorIds": [
+          "FZPmFxbAcAw"
+        ],
         "tags": null
       }
     },
@@ -7092,7 +7094,7 @@
           "unitPrefix": "Metric"
         },
         "packageSpecifications": "",
-        "programText": "A = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', maxExtrapolations=2, resolution=900000).sum(by=['DATABASE_NAME', 'SCHEMA_NAME']).publish(label='Schema Errors')\nB = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', resolution=900000).sum().publish(label='Internal Errors')",
+        "programText": "A = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', maxExtrapolations=2, resolution=900000).sum(by=['DATABASE_NAME', 'SCHEMA_NAME']).publish(label='Schema Errors')\nB = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*') and (not filter('DATABASE_NAME', '*')), extrapolation='zero', resolution=900000).sum().publish(label='Internal Errors')",
         "relatedDetectorIds": [],
         "tags": null
       }
@@ -7211,7 +7213,7 @@
           "unitPrefix": "Metric"
         },
         "packageSpecifications": "",
-        "programText": "A = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', maxExtrapolations=2, resolution=900000).sum(by=['DATABASE_NAME']).publish(label='DB Errors')\nB = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', resolution=900000).sum().publish(label='Internal Errors')",
+        "programText": "A = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', maxExtrapolations=2, resolution=900000).sum(by=['DATABASE_NAME']).publish(label='DB Errors')\nB = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*') and (not filter('DATABASE_NAME', '*')), extrapolation='zero', resolution=900000).sum().publish(label='Internal Errors')",
         "relatedDetectorIds": [],
         "tags": null
       }
@@ -7390,7 +7392,7 @@
           "unitPrefix": "Metric"
         },
         "packageSpecifications": "",
-        "programText": "A = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', maxExtrapolations=2, resolution=900000).sum(by=['WAREHOUSE_NAME']).publish(label='Warehouse Errors')\nB = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', resolution=900000).sum().publish(label='Internal Errors')",
+        "programText": "A = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', maxExtrapolations=2, resolution=900000).sum(by=['WAREHOUSE_NAME']).publish(label='Warehouse Errors')\nB = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*') and (not filter('DATABASE_NAME', '*')), extrapolation='zero', resolution=900000).sum().publish(label='Internal Errors')",
         "relatedDetectorIds": [],
         "tags": null
       }
@@ -9042,7 +9044,7 @@
       "teams": null
     }
   },
-  "hashCode": -1583004937,
+  "hashCode": -1257711348,
   "id": "FYnUnpuAcAE",
   "modelVersion": 1,
   "packageType": "GROUP"
