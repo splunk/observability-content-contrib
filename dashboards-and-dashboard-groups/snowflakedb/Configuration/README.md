@@ -4,12 +4,12 @@
 These examples expect you are using the [`splunk-otel-collector`](https://github.com/signalfx/splunk-otel-collector) but these examples will also work with any other OTEL configuration.
 
 1. [`agent_config.yaml`](./agent_config.yaml) Contains receiver, exporter, pipeline configuration
-    - The receiver entries for Snowflake can be found under `smartagent/sql`
+     The receiver entries for Snowflake can be found under `smartagent/sql`
     - **NOTE:** Resolution of `3600` seconds (1 hour) is recommended due to the latency between actions happening and then showing up in the `SNOWFLAKE/ACCOUNT_USAGE` db view. It is possible to collect at a higher interval but is not recommended.
 2. [`splunk-otel-collector.conf`](./splunk-otel-collector.conf) Contains referenced variables like snowflake username / password, and Splunk Observability token, etc
-    - Add your Splunk Observability token in `SPLUNK_ACCESS_TOKEN`
-    - Add your Snowflake User to `SNOWFLAKE_USER` (the user MUST have a role that allows access to the `SNOWFLAKE/ACCOUNT_USAGE` db view)
-    - Add the password for your Snowflake user account to `SNOWFLAKE_PASS`
+    1. Add your Splunk Observability token in `SPLUNK_ACCESS_TOKEN`
+    2. Add your Snowflake User to `SNOWFLAKE_USER` (the user MUST have a role that allows access to the `SNOWFLAKE/ACCOUNT_USAGE` db view)
+    3. Add the password for your Snowflake user account to `SNOWFLAKE_PASS`
 3. [`snowflake-metrics.yaml`](./snowflake-metrics.yaml) Contains SQL queries and mappings for our Splunk Observability metrics and dimensions
     - [`snowflake-other-metrics.yaml`](./snowflake-other-metrics.yaml) file contains SQL queries for:
         - detailed and *high cardinality* DB query metrics including the `query_id` dimension which is a GUID

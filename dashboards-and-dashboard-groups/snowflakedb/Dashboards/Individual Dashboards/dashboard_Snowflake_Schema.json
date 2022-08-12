@@ -6,6 +6,8 @@
         "creator": null,
         "customProperties": {},
         "description": "Bytes Scanned, Written, and Deleted (sum 1h)",
+        "id": "FYnUpayAYAA",
+        "importOf": "FXo3g3QAcAA",
         "lastUpdated": 0,
         "lastUpdatedBy": null,
         "name": "Data Ingest (In Bytes)",
@@ -311,7 +313,7 @@
         "customProperties": {},
         "description": "Rows Inserted, Deleted, Updated, Unloaded, Produced (1h sum)",
         "id": "FYnUuSHAYAA",
-        "importOf": "FXo3grxAYAA",
+        "importOf": "JHicKShiCKs",
         "lastUpdated": 0,
         "lastUpdatedBy": null,
         "name": "Data Ingest (By Rows)",
@@ -1006,13 +1008,14 @@
       "lastUpdated": 0,
       "lastUpdatedBy": null,
       "maxDelayOverride": null,
-      "name": "SNOWFLAKE SCHEMA",
+      "name": "Snowflake Schema",
       "permissions": null,
       "selectedEventOverlays": [],
       "tags": null
     }
   },
-  "hashCode": 1348545138,
+  "hashCode": 302628453,
+  "id": "FYnU6cWAgAE",
   "modelVersion": 1,
   "packageType": "DASHBOARD"
 }

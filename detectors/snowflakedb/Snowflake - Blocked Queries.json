@@ -1,0 +1,59 @@
+{
+  "authorizedWriters": {
+    "teams": [],
+    "users": []
+  },
+  "created": 1660060502884,
+  "customProperties": {},
+  "description": "Blocked Queries by Warehouse",
+  "detectorOrigin": "Standard",
+  "labelResolutions": {
+    "Snowflake - Blocked Queries": 3600000
+  },
+  "lastUpdated": 1660233347529,
+  "lastUpdatedBy": "E0jpLZIAYAA",
+  "maxDelay": 0,
+  "minDelay": 0,
+  "name": "Snowflake - Blocked Queries",
+  "overMTSLimit": false,
+  "packageSpecifications": "",
+  "parentDetectorId": null,
+  "programText": "A = data('snowflake.query.blocked').sum(by=['WAREHOUSE_NAME']).publish(label='A')\ndetect(when(A > threshold(0), lasting='2h')).publish('Snowflake - Blocked Queries')",
+  "rules": [
+    {
+      "description": "The value of Blocked Queries by Warehouse is above 0.",
+      "detectLabel": "Snowflake - Blocked Queries",
+      "disabled": false,
+      "notifications": [],
+      "parameterizedBody": "{{#if anomalous}}\n\n    Rule \"{{{ruleName}}}\" in detector \"{{{detectorName}}}\" triggered at {{dateTimeFormat timestamp format=\"full\"}}.\n{{else}}\n    Rule \"{{{ruleName}}}\" in detector \"{{{detectorName}}}\" cleared at {{dateTimeFormat timestamp format=\"full\"}}.\n{{/if}}\n\n{{#if anomalous}}\nTriggering condition: {{{readableRule}}} (%)\n{{/if}}\n\n{{#if anomalous}}Snowflake Queries Blocked per Warehouse in breaching state: \nQueries Blocked for Warehouse({{ dimensions.WAREHOUSE_NAME }}) value: {{inputs.A.value}}\n{{else}}Current signal value(s):\nQueries Blocked for Warehouse({{ dimensions.WAREHOUSE_NAME }}): {{inputs.A.value}}\n{{/if}}\n\n{{#notEmpty dimensions}}\nSignal details:\n{{{dimensions}}}\n{{/notEmpty}}\n\n{{#if anomalous}}\n{{#if runbookUrl}}Runbook: {{{runbookUrl}}}{{/if}}\n{{#if tip}}Tip: {{{tip}}}{{/if}}\n{{/if}}",
+      "parameterizedSubject": null,
+      "runbookUrl": null,
+      "severity": "Critical",
+      "tip": null
+    }
+  ],
+  "sf_metricsInObjectProgramText": null,
+  "tags": [],
+  "teams": [],
+  "timezone": "",
+  "visualizationOptions": {
+    "disableSampling": false,
+    "publishLabelOptions": [
+      {
+        "displayName": "Blocked Queries by Warehouse",
+        "label": "A",
+        "paletteIndex": null,
+        "valuePrefix": null,
+        "valueSuffix": null,
+        "valueUnit": null
+      }
+    ],
+    "showDataMarkers": true,
+    "showEventLines": false,
+    "time": {
+      "range": 86400000,
+      "rangeEnd": 0,
+      "type": "relative"
+    }
+  }
+}

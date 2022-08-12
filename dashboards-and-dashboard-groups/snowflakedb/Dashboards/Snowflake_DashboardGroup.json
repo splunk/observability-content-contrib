@@ -714,7 +714,7 @@
           "unitPrefix": "Metric"
         },
         "packageSpecifications": "",
-        "programText": "A = data('snowflake.rows_inserted.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'USER_NAME']).sum(over='1h').publish(label='A')\nC = data('snowflake.rows_deleted.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'USER_NAME']).sum(over='1h').publish(label='C')\nD = data('snowflake.rows_produced.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'USER_NAME']).sum(over='1h').publish(label='D')\nE = data('snowflake.rows_unloaded.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'USER_NAME']).sum(over='1h').publish(label='E')\nF = data('snowflake.rows_updated.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'USER_NAME']).sum(over='1h').publish(label='F')",
+        "programText": "A = data('snowflake.rows_inserted.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME']).sum(over='1h').publish(label='A')\nC = data('snowflake.rows_deleted.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME']).sum(over='1h').publish(label='C')\nD = data('snowflake.rows_produced.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME']).sum(over='1h').publish(label='D')\nE = data('snowflake.rows_unloaded.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME']).sum(over='1h').publish(label='E')\nF = data('snowflake.rows_updated.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME']).sum(over='1h').publish(label='F')",
         "relatedDetectorIds": [],
         "tags": null
       }
@@ -3933,7 +3933,7 @@
         "lastUpdatedBy": null,
         "name": ".",
         "options": {
-          "markdown": "<table width=\"100%\" height=\"10%\" rules=\"none\"><tr><td valign=\"middle\" align=\"center\" bgcolor=\"#59a200\">\n<font size=\"5\" color=\"white\">Potential Query Optimization Opportunities</font>\n</td></tr></table>\n\n<p align=\"center\" ><br /><font>Charts below sort by QUERY ID and require a high cardinality metric created by a specific <a href=\"https://github.com/signalfx/signalfx-agent/blob/main/pkg/monitors/sql/snowflake-metrics.yaml#L170-L173\">SQL query</a> in your <a href=\"https://docs.splunk.com/Observability/gdi/sql/sql.html#collect-snowflake-performance-and-usage-metrics\">OpenTelemetry configuration</a>.\n\n<p align=\"center\" ><b>Charts will be empty if not using the above SQL queries</b>",
+          "markdown": "<table width=\"100%\" height=\"10%\" rules=\"none\"><tr><td valign=\"middle\" align=\"center\" bgcolor=\"#59a200\">\n<font size=\"5\" color=\"white\">Potential Query Optimization Opportunities</font>\n</td></tr></table>\n\n<p align=\"center\" ><br /><font>Charts below sort by QUERY ID and require a high cardinality metric created by a specific High Cardinality SQL query</a> in your OpenTelemetry configuration. Check for details in the <a href=\"https://github.com/splunk/observability-content-contrib\">observability-content-contrib repo</a>.\n\n<p align=\"center\" ><b>Charts will be empty if not using that specific SQL query</b>",
           "type": "Text"
         },
         "packageSpecifications": "",
@@ -4365,7 +4365,7 @@
         "customProperties": {},
         "description": "# of active DBs (1h)",
         "id": "FYnUwBTAcAA",
-        "importOf": "FXjpvaiAYAA",
+        "importOf": "FHicKsjAYAA",
         "lastUpdated": 0,
         "lastUpdatedBy": null,
         "name": "No. of Databases",
@@ -5760,10 +5760,8 @@
           "unitPrefix": "Metric"
         },
         "packageSpecifications": "",
-        "programText": "A = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero').sum(over='1h').sum().publish(label='A')\nB = alerts(detector_id='FZPmFxbAcAw').publish(label='B')",
-        "relatedDetectorIds": [
-          "FZPmFxbAcAw"
-        ],
+        "programText": "A = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero').sum(over='1h').sum().publish(label='A')",
+        "relatedDetectorIds": [],
         "tags": null
       }
     },
@@ -5774,7 +5772,7 @@
         "customProperties": {},
         "description": "Queued (Overload) Queries (1h Sum)",
         "id": "FYnU2LJAcAE",
-        "importOf": "FXjpx2SAgAI",
+        "importOf": "FXjp2JhiCKs",
         "lastUpdated": 0,
         "lastUpdatedBy": null,
         "name": "Queued (Overload)",
@@ -6540,7 +6538,7 @@
           "unitPrefix": "Metric"
         },
         "packageSpecifications": "",
-        "programText": "A = data('snowflake.queued_repair_time.avg', extrapolation='zero').mean(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'USER_NAME']).mean(over='1h').publish(label='A')\nB = data('snowflake.queued_overload_time.avg', extrapolation='zero').mean(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE']).mean(over='1h').publish(label='B')\nC = data('snowflake.queued_provisioning_time.avg', extrapolation='zero').mean(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'USER_NAME']).mean(over='1h').publish(label='C')",
+        "programText": "A = data('snowflake.queued_repair_time.avg', extrapolation='zero').mean(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE']).mean(over='1h').publish(label='A')\nB = data('snowflake.queued_overload_time.avg', extrapolation='zero').mean(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE']).mean(over='1h').publish(label='B')\nC = data('snowflake.queued_provisioning_time.avg', extrapolation='zero').mean(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE']).mean(over='1h').publish(label='C')",
         "relatedDetectorIds": [],
         "tags": null
       }
@@ -6971,7 +6969,7 @@
           "unitPrefix": "Metric"
         },
         "packageSpecifications": "",
-        "programText": "A = data('snowflake.rows_inserted.sum').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'USER_NAME', 'QUERY_TYPE']).sum(over='1h').publish(label='A')\nC = data('snowflake.rows_deleted.sum').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'SCHEMA_NAME', 'USER_NAME', 'QUERY_TYPE']).sum(over='1h').publish(label='C')\nD = data('snowflake.rows_produced.sum').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'USER_NAME', 'QUERY_TYPE']).sum(over='1h').publish(label='D')\nE = data('snowflake.rows_unloaded.sum').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'USER_NAME', 'QUERY_TYPE']).sum(over='1h').publish(label='E')\nF = data('snowflake.rows_updated.sum').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'USER_NAME', 'QUERY_TYPE']).sum(over='1h').publish(label='F')",
+        "programText": "A = data('snowflake.rows_inserted.sum').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'QUERY_TYPE']).sum(over='1h').publish(label='A')\nC = data('snowflake.rows_deleted.sum').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'QUERY_TYPE']).sum(over='1h').publish(label='C')\nD = data('snowflake.rows_produced.sum').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'QUERY_TYPE']).sum(over='1h').publish(label='D')\nE = data('snowflake.rows_unloaded.sum').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'QUERY_TYPE']).sum(over='1h').publish(label='E')\nF = data('snowflake.rows_updated.sum').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'QUERY_TYPE']).sum(over='1h').publish(label='F')",
         "relatedDetectorIds": [],
         "tags": null
       }
@@ -7983,7 +7981,7 @@
         "groupId": "FYnUnpuAcAE",
         "groupName": "Snowflake (SRE) Dashboard Group",
         "id": "FYnU6VeAcAA",
-        "importOf": "FXjpyvMAYAA",
+        "importOf": "FXjermyAYAA",
         "lastUpdated": 0,
         "lastUpdatedBy": null,
         "maxDelayOverride": null,
@@ -8307,7 +8305,7 @@
         "lastUpdated": 0,
         "lastUpdatedBy": null,
         "maxDelayOverride": null,
-        "name": "SNOWFLAKE SCHEMA",
+        "name": "Snowflake Schema",
         "permissions": null,
         "selectedEventOverlays": [],
         "tags": null
@@ -9044,7 +9042,7 @@
       "teams": null
     }
   },
-  "hashCode": -1257711348,
+  "hashCode": -717323014,
   "id": "FYnUnpuAcAE",
   "modelVersion": 1,
   "packageType": "GROUP"

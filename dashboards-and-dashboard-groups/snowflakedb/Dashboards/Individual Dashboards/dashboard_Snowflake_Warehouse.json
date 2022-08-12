@@ -158,7 +158,7 @@
           "unitPrefix": "Metric"
         },
         "packageSpecifications": "",
-        "programText": "A = data('snowflake.rows_inserted.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'USER_NAME']).sum(over='1h').publish(label='A')\nC = data('snowflake.rows_deleted.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'USER_NAME']).sum(over='1h').publish(label='C')\nD = data('snowflake.rows_produced.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'USER_NAME']).sum(over='1h').publish(label='D')\nE = data('snowflake.rows_unloaded.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'USER_NAME']).sum(over='1h').publish(label='E')\nF = data('snowflake.rows_updated.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'USER_NAME']).sum(over='1h').publish(label='F')",
+        "programText": "A = data('snowflake.rows_inserted.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME']).sum(over='1h').publish(label='A')\nC = data('snowflake.rows_deleted.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME']).sum(over='1h').publish(label='C')\nD = data('snowflake.rows_produced.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME']).sum(over='1h').publish(label='D')\nE = data('snowflake.rows_unloaded.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME']).sum(over='1h').publish(label='E')\nF = data('snowflake.rows_updated.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME']).sum(over='1h').publish(label='F')",
         "relatedDetectorIds": [],
         "tags": null
       }
@@ -1029,7 +1029,7 @@
         "customProperties": {},
         "description": "Type of Warehouse Queuing time (in millisecs) - Warehouse, Warehouse Size, User (1h Avg)",
         "id": "FYnU4rsAgAE",
-        "importOf": "FXjpuwUAYAA",
+        "importOf": "JHicKShiCKs",
         "lastUpdated": 0,
         "lastUpdatedBy": null,
         "name": "Time Spent in the Queue",
@@ -1084,7 +1084,7 @@
           "unitPrefix": "Metric"
         },
         "packageSpecifications": "",
-        "programText": "A = data('snowflake.queued_repair_time.avg', extrapolation='zero').mean(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'USER_NAME']).mean(over='1h').publish(label='A')\nB = data('snowflake.queued_overload_time.avg', extrapolation='zero').mean(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE']).mean(over='1h').publish(label='B')\nC = data('snowflake.queued_provisioning_time.avg', extrapolation='zero').mean(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'USER_NAME']).mean(over='1h').publish(label='C')",
+        "programText": "A = data('snowflake.queued_repair_time.avg', extrapolation='zero').mean(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE']).mean(over='1h').publish(label='A')\nB = data('snowflake.queued_overload_time.avg', extrapolation='zero').mean(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE']).mean(over='1h').publish(label='B')\nC = data('snowflake.queued_provisioning_time.avg', extrapolation='zero').mean(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE']).mean(over='1h').publish(label='C')",
         "relatedDetectorIds": [],
         "tags": null
       }
@@ -1581,7 +1581,7 @@
       "tags": null
     }
   },
-  "hashCode": -1925663406,
+  "hashCode": 275665906,
   "id": "FYnU6VeAcAA",
   "modelVersion": 1,
   "packageType": "DASHBOARD"

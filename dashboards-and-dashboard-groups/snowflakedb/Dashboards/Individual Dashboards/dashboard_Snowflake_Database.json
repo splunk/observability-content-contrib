@@ -560,7 +560,7 @@
         "customProperties": {},
         "description": "Type of Warehouse Queuing time ( 1h Avg in milliseconds)",
         "id": "FYnU3pKAgAA",
-        "importOf": "FXjprXIAgAA",
+        "importOf": "JHicKShiCKs",
         "lastUpdated": 0,
         "lastUpdatedBy": null,
         "name": "Time Spent in the Queue",
@@ -729,7 +729,7 @@
           "unitPrefix": "Metric"
         },
         "packageSpecifications": "",
-        "programText": "A = data('snowflake.rows_inserted.sum').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'USER_NAME', 'QUERY_TYPE']).sum(over='1h').publish(label='A')\nC = data('snowflake.rows_deleted.sum').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'SCHEMA_NAME', 'USER_NAME', 'QUERY_TYPE']).sum(over='1h').publish(label='C')\nD = data('snowflake.rows_produced.sum').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'USER_NAME', 'QUERY_TYPE']).sum(over='1h').publish(label='D')\nE = data('snowflake.rows_unloaded.sum').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'USER_NAME', 'QUERY_TYPE']).sum(over='1h').publish(label='E')\nF = data('snowflake.rows_updated.sum').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'USER_NAME', 'QUERY_TYPE']).sum(over='1h').publish(label='F')",
+        "programText": "A = data('snowflake.rows_inserted.sum').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'QUERY_TYPE']).sum(over='1h').publish(label='A')\nC = data('snowflake.rows_deleted.sum').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'QUERY_TYPE']).sum(over='1h').publish(label='C')\nD = data('snowflake.rows_produced.sum').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'QUERY_TYPE']).sum(over='1h').publish(label='D')\nE = data('snowflake.rows_unloaded.sum').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'QUERY_TYPE']).sum(over='1h').publish(label='E')\nF = data('snowflake.rows_updated.sum').sum(by=['WAREHOUSE_NAME', 'WAREHOUSE_SIZE', 'DATABASE_NAME', 'QUERY_TYPE']).sum(over='1h').publish(label='F')",
         "relatedDetectorIds": [],
         "tags": null
       }
@@ -1014,7 +1014,7 @@
       "tags": null
     }
   },
-  "hashCode": 772527011,
+  "hashCode": -708989170,
   "id": "FYnU6b3AYAI",
   "modelVersion": 1,
   "packageType": "DASHBOARD"

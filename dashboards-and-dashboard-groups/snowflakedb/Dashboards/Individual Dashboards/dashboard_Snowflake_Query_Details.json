@@ -154,7 +154,7 @@
         "lastUpdatedBy": null,
         "name": ".",
         "options": {
-          "markdown": "<table width=\"100%\" height=\"10%\" rules=\"none\"><tr><td valign=\"middle\" align=\"center\" bgcolor=\"#59a200\">\n<font size=\"5\" color=\"white\">Potential Query Optimization Opportunities</font>\n</td></tr></table>\n\n<p align=\"center\" ><br /><font>Charts below sort by QUERY ID and require a high cardinality metric created by a specific <a href=\"https://github.com/signalfx/signalfx-agent/blob/main/pkg/monitors/sql/snowflake-metrics.yaml#L170-L173\">SQL query</a> in your <a href=\"https://docs.splunk.com/Observability/gdi/sql/sql.html#collect-snowflake-performance-and-usage-metrics\">OpenTelemetry configuration</a>.\n\n<p align=\"center\" ><b>Charts will be empty if not using the above SQL queries</b>",
+          "markdown": "<table width=\"100%\" height=\"10%\" rules=\"none\"><tr><td valign=\"middle\" align=\"center\" bgcolor=\"#59a200\">\n<font size=\"5\" color=\"white\">Potential Query Optimization Opportunities</font>\n</td></tr></table>\n\n<p align=\"center\" ><br /><font>Charts below sort by QUERY ID and require a high cardinality metric created by a specific High Cardinality SQL query</a> in your OpenTelemetry configuration. Check for details in the <a href=\"https://github.com/splunk/observability-content-contrib\">observability-content-contrib repo</a>.\n\n<p align=\"center\" ><b>Charts will be empty if not using that specific SQL query</b>",
           "type": "Text"
         },
         "packageSpecifications": "",
@@ -223,7 +223,7 @@
         "customProperties": {},
         "description": "Queries by Scanned Bytes",
         "id": "FYnUysLAYAA",
-        "importOf": "FX88EEiAcAA",
+        "importOf": "JHicKShiCKs",
         "lastUpdated": 0,
         "lastUpdatedBy": null,
         "name": "Top 10 Queries by Scanned Bytes",
@@ -552,7 +552,7 @@
       "tags": null
     }
   },
-  "hashCode": -1466826780,
+  "hashCode": 843683923,
   "id": "FYnU9G5AcAE",
   "modelVersion": 1,
   "packageType": "DASHBOARD"

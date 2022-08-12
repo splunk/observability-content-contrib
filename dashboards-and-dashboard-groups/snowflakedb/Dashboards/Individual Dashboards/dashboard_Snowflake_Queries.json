@@ -186,7 +186,7 @@
           "unitPrefix": "Metric"
         },
         "packageSpecifications": "",
-        "programText": "A = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', maxExtrapolations=2, resolution=900000).sum(by=['DATABASE_NAME']).publish(label='A')\nB = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', resolution=900000).sum().publish(label='B')",
+        "programText": "A = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='zero', maxExtrapolations=2, resolution=900000).sum(by=['DATABASE_NAME']).publish(label='A')\nB = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*') and (not filter('DATABASE_NAME', '*')), extrapolation='zero', resolution=900000).sum().publish(label='B')",
         "relatedDetectorIds": [],
         "tags": null
       }
@@ -718,7 +718,7 @@
         "customProperties": {},
         "description": "Executed Queries (1h Sum)",
         "id": "FYnU3JaAcAA",
-        "importOf": "FXjpvOaAYAA",
+        "importOf": "JHicKShiCKs",
         "lastUpdated": 0,
         "lastUpdatedBy": null,
         "name": "Executed Queries",
@@ -1167,7 +1167,7 @@
       "tags": null
     }
   },
-  "hashCode": 1348981606,
+  "hashCode": 1508562194,
   "id": "FYnU7PNAYAE",
   "modelVersion": 1,
   "packageType": "DASHBOARD"
