@@ -40,17 +40,3 @@ module "kubernetes" {
   sfx_prefix = var.sfx_prefix
 }
 
-module "pivotal" {
-  source     = "./modules/pivotal"
-  sfx_prefix = var.sfx_prefix
-}
-
-module "usage_dashboard" {
-  source     = "./modules/dashboards/usage"
-  sfx_prefix = var.sfx_prefix
-}
-
-module "parent_child_dashboard" {
-  source     = "./modules/dashboards/parent"
-  sfx_prefix = var.sfx_prefix
-}
