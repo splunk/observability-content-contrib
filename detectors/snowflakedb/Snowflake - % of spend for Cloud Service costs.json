@@ -1,0 +1,75 @@
+{
+  "authorizedWriters": {
+    "teams": [],
+    "users": []
+  },
+  "created": 1659702290477,
+  "customProperties": {},
+  "description": "Snowflake Cloud resources consumed in excess of 10% of compute credit usage (across all warehouses)",
+  "detectorOrigin": "Standard",
+  "labelResolutions": {
+    "Snowflake - High Cloud Service spend %": 3600000
+  },
+  "lastUpdated": 1660223172685,
+  "lastUpdatedBy": "E0jpLZIAYAA",
+  "maxDelay": 0,
+  "minDelay": 0,
+  "name": "Snowflake - % of spend for Cloud Service costs",
+  "overMTSLimit": false,
+  "packageSpecifications": "",
+  "parentDetectorId": null,
+  "programText": "A = data('snowflake.billing.total_credit.sum').sum().publish(label='Daily Snowflake Credit Total')\nB = data('snowflake.billing.cloud_service.sum').sum().publish(label='B')\nD = ((B/A)*100).publish(label='% of spend for Cloud Service costs')\ndetect(when(D > 15)).publish('Snowflake - High Cloud Service spend %')",
+  "rules": [
+    {
+      "description": "Snowflake - Cloud resources consumed in excess of 10% of compute credit usage (across all warehouses)",
+      "detectLabel": "Snowflake - High Cloud Service spend %",
+      "disabled": false,
+      "notifications": [],
+      "parameterizedBody": "{{#if anomalous}}\n\n    Rule \"{{{ruleName}}}\" in detector \"{{{detectorName}}}\" triggered at {{dateTimeFormat timestamp format=\"full\"}}.\n{{else}}\n    Rule \"{{{ruleName}}}\" in detector \"{{{detectorName}}}\" cleared at {{dateTimeFormat timestamp format=\"full\"}}.\n{{/if}}\n\n{{#if anomalous}}\nTriggering condition: {{{readableRule}}} (%)\n{{/if}}\n\n{{#if anomalous}}Snowflake Cloud Service spend % in breaching state: \n% of spend on Cloud Services: {{inputs.D.value}}\n{{else}}Current signal value(s):\n% of spend on Cloud Services: {{inputs.D.value}}\n{{/if}}\n\n{{#notEmpty dimensions}}\nSignal details:\n{{{dimensions}}}\n{{/notEmpty}}\n\n{{#if anomalous}}\n{{#if runbookUrl}}Runbook: {{{runbookUrl}}}{{/if}}\n{{#if tip}}Tip: {{{tip}}}{{/if}}\n{{/if}}",
+      "parameterizedSubject": null,
+      "runbookUrl": "",
+      "severity": "Critical",
+      "tip": "For more details on Snowflake Cloud Service spend: https://community.snowflake.com/s/article/Snowflake-Additional-Billing-Cloud-Services-Layer-Impact"
+    }
+  ],
+  "sf_metricsInObjectProgramText": null,
+  "tags": [],
+  "teams": [],
+  "timezone": "",
+  "visualizationOptions": {
+    "disableSampling": false,
+    "publishLabelOptions": [
+      {
+        "displayName": "Daily Snowflake Credit Total",
+        "label": "Daily Snowflake Credit Total",
+        "paletteIndex": 15,
+        "valuePrefix": null,
+        "valueSuffix": null,
+        "valueUnit": null
+      },
+      {
+        "displayName": "Cloud",
+        "label": "B",
+        "paletteIndex": 7,
+        "valuePrefix": null,
+        "valueSuffix": null,
+        "valueUnit": null
+      },
+      {
+        "displayName": "% of spend for Cloud Service costs",
+        "label": "% of spend for Cloud Service costs",
+        "paletteIndex": 4,
+        "valuePrefix": null,
+        "valueSuffix": null,
+        "valueUnit": null
+      }
+    ],
+    "showDataMarkers": true,
+    "showEventLines": false,
+    "time": {
+      "range": 172800000,
+      "rangeEnd": 0,
+      "type": "relative"
+    }
+  }
+}

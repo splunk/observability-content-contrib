@@ -1,0 +1,67 @@
+{
+  "authorizedWriters": {
+    "teams": [],
+    "users": []
+  },
+  "created": 1659538169077,
+  "customProperties": {},
+  "description": "Errors on Snowflake Databases",
+  "detectorOrigin": "Standard",
+  "labelResolutions": {
+    "Snowflake Database Errors": 900000
+  },
+  "lastUpdated": 1660233298867,
+  "lastUpdatedBy": "E0jpLZIAYAA",
+  "maxDelay": 0,
+  "minDelay": null,
+  "name": "Snowflake - Database Errors",
+  "overMTSLimit": false,
+  "packageSpecifications": "",
+  "parentDetectorId": null,
+  "programText": "A = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='last_value', maxExtrapolations=3, resolution=900000).sum(by=['DATABASE_NAME', 'USER_NAME', 'SCHEMA_NAME']).publish(label='DB Errors')\nB = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*') and (not filter('DATABASE_NAME', '*')), extrapolation='last_value', resolution=900000).sum().publish(label='Internal Errors')\ndetect(when(A > threshold(100) or B > threshold(100))).publish('Snowflake Database Errors')",
+  "rules": [
+    {
+      "description": "Snowflake - Database Errors",
+      "detectLabel": "Snowflake Database Errors",
+      "disabled": false,
+      "notifications": [],
+      "parameterizedBody": "{{#if anomalous}}\n    Database Name: \"{{dimensions.DATABASE_NAME}}\"\n    Schema Name: \"{{dimensions.SCHEMA_NAME}}\"\n    Username: \"{{dimensions.USER_NAME}}\"\n\n    Rule \"{{{ruleName}}}\" in detector \"{{{detectorName}}}\" triggered at {{dateTimeFormat timestamp format=\"full\"}}.\n\n    Triggering condition: {{{readableRule}}}\n\n    Signal value for database errors is in breaching condition: \n    Database Errors Count: {{inputs.A.value}}\n{{#notEmpty dimensions}}\n    Signal details:\n    {{{dimensions}}}\n{{/notEmpty}}\n\n{{#if runbookUrl}}\n    Runbook: {{{runbookUrl}}}\n{{/if}}\n{{#if tip}}\n    Tip: {{{tip}}}\n{{/if}}\n{{else}}\n    Rule \"{{{ruleName}}}\" in detector \"{{{detectorName}}}\" cleared at {{dateTimeFormat timestamp format=\"full\"}}.\n    current_signal_values: {{inputs.A.value}}\n{{/if}}",
+      "parameterizedSubject": "{{ruleSeverity}} Alert: ({{{detectorName}}}) Database Name: \"{{dimensions.DATABASE_NAME}}\"",
+      "runbookUrl": "",
+      "severity": "Warning",
+      "tip": ""
+    }
+  ],
+  "sf_metricsInObjectProgramText": null,
+  "tags": [],
+  "teams": [],
+  "timezone": "",
+  "visualizationOptions": {
+    "disableSampling": false,
+    "publishLabelOptions": [
+      {
+        "displayName": "DB Errors",
+        "label": "DB Errors",
+        "paletteIndex": null,
+        "valuePrefix": null,
+        "valueSuffix": null,
+        "valueUnit": null
+      },
+      {
+        "displayName": "Internal Errors",
+        "label": "Internal Errors",
+        "paletteIndex": null,
+        "valuePrefix": null,
+        "valueSuffix": null,
+        "valueUnit": null
+      }
+    ],
+    "showDataMarkers": true,
+    "showEventLines": false,
+    "time": {
+      "range": 604800000,
+      "rangeEnd": 0,
+      "type": "relative"
+    }
+  }
+}
