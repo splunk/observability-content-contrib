@@ -3,6 +3,11 @@ Executive Dashboards in this group are focused on high level comparisons over ti
 - Wherever possible Org level metrics are used for compatibility
 - Included Terraform files expect a Splunk Observability token to be available in the `signalfx_auth_token` environment variable.
   - Env Var Example: `export TF_VAR_signalfx_auth_token=this-is-my-splunk-observability-token`
+- If required you can input your own `api_url` variable for your Splunk Observability org
+  - https://registry.terraform.io/providers/splunk-terraform/signalfx/latest/docs  
+    ```
+    api_url - (Optional) The API URL to use for communicating with SignalFx. This is helpful for organizations that need to set their Realm or use a proxy. You can also set it using the SFX_API_URL environment variable.
+    ```
 - Log Events dashboards can be enriched with a Log Observer Metric noted below
 
 **Reminder:** These dashboards can be edited to include more context or split by dimensions specific to your own concerns. 
