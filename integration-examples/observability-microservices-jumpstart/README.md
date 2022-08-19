@@ -93,7 +93,9 @@ Create kubernetes manifest files, making sure to export the RUM_REALM and TOKEN 
 
     kubectl apply -f ./release/kubernetes-manifests.yaml
 
-Run the command `kubectl get pods` and verify that the services are running and the external IP is exposed.
+Run the command `kubectl get pods` and verify that the services are running and the external IP is exposed. This may take a few moments to get all the services started.
+
+    kubectl get pods
 
 ## Wait for services to start and expose external ports
 
@@ -106,6 +108,25 @@ This command forwards a port to the frontend service.
 This command outputs the nodeport and address for the loadgenerator service. Use this address to access the load generator service.
 
     minikube service loadgenerator --url
+
+After port mapping one can run  `kubectl get pods` and verify that the services are running and the external IP are exposed expected ports.
+
+Example output from the command `kubectl get pods`
+
+    NAME                                     READY   STATUS    RESTARTS   AGE
+    my-splunk-otel-collector-qph4v           1/1     Running   0          4m21s
+    adservice-76bdd69666-ckc5j               1/1     Running   0          2m58s
+    cartservice-66d497c6b7-dp5jr             1/1     Running   0          2m59s
+    checkoutservice-666c784bd6-4jd22         1/1     Running   0          3m1s
+    currencyservice-5d5d496984-4jmd7         1/1     Running   0          2m59s
+    emailservice-667457d9d6-75jcq            1/1     Running   0          3m2s
+    frontend-6b8d69b9fb-wjqdg                1/1     Running   0          3m1s
+    loadgenerator-665b5cd444-gwqdq           1/1     Running   0          3m
+    paymentservice-68596d6dd6-bf6bv          1/1     Running   0          3m
+    productcatalogservice-557d474574-888kr   1/1     Running   0          3m
+    recommendationservice-69c56b74d4-7z8r5   1/1     Running   0          3m1s
+    redis-cart-5f59546cdd-5jnqf              1/1     Running   0          2m58s
+    shippingservice-6ccc89f8fd-v686r         1/1     Running   0          2m58s
 
 ## Navigate to Microservices-Demo Hipstershop and create some traffic manually
 
