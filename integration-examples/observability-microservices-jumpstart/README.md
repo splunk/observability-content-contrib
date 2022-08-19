@@ -86,7 +86,7 @@ Create kubernetes manifest files, making sure to export the RUM_REALM and TOKEN 
 
 Run the command `kubectl get pods` and verify that the services are running and the external IP is exposed.
 
-## Wait for services to start and expost external ports
+## Wait for services to start and expose external ports
 
 After all services are running, use the following commands:
 
