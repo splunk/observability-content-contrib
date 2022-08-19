@@ -8,8 +8,12 @@ OpenTelemetry Quick Start is a guide to how to quickly get started evaluating th
 
 ## Preparation and Prerequisites Prior to Installation
 
-1. [Docker](https://docs.docker.com/engine/install/ "Get Docker"), [Minikube](https://minikube.sigs.k8s.io/docs/start/ "Minikube Quick Start") and [Helm](https://helm.sh/docs/intro/install/ "Install Helm 3") and [GSED](https://formulae.brew.sh/formula/gnu-sed "brew install gnu-sed") should be installed prior to starting this exercise.
-2. Start Minikube with the enough memory to run the example application.  
+Docker, Minikube, Helm and GSED should be installed prior to starting this exercise. After the prerequistes are met then we will Start Minikube with the enough memory to run the example applications and services.
+
+1. [Docker](https://docs.docker.com/engine/install/ "Install Docker") - Install Docker if needed.
+2. [Minikube](https://minikube.sigs.k8s.io/docs/start/ "Minikube Quick Start") - Install and configure Minikube.
+3. [Helm](https://helm.sh/docs/intro/install/ "Install Helm v3+") - Install Helm version 3.0+ or Latest.
+4. [GSED](https://formulae.brew.sh/formula/gnu-sed "brew install gnu-sed") - gsed is used in the configuration script for the kubernetes manifests.
 
 ## Pre-Installation
 
@@ -17,8 +21,9 @@ Launch Minikube with at least 4 CPUs, 4 GiB Memory and 32GB of disk space.
 
     minikube start --cpus=6 --memory 4096 --disk-size 32g --container-runtime=docker --vm=true
 
-1. Check minikube's docker-daemon environment variables using the command `minikube docker-env`
-2. If needed, point your shell to minikube's docker daemon by running: `eval $(minikube -p minikube docker-env)`
+Check minikube's docker-daemon environment variables using the command:
+
+    minikube docker-env
 
 ### Example output from the command `minikube docker-env`
 
@@ -27,6 +32,10 @@ Launch Minikube with at least 4 CPUs, 4 GiB Memory and 32GB of disk space.
     export DOCKER_HOST="tcp://192.168.64.4:2376"
     export DOCKER_CERT_PATH="/Users/auser/.minikube/certs"
     export MINIKUBE_ACTIVE_DOCKERD="minikube"
+
+Point your shell to minikube's docker daemon by running:
+
+    eval $(minikube -p minikube docker-env)
 
 ## Installation
 
@@ -84,9 +93,11 @@ Create kubernetes manifest files, making sure to export the RUM_REALM and TOKEN 
 
     kubectl apply -f ./release/kubernetes-manifests.yaml
 
-Run the command `kubectl get pods` and verify that the services are running and the external IP is exposed.
+Run the command `kubectl get pods` and verify that the services are running and the external IP is exposed. This may take a few moments to get all the services started.
 
-## Wait for services to start and expost external ports
+    kubectl get pods
+
+## Wait for services to start and expose external ports
 
 After all services are running, use the following commands:
 
@@ -97,6 +108,25 @@ This command forwards a port to the frontend service.
 This command outputs the nodeport and address for the loadgenerator service. Use this address to access the load generator service.
 
     minikube service loadgenerator --url
+
+After port mapping one can run  `kubectl get pods` and verify that the services are running and the external IP are exposed expected ports.
+
+Example output from the command `kubectl get pods`
+
+    NAME                                     READY   STATUS    RESTARTS   AGE
+    my-splunk-otel-collector-qph4v           1/1     Running   0          4m21s
+    adservice-76bdd69666-ckc5j               1/1     Running   0          2m58s
+    cartservice-66d497c6b7-dp5jr             1/1     Running   0          2m59s
+    checkoutservice-666c784bd6-4jd22         1/1     Running   0          3m1s
+    currencyservice-5d5d496984-4jmd7         1/1     Running   0          2m59s
+    emailservice-667457d9d6-75jcq            1/1     Running   0          3m2s
+    frontend-6b8d69b9fb-wjqdg                1/1     Running   0          3m1s
+    loadgenerator-665b5cd444-gwqdq           1/1     Running   0          3m
+    paymentservice-68596d6dd6-bf6bv          1/1     Running   0          3m
+    productcatalogservice-557d474574-888kr   1/1     Running   0          3m
+    recommendationservice-69c56b74d4-7z8r5   1/1     Running   0          3m1s
+    redis-cart-5f59546cdd-5jnqf              1/1     Running   0          2m58s
+    shippingservice-6ccc89f8fd-v686r         1/1     Running   0          2m58s
 
 ## Navigate to Microservices-Demo Hipstershop and create some traffic manually
 
