@@ -8,8 +8,12 @@ OpenTelemetry Quick Start is a guide to how to quickly get started evaluating th
 
 ## Preparation and Prerequisites Prior to Installation
 
-1. [Docker](https://docs.docker.com/engine/install/ "Get Docker"), [Minikube](https://minikube.sigs.k8s.io/docs/start/ "Minikube Quick Start") and [Helm](https://helm.sh/docs/intro/install/ "Install Helm 3") and [GSED](https://formulae.brew.sh/formula/gnu-sed "brew install gnu-sed") should be installed prior to starting this exercise.
-2. Start Minikube with the enough memory to run the example application.  
+Docker, Minikube, Helm and GSED should be installed prior to starting this exercise. After the prerequistes are met then we will Start Minikube with the enough memory to run the example applications and services.
+
+1. [Docker](https://docs.docker.com/engine/install/ "Install Docker") - Install Docker if needed.
+2. [Minikube](https://minikube.sigs.k8s.io/docs/start/ "Minikube Quick Start") - Install and configure Minikube.
+3. [Helm](https://helm.sh/docs/intro/install/ "Install Helm v3+") - Install Helm version 3.0+ or Latest.
+4. [GSED](https://formulae.brew.sh/formula/gnu-sed "brew install gnu-sed") - gsed is used in the configuration script for the kubernetes manifests.
 
 ## Pre-Installation
 
@@ -17,8 +21,9 @@ Launch Minikube with at least 4 CPUs, 4 GiB Memory and 32GB of disk space.
 
     minikube start --cpus=6 --memory 4096 --disk-size 32g --container-runtime=docker --vm=true
 
-1. Check minikube's docker-daemon environment variables using the command `minikube docker-env`
-2. If needed, point your shell to minikube's docker daemon by running: `eval $(minikube -p minikube docker-env)`
+Check minikube's docker-daemon environment variables using the command:
+
+    minikube docker-env
 
 ### Example output from the command `minikube docker-env`
 
@@ -27,6 +32,10 @@ Launch Minikube with at least 4 CPUs, 4 GiB Memory and 32GB of disk space.
     export DOCKER_HOST="tcp://192.168.64.4:2376"
     export DOCKER_CERT_PATH="/Users/auser/.minikube/certs"
     export MINIKUBE_ACTIVE_DOCKERD="minikube"
+
+Point your shell to minikube's docker daemon by running:
+
+    eval $(minikube -p minikube docker-env)
 
 ## Installation
 
