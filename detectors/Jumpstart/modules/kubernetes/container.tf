@@ -1,5 +1,5 @@
 resource "signalfx_detector" "k8s_container_restarts" {
-  name         = "${var.sfx_prefix} K8S Container restart count is > 0"
+  name         = "${var.alert_prefix} K8S Container restart count is > 0"
   description  = "Container restart count in the last 5m is > 0"
   program_text = <<-EOF
     A = data('k8s.container.restarts').sum(by=['k8s.cluster.name', 'k8s.namespace.name', 'k8s.pod.name']).delta().sum(over='5m').above(0, inclusive=True, clamp=True).publish(label='A')
@@ -13,7 +13,7 @@ resource "signalfx_detector" "k8s_container_restarts" {
 }
 
 resource "signalfx_detector" "k8s_container_cpu" {
-  name         = "${var.sfx_prefix} K8S Container CPU utilization is higher than normal, and increasing"
+  name         = "${var.alert_prefix} K8S Container CPU utilization is higher than normal, and increasing"
   description  = "Alerts when container CPU utilization (%) in the last 5m is more than 2.5 standard deviations above the mean of its preceding 30m"
   program_text = <<-EOF
     from signalfx.detectors.against_recent import against_recent
@@ -29,7 +29,7 @@ resource "signalfx_detector" "k8s_container_cpu" {
 }
 
 resource "signalfx_detector" "k8s_container_memory" {
-  name         = "${var.sfx_prefix} K8S Container top 5 memory utilization is higher than normal, and increasing"
+  name         = "${var.alert_prefix} K8S Container top 5 memory utilization is higher than normal, and increasing"
   description  = "Alerts when container memory utilization of top 5 in the last 15m is more than 3.5 standard deviations above the median of similar signals for 100% of 15m"
   program_text = <<-EOF
 from signalfx.detectors.population_comparison import population

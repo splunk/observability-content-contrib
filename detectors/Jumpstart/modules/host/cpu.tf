@@ -1,5 +1,5 @@
 resource "signalfx_detector" "cpu_historical_norm" {
-  name         = "${var.sfx_prefix} CPU utilization % greater than historical norm"
+  name         = "${var.alert_prefix} CPU utilization % greater than historical norm"
   description  = "Alerts when CPU usage for this host for the last 30 minutes was significantly higher than normal, as compared to the last 24 hours"
   program_text = <<-EOF
     from signalfx.detectors.against_recent import against_recent
@@ -14,7 +14,7 @@ resource "signalfx_detector" "cpu_historical_norm" {
 }
 
 resource "signalfx_detector" "cpu_historical_cyclical_norm" {
-  name         = "${var.sfx_prefix} CPU utilization % greater than 3.5 std dev compared to the same time window over the last 3 days"
+  name         = "${var.alert_prefix} CPU utilization % greater than 3.5 std dev compared to the same time window over the last 3 days"
   description  = "Alerts when CPU usage for this host for the last 30 minutes was significantly higher than normal, as compared to the last 24 hours"
   program_text = <<-EOF
     from signalfx.detectors.against_periods import against_periods
@@ -29,7 +29,7 @@ resource "signalfx_detector" "cpu_historical_cyclical_norm" {
 }
 
 resource "signalfx_detector" "cpu_not_reporting" {
-  name         = "${var.sfx_prefix} Host has stopped reporting data for atleast 1 minute"
+  name         = "${var.alert_prefix} Host has stopped reporting data for atleast 1 minute"
   description  = "Alerts when Host has stopped reporting data for atleast a minute"
   program_text = <<-EOF
     from signalfx.detectors.not_reporting import not_reporting

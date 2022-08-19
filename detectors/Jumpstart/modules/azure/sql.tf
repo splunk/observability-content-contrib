@@ -1,5 +1,5 @@
 resource "signalfx_detector" "azure_SQL_errors" {
-  name         = "${var.sfx_prefix} Various Azure SQL Errors"
+  name         = "${var.alert_prefix} Various Azure SQL Errors"
   description  = "Alerts when for various scenarios for Azure SQL both Database or elasticpools"
   program_text = <<-EOF
     from signalfx.detectors.against_periods import against_periods

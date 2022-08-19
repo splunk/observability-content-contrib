@@ -1,6 +1,6 @@
 /*
 resource "signalfx_detector" "k8s_node_cpu_imbalance" {
-  name         = "${var.sfx_prefix} K8S Cluster CPU balance"
+  name         = "${var.alert_prefix} K8S Cluster CPU balance"
   description  = "Alerts when cluster CPU usage is imbalanced"
   program_text = <<-EOF
     A = data('container_cpu_utilization', filter=filter('k8s.cluster.name', '*') and filter('k8s.node.name', '*'), rollup='rate').sum(by=['k8s.node.name', 'k8s.cluster.name']).publish(label='A', enable=False)
@@ -19,7 +19,7 @@ resource "signalfx_detector" "k8s_node_cpu_imbalance" {
 */
 
 resource "signalfx_detector" "k8s_node_not_ready" {
-  name         = "${var.sfx_prefix} K8S Nodes are not ready"
+  name         = "${var.alert_prefix} K8S Nodes are not ready"
   description  = "Alerts when K8s Node is not a ready state"
   program_text = <<-EOF
     A = data('k8s.node.condition_ready').sum(by=['k8s.cluster.name', 'k8s.node.name']).publish(label='A')
@@ -34,7 +34,7 @@ resource "signalfx_detector" "k8s_node_not_ready" {
 
 
 resource "signalfx_detector" "k8s_node_high_memory" {
-  name         = "${var.sfx_prefix} K8S Node Memory > 90%"
+  name         = "${var.alert_prefix} K8S Node Memory > 90%"
   description  = "Alerts when K8s Node is using memory > 90% for 5m"
   program_text = <<-EOF
     A = data('memory.utilization', filter=filter('k8s.cluster.name', '*')).sum(by=['host', 'k8s.cluster.name']).publish(label='A')

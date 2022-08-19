@@ -1,5 +1,5 @@
 resource "signalfx_detector" "gcp_cloud_storage_errors" {
-  name         = "${var.sfx_prefix} GCP Cloud Storage Requests High Error Rate"
+  name         = "${var.alert_prefix} GCP Cloud Storage Requests High Error Rate"
   description  = "Alerts when there is a high 4xx or 5xx error rate"
   program_text = <<-EOF
     A = data('api/request_count', filter=filter('response_code', '4*'), rollup='latest').sum(by=['bucket_name']).publish(label='4xx error', enable=False)

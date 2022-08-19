@@ -1,5 +1,5 @@
 resource "signalfx_detector" "container_cpu_utilization" {
-  name         = "${var.sfx_prefix} Container CPU utilization % high"
+  name         = "${var.alert_prefix} Container CPU utilization % high"
   description  = "Alerts when CPU Utilization % is between 70% & 80% for 10mins and > 80% for 5mins"
   program_text = <<-EOF
     A = data('cpu.usage.total', filter=filter('plugin', 'docker')).publish(label='A', enable=False)

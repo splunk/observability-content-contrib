@@ -33,7 +33,7 @@ variable "message_body" {
   EOF
 }
 
-variable "sfx_prefix" {
+variable "alert_prefix" {
   type        = string
   description = "Detector Prefix"
 }

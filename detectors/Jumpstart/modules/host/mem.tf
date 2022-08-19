@@ -1,5 +1,5 @@
 resource "signalfx_detector" "mem_historical_norm" {
-  name         = "${var.sfx_prefix} Mem utilization % greater than historical norm"
+  name         = "${var.alert_prefix} Mem utilization % greater than historical norm"
   description  = "Alerts when Mem usage for this host for the last 30 minutes was significantly higher than normal, as compared to the last 24 hours"
   program_text = <<-EOF
     from signalfx.detectors.against_recent import against_recent
@@ -14,7 +14,7 @@ resource "signalfx_detector" "mem_historical_norm" {
 }
 
 resource "signalfx_detector" "mem_historical_cyclical_norm" {
-  name         = "${var.sfx_prefix} Memory utilization % greater than 3.5 std dev compared to the same time window over the last 3 days"
+  name         = "${var.alert_prefix} Memory utilization % greater than 3.5 std dev compared to the same time window over the last 3 days"
   description  = "Alerts when Memory usage for this host for the last 30 minutes was significantly higher than normal, as compared to the last 24 hours"
   program_text = <<-EOF
     from signalfx.detectors.against_periods import against_periods

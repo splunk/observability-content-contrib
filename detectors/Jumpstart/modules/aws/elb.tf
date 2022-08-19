@@ -1,5 +1,5 @@
 resource "signalfx_detector" "httpcode_elb_5xx" {
-  name        = "${var.sfx_prefix} AWS/ELB has high 5XX response ratio"
+  name        = "${var.alert_prefix} AWS/ELB has high 5XX response ratio"
   description = "Alerts when 10% of requests were 5XX for last 5m"
 
   program_text = <<-EOF
@@ -16,7 +16,7 @@ resource "signalfx_detector" "httpcode_elb_5xx" {
 }
 
 resource "signalfx_detector" "surgequeuelength_elb" {
-  name        = "${var.sfx_prefix} AWS/ELB has high Surge Queue Length (>= 90%)"
+  name        = "${var.alert_prefix} AWS/ELB has high Surge Queue Length (>= 90%)"
   description = "Alerts when Surge Queue Length is >= 90%"
 
   program_text = <<-EOF
@@ -32,7 +32,7 @@ resource "signalfx_detector" "surgequeuelength_elb" {
 }
 
 resource "signalfx_detector" "spillover_elb" {
-  name        = "${var.sfx_prefix} AWS/ELB has spillover"
+  name        = "${var.alert_prefix} AWS/ELB has spillover"
   description = "Alerts when ELB Spillover is detected (generates 503 for users)"
 
   program_text = <<-EOF

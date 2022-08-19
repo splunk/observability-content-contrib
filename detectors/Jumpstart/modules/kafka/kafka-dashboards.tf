@@ -1,5 +1,5 @@
 resource "signalfx_dashboard_group" "kafka_dashboard_group" {
-  name        = "${var.sfx_prefix} Kafka Lag Dashboard(s)"
+  name        = "${var.alert_prefix} Kafka Lag Dashboard(s)"
   description = "Dashboard(s) for Kafka Lag"
 }
 

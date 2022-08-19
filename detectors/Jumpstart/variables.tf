@@ -6,7 +6,7 @@ variable "realm" {
   description = "Splunk Realm"
 }
 
-variable "sfx_prefix" {
+variable "alert_prefix" {
   type        = string
   description = "Detector Prefix"
   default     = "[Splunk]"

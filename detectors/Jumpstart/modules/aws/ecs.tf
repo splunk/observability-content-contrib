@@ -1,5 +1,5 @@
 resource "signalfx_detector" "aws_ecs_smartagent_cpu" {
-  name         = "${var.sfx_prefix} ECS Cluster High CPU 5m (SFX) - SmartAgent"
+  name         = "${var.alert_prefix} ECS Cluster High CPU 5m (SFX) - SmartAgent"
   description  = "Alert when an ECS Cluster has sustained high CPU levels for 5 minutes"
   program_text = <<-EOF
     A = data('cpu.usage.total', filter=filter('ecs_task_group', '*'), rollup='rate').publish(label='A', enable=False)

@@ -1,5 +1,5 @@
 resource "signalfx_detector" "azure_cpu_historical_norm" {
-  name         = "${var.sfx_prefix} Azure VM CPU % greater than historical norm"
+  name         = "${var.alert_prefix} Azure VM CPU % greater than historical norm"
   description  = "Alerts when CPU usage for this host for the last 10 minutes was significantly higher than normal, as compared to the last 24 hours"
   program_text = <<-EOF
     from signalfx.detectors.against_recent import against_recent

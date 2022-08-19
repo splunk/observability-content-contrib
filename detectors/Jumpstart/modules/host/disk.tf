@@ -1,5 +1,5 @@
 resource "signalfx_detector" "disk_space_low" {
-  name        = "${var.sfx_prefix} Low Disk Space"
+  name        = "${var.alert_prefix} Low Disk Space"
   description = "Alerts when a partition is filling up or total disk space will fill up within 24hrs"
 
   program_text = <<-EOF

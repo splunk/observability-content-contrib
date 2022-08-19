@@ -1,5 +1,5 @@
 resource "signalfx_detector" "lambda_errors" {
-  name         = "${var.sfx_prefix} AWS/Lambda Errors"
+  name         = "${var.alert_prefix} AWS/Lambda Errors"
   description  = "AWS/Lambda Function Error Rates"
   program_text = <<-EOF
     function_errors = data('Errors', filter=(filter('namespace', 'AWS/Lambda') and filter('FunctionName', '*') and filter('Resource', '*') and filter('stat', 'sum'))).publish(label='function_errors', enable=False)

@@ -1,5 +1,5 @@
 resource "signalfx_detector" "kafka_under_replicated_partitions" {
-  name         = "${var.sfx_prefix} Kafka - Under Replicated Partitions"
+  name         = "${var.alert_prefix} Kafka - Under Replicated Partitions"
   description  = "Alerts when at least one kafka partition is under replicated for atleast 5m"
   program_text = <<-EOF
     A = data('gauge.kafka-underreplicated-partitions').publish(label='A')
@@ -13,7 +13,7 @@ resource "signalfx_detector" "kafka_under_replicated_partitions" {
 }
 
 resource "signalfx_detector" "kafka_no_active_controller" {
-  name         = "${var.sfx_prefix} Kafka - No Active Controller"
+  name         = "${var.alert_prefix} Kafka - No Active Controller"
   description  = "Alerts when there are no active controllers in a cluster, there is only 1 broker set as an active controller per cluster"
   program_text = <<-EOF
     A = data('gauge.kafka-active-controllers').min(by=['cluster']).publish(label='A')
@@ -27,7 +27,7 @@ resource "signalfx_detector" "kafka_no_active_controller" {
 }
 
 resource "signalfx_detector" "kafka_high-log-flush-time" {
-  name         = "${var.sfx_prefix} Kafka - Max Log Flush Time > 100ms"
+  name         = "${var.alert_prefix} Kafka - Max Log Flush Time > 100ms"
   description  = "Alerts when the log flush time for brokers in a cluster exceeds 100ms"
   program_text = <<-EOF
     A = data('gauge.kafka-log-flush-time-ms-p95').max(by=['cluster']).publish(label='A')
@@ -41,7 +41,7 @@ resource "signalfx_detector" "kafka_high-log-flush-time" {
 }
 
 resource "signalfx_detector" "kafka_offline_partitions" {
-  name         = "${var.sfx_prefix} Kafka - Offline partitions"
+  name         = "${var.alert_prefix} Kafka - Offline partitions"
   description  = "Alerts when there is no active leader for a partition, the partition cannot be read from or written to"
   program_text = <<-EOF
     A = data('gauge.kafka-offline-partitions').max(by=['cluster', 'host']).publish(label='A')
@@ -55,7 +55,7 @@ resource "signalfx_detector" "kafka_offline_partitions" {
 }
 
 resource "signalfx_detector" "kafka_consumergroup_lag" {
-  name         = "${var.sfx_prefix} Kafka - Consumer Lag > 100 for 1m"
+  name         = "${var.alert_prefix} Kafka - Consumer Lag > 100 for 1m"
   description  = "Alerts when a consumergroup is lagging behind the latest offset by a 100"
   program_text = <<-EOF
     A = data('kafka_consumergroup_lag').sum(by=['host', 'topic', 'partition', 'consumergroup']).publish(label='A')
