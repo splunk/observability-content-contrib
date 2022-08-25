@@ -6,7 +6,7 @@ Integration Examples can be everything from example code for interacting with AP
 
     Please organize folders and submissions to group similar software and platforms together. 
 
-    Integrations should be oriented towards specific software/platforms with a focus on reusable patterns wherever possible for easily adjusting to a specific customer's needs. 
+    Integrations should be oriented towards specific software/platforms with a focus on reusable patterns wherever possible for easily adjusting to a specific user's needs. 
 
 2. **Integrations** : Loosely integrations covers collections of code, scripts, documentation, etc which will aide others in setting up functionality with Splunk Observability. This could include Getting Data In (GDI), Tips and reusable SignalFlow patterns, Webhook setup information for a vendor, serverless code for performing checks, etc
 
