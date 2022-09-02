@@ -18,6 +18,6 @@ terraform apply -auto-approve -var="access_token=<token>" -var="realm=<realm>"
 And to remove
 
 ```
-erraform destroy -auto-approve -var="access_token=<token>" -var="realm=<realm>"
+terraform destroy -auto-approve -var="access_token=<token>" -var="realm=<realm>"
 ```
 
