@@ -1,0 +1,25 @@
+Detector ID,Detector Name,Total # Events,Events Triggered last10 days
+E_WO6HSAcAA,Tire Wear Detector,50,50
+E-8KhgwAgAE,Tire Temp Detector,0,0
+FbTTWDhAcAM,Service Error Rate detector for paymentservice,0,0
+FZ8OV5kAcAA,Service Error Rate detector for paymentservice - test,8,0
+FAUDmJnAYAA,STSC - High Service Latency,50,50
+FAiwuhnAcAA,Service Error Rate detector for paymentservice,4,0
+FV7Tx5EAcAA,Service Error Rate detector for paymentservice,2,0
+FVYSnVSAgAA,RUM Aggregate View Detector,0,0
+FVYSV_tAYAE,RUM Aggregate View Detector,0,0
+FVI53rZAcAI,Service Error Rate detector for paymentservice,2,0
+FTXnXR9AcAA,Service Error Rate detector for paymentservice,4,0
+FRSiRPqAYAA,User Lookup Service - Service Latency,50,4
+FAUEaFsAYAE,STSC - High Service Error Rate,50,50
+FNfr4KWAgAA,Service Error Rate detector for paymentservice_SVDC,28,0
+FNfCySfAgAE,Service Error Rate detector for paymentservice_SVDC_Test,6,0
+FLF8Oj8AcAE,AWS EC2 CPU High Utilization,12,0
+FJaMNCQAYA4,[jw] RUM Aggregate Error Detector,50,13
+FCr5PSQAcAA,Service Error Rate detector for paymentservice,6,0
+E0i9WYkAYAA,Service Latency detector for frontend,0,0
+Ez_8_hHAYAA,"CPU utilization % less than historical norm - *, *, *, *, *, *",0,0
+EvBlSkpAYAA,Sudden increase in cpu.utilization,0,0
+Ey9sxzTAgAI,Spike in Errors,0,0
+EvHbGCHAcAA,Increase in K8s Node Memory,0,0
+FATp8PDAcAA,Jeff's Test Detector,2,0
