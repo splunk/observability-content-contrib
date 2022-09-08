@@ -32,7 +32,7 @@ def link(url):
 def get_detectors(realm):
     detectors_dict = {}
 
-    detectors = requests.get("https://api." + realm + ".signalfx.com/v2/detector?limit=10", headers=headers).json()
+    detectors = requests.get("https://api." + realm + ".signalfx.com/v2/detector?limit=1000", headers=headers).json()
     #print(json.dumps(detectors))
     #print(str(detectors["count"]) + " detectors found!")
 
