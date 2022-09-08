@@ -2,9 +2,11 @@
 
 This script will fetch the events for detectors (max. 1,000) in an Org.
 
-The output will show detectors with no events, detectors with events and how many events have fired within the number of days specified.
+The output will show detectors with no events, detectors with events and how many events have fired within the number of days specified on the command line.
 
-Also, a CSV report will be creating in the same directory as you run the script.
+The table supports hyperlinks on the detector ID if your terminal supports it.
+
+Also, a CSV report will be created in the same directory as you run the script.
 
 ## Using the Active Detector Report script
 
