@@ -28,6 +28,10 @@ Parameters:
   SplunkRealm:
     Type: String
     Description: Splunk Observability Cloud Organization Realm
+  EnvironmentName:
+    Type: String
+    Description: The name of the O11y Environment to which this lambda should be associated
+    Default: 'lambda-devlab'
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
@@ -49,13 +53,14 @@ Resources:
         Variables:
           AWS_LAMBDA_EXEC_WRAPPER: /opt/otel-instrument
           OTEL_SERVICE_NAME: hello-requests-apm
-          OTEL_RESOURCE_ATTRIBUTES: deployment.environment=lambda-devlab
+          OTEL_RESOURCE_ATTRIBUTES: !Sub
+            - 'deployment.environment=${EnvironmentName}'
+            - EnvironmentName: !Ref EnvironmentName
           OTEL_EXPORTER_OTLP_ENDPOINT: !Sub
             - 'http://${OtelCollectorPrivateDnsName}:4318'
             - OtelCollectorPrivateDnsName: !GetAtt OtelCollectorEc2.PrivateDnsName
           OTEL_LOG_LEVEL: DEBUG
           OTEL_TRACES_EXPORTER: otlp_proto_http
-          SPLUNK_ACCESS_TOKEN: accesstoken
       VpcConfig:
         SecurityGroupIds:
           - !GetAtt VPC.DefaultSecurityGroup
