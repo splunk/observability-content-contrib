@@ -1,0 +1,229 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Sample SAM Template for an OpenTelemetry-instrumented Python Lambda.  
+  The function simply calls an external URL with the `requests` library.  
+  The additional resources in this template are intended as an example implementation of sending Lambda telemetry to
+  a VPC-Connected Otel Gateway.
+
+Parameters:
+  EC2Ami:
+    Type: String
+    Description: The AMI to use for the Otel Collector Gateway Instance Host
+    Default: 'ami-026b57f3c383c2eec'
+  EC2InstanceType:
+    Type: String
+    Description: The Instance Type for the Otel Collector Gateway Instance Host
+    Default: 't2.micro'
+  EC2AvailabilityZone:
+    Type: String
+    Description: The Availability Zone to use for the Otel Collector Gateway Instance Host
+    Default: 'us-east-1b'
+  EC2KeyPairName:
+    Type: String
+    Description: The name of the SSH key authorized to access the EC2 Instance
+  SplunkAccessToken:
+    Type: String
+    Description: Splunk Observability Cloud Organization Access Token
+  SplunkRealm:
+    Type: String
+    Description: Splunk Observability Cloud Organization Realm
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 15
+
+Resources:
+  HelloWorldFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: hello_world/
+      Handler: app.lambda_handler
+      Runtime: python3.9
+      Architectures:
+        - x86_64
+      Layers:
+        - arn:aws:lambda:us-east-1:770693421928:layer:Klayers-p39-requests:8
+        - arn:aws:lambda:us-east-1:254067382080:layer:splunk-apm:62
+      Environment:
+        Variables:
+          AWS_LAMBDA_EXEC_WRAPPER: /opt/otel-instrument
+          OTEL_SERVICE_NAME: hello-requests-apm
+          OTEL_RESOURCE_ATTRIBUTES: deployment.environment=lambda-devlab
+          OTEL_EXPORTER_OTLP_ENDPOINT: !Sub
+            - 'http://${OtelCollectorPrivateDnsName}:4318'
+            - OtelCollectorPrivateDnsName: !GetAtt OtelCollectorEc2.PrivateDnsName
+          OTEL_LOG_LEVEL: DEBUG
+          OTEL_TRACES_EXPORTER: otlp_proto_http
+          SPLUNK_ACCESS_TOKEN: accesstoken
+      VpcConfig:
+        SecurityGroupIds:
+          - !GetAtt VPC.DefaultSecurityGroup
+        SubnetIds:
+          - !GetAtt PrivateSubnet1.SubnetId
+      Events:
+        HelloWorld:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /hello
+            Method: get
+  VPC:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsHostnames: true
+      InstanceTenancy: default
+      EnableDnsSupport: true
+      Tags:
+        - Key: Name
+          Value: !Ref 'AWS::StackName'
+  InboundRule:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt VPC.DefaultSecurityGroup
+      CidrIp: '0.0.0.0/0'
+      IpProtocol: tcp
+      FromPort: 0
+      ToPort: 65535
+  OtelCollectorEc2:
+    Type: AWS::EC2::Instance
+    Properties:
+      AvailabilityZone: !Ref EC2AvailabilityZone
+      InstanceType: !Ref EC2InstanceType
+      ImageId: !Ref EC2Ami
+      KeyName: !Ref EC2KeyPairName
+      SubnetId: !GetAtt PublicSubnet1.SubnetId
+      SecurityGroupIds:
+        - !GetAtt VPC.DefaultSecurityGroup
+      Tags:
+        - Key: Name
+          Value: OpenTelemetry-Collector
+      UserData:
+        Fn::Base64: !Sub
+          - '#!/bin/bash curl -sSL https://dl.signalfx.com/splunk-otel-collector.sh > /tmp/splunk-otel-collector.sh && sudo sh /tmp/splunk-otel-collector.sh --realm ${SplunkRealm} -- ${SplunkAccessToken} --mode gateway --without-fluentd'
+          - SplunkAccessToken: !Ref SplunkAccessToken
+            SplunkRealm: !Ref SplunkRealm
+  PublicSubnet1:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: us-east-1b
+      CidrBlock: '10.0.1.0/24'
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: Public subnet 1
+  PublicSubnetRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref 'VPC'
+      Tags:
+        - Key: Name
+          Value: Public Subnet
+        - Key: Network
+          Value: Public
+  PublicSubnetRoute:
+    DependsOn: VPCGatewayAttachment
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref 'PublicSubnetRouteTable'
+      DestinationCidrBlock: '0.0.0.0/0'
+      GatewayId: !Ref 'InternetGateway'
+  PublicSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref 'PublicSubnet1'
+      RouteTableId: !Ref 'PublicSubnetRouteTable'
+  PrivateSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref 'VPC'
+      CidrBlock: '10.0.192.0/21'
+      AvailabilityZone: us-east-1b
+      Tags:
+        - Key: Name
+          Value: Private subnet 1
+  PrivateSubnetRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref 'VPC'
+      Tags:
+        - Key: Name
+          Value: Private Subnet
+        - Key: Network
+          Value: Private
+  PrivateSubnetRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref 'PrivateSubnetRouteTable'
+      DestinationCidrBlock: '0.0.0.0/0'
+      NatGatewayId: !Ref 'NATGateway1'
+  PrivateSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref 'PrivateSubnet1'
+      RouteTableId: !Ref 'PrivateSubnetRouteTable'
+  VPCGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref 'VPC'
+      InternetGatewayId: !Ref 'InternetGateway'
+  NAT1EIP:
+    DependsOn: VPCGatewayAttachment
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+      Tags:
+        - Key: Name
+          Value: NAT1EIP
+  NATGateway1:
+    DependsOn: VPCGatewayAttachment
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId: !GetAtt 'NAT1EIP.AllocationId'
+      SubnetId: !Ref 'PublicSubnet1'
+      Tags:
+        - Key: Name
+          Value: NATGateway1
+  InternetGateway:
+    Type: 'AWS::EC2::InternetGateway'
+    DependsOn: VPC
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Ref 'AWS::StackName'
+  InternetGatewayAttachment:
+    Type: 'AWS::EC2::VPCGatewayAttachment'
+    DependsOn: InternetGateway
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+  InternetRouteTable:
+    Type: 'AWS::EC2::RouteTable'
+    DependsOn: VPC
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: Public Route Table
+  InternetRoute:
+    Type: 'AWS::EC2::Route'
+    DependsOn: InternetGatewayAttachment
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+      RouteTableId: !Ref InternetRouteTable
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  HelloWorldApi:
+    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+  HelloWorldFunction:
+    Description: "Hello World Lambda Function ARN"
+    Value: !GetAtt HelloWorldFunction.Arn
+  HelloWorldFunctionIamRole:
+    Description: "Implicit IAM Role created for Hello World function"
+    Value: !GetAtt HelloWorldFunctionRole.Arn
