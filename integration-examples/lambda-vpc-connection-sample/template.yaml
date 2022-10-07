@@ -59,7 +59,7 @@ Resources:
           OTEL_EXPORTER_OTLP_ENDPOINT: !Sub
             - 'http://${OtelCollectorPrivateDnsName}:4318'
             - OtelCollectorPrivateDnsName: !GetAtt OtelCollectorEc2.PrivateDnsName
-          OTEL_LOG_LEVEL: DEBUG
+          SPLUNK_ACCESS_TOKEN: !Ref SplunkAccessToken
           OTEL_TRACES_EXPORTER: otlp_proto_http
       VpcConfig:
         SecurityGroupIds:
@@ -105,9 +105,12 @@ Resources:
           Value: OpenTelemetry-Collector
       UserData:
         Fn::Base64: !Sub
-          - '#!/bin/bash curl -sSL https://dl.signalfx.com/splunk-otel-collector.sh > /tmp/splunk-otel-collector.sh && sudo sh /tmp/splunk-otel-collector.sh --realm ${SplunkRealm} -- ${SplunkAccessToken} --mode gateway --without-fluentd'
-          - SplunkAccessToken: !Ref SplunkAccessToken
-            SplunkRealm: !Ref SplunkRealm
+          - |
+            #!/bin/bash
+            curl -sSL https://dl.signalfx.com/splunk-otel-collector.sh > /tmp/splunk-otel-collector.sh && \
+            sh /tmp/splunk-otel-collector.sh --realm ${SplunkRealm} -- ${SplunkAccessToken} --mode gateway --without-fluentd
+          - SplunkRealm: !Ref SplunkRealm
+            SplunkAccessToken: !Ref SplunkAccessToken
   PublicSubnet1:
     Type: 'AWS::EC2::Subnet'
     Properties:
