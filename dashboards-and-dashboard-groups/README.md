@@ -31,7 +31,7 @@ views are used when promoting a dashboard set to Navigator Views.
   utilization metrics by filesystem so that the user knows exactly what
   resource is approaching exhaustion.
 
-1. **KPIs** provide insight into the health and availability of the platform.
+3. **KPIs** provide insight into the health and availability of the platform.
 
   * **External KPIs** define the perceived external performance of the system.
   A good mnemonic for external responsiveness of many systems is the RED metrics,
@@ -59,13 +59,13 @@ views are used when promoting a dashboard set to Navigator Views.
   platform-specific resources such as queues, connections, and locks. These
   metrics should enable users to gauge the risk of resource exhaustion.
 
-1. **Dashboard Variables** provide default filters appropriate to the data set,
+4. **Dashboard Variables** provide default filters appropriate to the data set,
 typically these are the common dimension values related to the entities, for
 instance dashboard will almost always have the instance identifier as the first
 Dashboard Variable (generally marked as mandatory so that users are encouraged
 to select a single instance as the subject of the dashboard).
 
-1. **Resolution Invariance** should be considered where appropriate. In many
+5. **Resolution Invariance** should be considered where appropriate. In many
 cases users will be changing the time range or resolution of their view, for
 instance zooming in on the time period where errors or performance degradation
 is evident. Keeping the values constant regardless of chart resolution keeps
@@ -86,7 +86,7 @@ include:
   such can be invariant of resolution (provided the resolution of the data and
   the chart support the analytic)
 
-1. **Chart Annotations** such as Title, Subtitle, Legend should be clear and
+6. **Chart Annotations** such as Title, Subtitle, Legend should be clear and
 include the following information (unless it is obvious from the dashboard
 context):
 
@@ -105,7 +105,7 @@ context):
   * **Time Range** should be stated explicitly for charts which use
   `Transformation` analytics over periods of time.
 
-1. **Chart Options** provides several options which should often be considered.
+7. **Chart Options** provides several options which should often be considered.
 
   * **Color By** may need to be set to ensure that chart data is appropriately
   differentiated by color.
