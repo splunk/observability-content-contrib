@@ -7,5 +7,17 @@ This directory contains detail oriented dashboards and required chart definition
 
 Each of these dashboards is meant as a place to look at details of the specific metrics RUM provides split by Browser, App, or Rigor Synthetics.
 
-As usual with Terraform these scripts expect an environment variable named `signalfx_auth_token`
-  - Example: `export TF_VAR_signalfx_auth_token='this_is_my_api_token'`
+To use:
+
+```
+terraform init --upgrade
+terraform plan -var="access_token=<token>" -var="realm=<realm>"
+terraform apply -auto-approve -var="access_token=<token>" -var="realm=<realm>"
+```
+
+And to remove
+
+```
+terraform destroy -auto-approve -var="access_token=<token>" -var="realm=<realm>"
+```
+
