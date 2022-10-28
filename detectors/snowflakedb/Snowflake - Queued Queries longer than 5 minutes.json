@@ -1,0 +1,75 @@
+{
+  "authorizedWriters": {
+    "teams": [],
+    "users": []
+  },
+  "created": 1659534819428,
+  "customProperties": {},
+  "description": "Queries Queued longer than 5 Minutes",
+  "detectorOrigin": "Standard",
+  "labelResolutions": {
+    "Snowflake - Queued Queries": 3600000
+  },
+  "lastUpdated": 1660233633552,
+  "lastUpdatedBy": "E0jpLZIAYAA",
+  "maxDelay": 0,
+  "minDelay": null,
+  "name": "Snowflake - Queued Queries longer than 5 minutes",
+  "overMTSLimit": false,
+  "packageSpecifications": "",
+  "parentDetectorId": null,
+  "programText": "A = data('snowflake.queued_repair_time.avg', extrapolation='last_value', maxExtrapolations=4).mean(by=['DATABASE_NAME', 'SCHEMA_NAME', 'QUERY_TYPE', 'WAREHOUSE_SIZE', 'USER_NAME']).fill(0).publish(label='A')\nB = data('snowflake.queued_overload_time.avg', extrapolation='last_value', maxExtrapolations=4).mean(by=['DATABASE_NAME', 'SCHEMA_NAME', 'QUERY_TYPE', 'WAREHOUSE_SIZE', 'USER_NAME']).fill(0).publish(label='B')\nC = data('snowflake.queued_provisioning_time.avg', extrapolation='last_value', maxExtrapolations=4).mean(by=['DATABASE_NAME', 'SCHEMA_NAME', 'QUERY_TYPE', 'WAREHOUSE_SIZE', 'USER_NAME']).fill(0).publish(label='C')\ndetect(when(A > threshold(300000) or B > threshold(300000) or C > threshold(300000))).publish('Snowflake - Queued Queries')",
+  "rules": [
+    {
+      "description": "Queued Queries longer than 5m (300000 ms)",
+      "detectLabel": "Snowflake - Queued Queries",
+      "disabled": false,
+      "notifications": [],
+      "parameterizedBody": "{{#if anomalous}}\n\nDatabase Name: \"{{dimensions.DATABASE_NAME}}\"\nWarehouse Size: \"{{dimensions.WAREHOUSE_SIZE}}\"\nSchema Name: \"{{dimensions.SCHEMA_NAME}}\"\nUsername: \"{{dimensions.USER_NAME}}\"\n\n    Rule \"{{{ruleName}}}\" in detector \"{{{detectorName}}}\" triggered at {{dateTimeFormat timestamp format=\"full\"}}.\n{{else}}\n    Rule \"{{{ruleName}}}\" in detector \"{{{detectorName}}}\" cleared at {{dateTimeFormat timestamp format=\"full\"}}.\n{{/if}}\n\n{{#if anomalous}}\nTriggering condition: {{{readableRule}}} \n{{/if}}\n\n{{#if anomalous}}Signal value for queued queries is in breaching condition: \nqueued_repair_time: {{inputs.A.value}}\nqueued_overload_time: {{inputs.B.value}}\nqueued_provisioning_time {{inputs.C.value}}\n{{else}}Current signal value(s):\nqueued_repair_time: {{inputs.A.value}}\nqueued_overload_time: {{inputs.B.value}}\nqueued_provisioning_time {{inputs.C.value}}\n{{/if}}(Milliseconds)\n\n{{#notEmpty dimensions}}\nSignal details:\n{{{dimensions}}}\n{{/notEmpty}}\n\n{{#if anomalous}}\n{{#if runbookUrl}}Runbook: {{{runbookUrl}}}{{/if}}\n{{#if tip}}Tip: {{{tip}}}{{/if}}\n{{/if}}",
+      "parameterizedSubject": "{{ruleSeverity}} Alert: ({{{detectorName}}}) Database Name: \"{{dimensions.DATABASE_NAME}}\" Warehouse Size: \"{{dimensions.WAREHOUSE_SIZE}}\"",
+      "runbookUrl": "",
+      "severity": "Critical",
+      "tip": ""
+    }
+  ],
+  "sf_metricsInObjectProgramText": null,
+  "tags": [],
+  "teams": [],
+  "timezone": "",
+  "visualizationOptions": {
+    "disableSampling": false,
+    "publishLabelOptions": [
+      {
+        "displayName": "queued_repair_time",
+        "label": "A",
+        "paletteIndex": null,
+        "valuePrefix": null,
+        "valueSuffix": null,
+        "valueUnit": "Millisecond"
+      },
+      {
+        "displayName": "queued_overload_time",
+        "label": "B",
+        "paletteIndex": null,
+        "valuePrefix": null,
+        "valueSuffix": null,
+        "valueUnit": "Millisecond"
+      },
+      {
+        "displayName": "queued_provisioning_time",
+        "label": "C",
+        "paletteIndex": null,
+        "valuePrefix": null,
+        "valueSuffix": null,
+        "valueUnit": "Millisecond"
+      }
+    ],
+    "showDataMarkers": true,
+    "showEventLines": false,
+    "time": {
+      "range": 14400000,
+      "rangeEnd": 0,
+      "type": "relative"
+    }
+  }
+}

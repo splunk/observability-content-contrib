@@ -1,0 +1,91 @@
+{
+  "authorizedWriters" : {
+    "teams" : [ ],
+    "users" : [ ]
+  },
+  "created" : 1659558209665,
+  "customProperties" : { },
+  "description" : "Error Rate by Database",
+  "detectorOrigin" : "Standard",
+  "id" : "FZQyxaqAYAI",
+  "labelResolutions" : {
+    "Snowflake - DB Error Rate" : 900000
+  },
+  "lastUpdated" : 1660313741342,
+  "lastUpdatedBy" : "AAAAAAAAAAA",
+  "maxDelay" : 0,
+  "minDelay" : null,
+  "name" : "Snowflake - Database Error Rate",
+  "overMTSLimit" : false,
+  "packageSpecifications" : "",
+  "parentDetectorId" : null,
+  "programText" : "A = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*'), extrapolation='last_value', maxExtrapolations=3, resolution=900000).sum(by=['DATABASE_NAME', 'SCHEMA_NAME', 'USER_NAME']).publish(label='DB Errors', enable=False)\nC = data('snowflake.database.query.count', extrapolation='last_value', maxExtrapolations=3, resolution=900000).sum(by=['DATABASE_NAME', 'SCHEMA_NAME', 'USER_NAME']).publish(label='DB Traffic', enable=False)\nA_rate = ((A/C)*100).publish(label='DB Error Rate')\nB = data('snowflake.database.query.count', filter=filter('ERROR_MESSAGE', '*') and (not filter('DATABASE_NAME', '*')), extrapolation='last_value', maxExtrapolations=3, resolution=900000).sum().publish(label='Internal Errors', enable=False)\nD = data('snowflake.database.query.count', not filter('DATABASE_NAME', '*'), extrapolation='last_value', maxExtrapolations=3, resolution=900000).sum().publish(label='Internal Traffic', enable=False)\nB_rate = ((B/D)*100).publish(label='Internal Error Rate')\ndetect(when(A_rate > threshold(15.0) or B_rate > threshold(15.0))).publish('Snowflake - DB Error Rate')",
+  "rules" : [ {
+    "description" : "Snowflake Database Error rate exceeded threshold value",
+    "detectLabel" : "Snowflake - DB Error Rate",
+    "disabled" : false,
+    "notifications" : [ ],
+    "parameterizedBody" : "{{#if anomalous}}\n    Database Name: \"{{dimensions.DATABASE_NAME}}\"\n    Schema Name: \"{{dimensions.SCHEMA_NAME}}\"\n    Username: \"{{dimensions.USER_NAME}}\"\n\n    Rule \"{{{ruleName}}}\" in detector \"{{{detectorName}}}\" triggered at {{dateTimeFormat timestamp format=\"full\"}}.\n\n    Triggering condition: {{{readableRule}}}\n\n    Signal value for database errors is in breaching condition: \n    Database Error Rate for Database({{ dimensions.DATABASE_NAME }}): {{inputs.A_rate.value}} Errors/Minute\n{{#notEmpty dimensions}}\n    Signal details:\n    {{{dimensions}}}\n{{/notEmpty}}\n\n{{#if runbookUrl}}\n    Runbook: {{{runbookUrl}}}\n{{/if}}\n{{#if tip}}\n    Tip: {{{tip}}}\n{{/if}}\n{{else}}\n    Rule \"{{{ruleName}}}\" in detector \"{{{detectorName}}}\" cleared at {{dateTimeFormat timestamp format=\"full\"}}.\n    current_signal_values: {{inputs.A_rate.value}}\n{{/if}}",
+    "parameterizedSubject" : null,
+    "runbookUrl" : "",
+    "severity" : "Critical",
+    "tip" : ""
+  } ],
+  "sf_metricsInObjectProgramText" : null,
+  "tags" : [ ],
+  "teams" : [ ],
+  "timezone" : "",
+  "visualizationOptions" : {
+    "disableSampling" : false,
+    "publishLabelOptions" : [ {
+      "displayName" : "DB Errors",
+      "label" : "DB Errors",
+      "paletteIndex" : null,
+      "valuePrefix" : null,
+      "valueSuffix" : null,
+      "valueUnit" : null
+    }, {
+      "displayName" : "DB Traffic",
+      "label" : "DB Traffic",
+      "paletteIndex" : null,
+      "valuePrefix" : null,
+      "valueSuffix" : null,
+      "valueUnit" : null
+    }, {
+      "displayName" : "DB Error Rate",
+      "label" : "DB Error Rate",
+      "paletteIndex" : null,
+      "valuePrefix" : null,
+      "valueSuffix" : null,
+      "valueUnit" : null
+    }, {
+      "displayName" : "Internal Errors",
+      "label" : "Internal Errors",
+      "paletteIndex" : null,
+      "valuePrefix" : null,
+      "valueSuffix" : null,
+      "valueUnit" : null
+    }, {
+      "displayName" : "Internal Traffic",
+      "label" : "Internal Traffic",
+      "paletteIndex" : null,
+      "valuePrefix" : null,
+      "valueSuffix" : null,
+      "valueUnit" : null
+    }, {
+      "displayName" : "Internal Error Rate",
+      "label" : "Internal Error Rate",
+      "paletteIndex" : null,
+      "valuePrefix" : null,
+      "valueSuffix" : null,
+      "valueUnit" : null
+    } ],
+    "showDataMarkers" : true,
+    "showEventLines" : false,
+    "time" : {
+      "range" : 604800000,
+      "rangeEnd" : 0,
+      "type" : "relative"
+    }
+  }
+}

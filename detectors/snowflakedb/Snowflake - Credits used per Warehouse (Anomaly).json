@@ -1,0 +1,59 @@
+{
+  "authorizedWriters": {
+    "teams": [],
+    "users": []
+  },
+  "created": 1660055849111,
+  "customProperties": {},
+  "description": "Anomaly detector for Credits used per Warehouse",
+  "detectorOrigin": "Standard",
+  "labelResolutions": {
+    "Snowflake - Credits used per Warehouse (Anomaly)": 3600000
+  },
+  "lastUpdated": 1660233456035,
+  "lastUpdatedBy": "E0jpLZIAYAA",
+  "maxDelay": 0,
+  "minDelay": 0,
+  "name": "Snowflake - Credits used per Warehouse (Anomaly)",
+  "overMTSLimit": false,
+  "packageSpecifications": "signalfx==0.1.67",
+  "parentDetectorId": null,
+  "programText": "from signalfx.detectors.against_periods import against_periods\nA = data('snowflake.billing.warehouse.total_credit.sum', extrapolation='zero').sum(by=['WAREHOUSE_NAME']).publish(label='A')\nagainst_periods.detector_growth_rate(stream=A, window_to_compare='6h', space_between_windows='1d', num_windows=8, fire_growth_rate_threshold=0.8, clear_growth_rate_threshold=0.2, discard_historical_outliers=True, orientation='above').publish('Snowflake - Credits used per Warehouse (Anomaly)')",
+  "rules": [
+    {
+      "description": "The 6h moving average of Credits per Warehouse (assumed to be cyclical over 1d periods) is more than 80% below its historical norm.",
+      "detectLabel": "Snowflake - Credits used per Warehouse (Anomaly)",
+      "disabled": false,
+      "notifications": [],
+      "parameterizedBody": "{{#if anomalous}}\n\n    Rule \"{{{ruleName}}}\" in detector \"{{{detectorName}}}\" triggered at {{dateTimeFormat timestamp format=\"full\"}}.\n{{else}}\n    Rule \"{{{ruleName}}}\" in detector \"{{{detectorName}}}\" cleared at {{dateTimeFormat timestamp format=\"full\"}}.\n{{/if}}\n\n{{#if anomalous}}\nTriggering condition: {{{readableRule}}} (%)\n{{/if}}\n\n{{#if anomalous}}Snowflake Credits per Warehouse Anomaly: \n\nMean value of signal for Warehouse( {{ dimensions.WAREHOUSE_NAME }} ) in the last {{event_annotations.current_window}}: {{inputs.summary.value}}\n{{#if anomalous}}Triggered threshold for Warehouse( {{ dimensions.WAREHOUSE_NAME }} ): {{inputs.fire_top.value}}\n{{else}}Clearing threshold: {{inputs.clear_top.value}}.\n{{/if}}\n{{/if}}\n\n{{#notEmpty dimensions}}\nSignal details:\n{{{dimensions}}}\n{{/notEmpty}}\n\n{{#if anomalous}}\n{{#if runbookUrl}}Runbook: {{{runbookUrl}}}{{/if}}\n{{#if tip}}Tip: {{{tip}}}{{/if}}\n{{/if}}",
+      "parameterizedSubject": null,
+      "runbookUrl": null,
+      "severity": "Critical",
+      "tip": null
+    }
+  ],
+  "sf_metricsInObjectProgramText": null,
+  "tags": [],
+  "teams": [],
+  "timezone": "",
+  "visualizationOptions": {
+    "disableSampling": false,
+    "publishLabelOptions": [
+      {
+        "displayName": "Credits per Warehouse",
+        "label": "A",
+        "paletteIndex": null,
+        "valuePrefix": null,
+        "valueSuffix": null,
+        "valueUnit": null
+      }
+    ],
+    "showDataMarkers": true,
+    "showEventLines": false,
+    "time": {
+      "range": 900000,
+      "rangeEnd": 0,
+      "type": "relative"
+    }
+  }
+}

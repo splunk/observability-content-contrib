@@ -1,0 +1,59 @@
+{
+  "authorizedWriters": {
+    "teams": [],
+    "users": []
+  },
+  "created": 1660074725727,
+  "customProperties": {},
+  "description": "No Queries in last 3 Hours",
+  "detectorOrigin": "Standard",
+  "labelResolutions": {
+    "Snowflake - No Queries in Last 3 Hours": 3600000
+  },
+  "lastUpdated": 1660233574385,
+  "lastUpdatedBy": "E0jpLZIAYAA",
+  "maxDelay": 0,
+  "minDelay": 0,
+  "name": "Snowflake - No Queries in Last 3 Hours",
+  "overMTSLimit": false,
+  "packageSpecifications": "",
+  "parentDetectorId": null,
+  "programText": "A = data('snowflake.database.query.count', extrapolation='zero').sum().publish(label='A')\ndetect(when(A < threshold(1), lasting='3h')).publish('Snowflake - No Queries in Last 3 Hours')",
+  "rules": [
+    {
+      "description": "The value of Total Queries is below 1.",
+      "detectLabel": "Snowflake - No Queries in Last 3 Hours",
+      "disabled": false,
+      "notifications": [],
+      "parameterizedBody": "{{#if anomalous}}\n\n    Rule \"{{{ruleName}}}\" in detector \"{{{detectorName}}}\" triggered at {{dateTimeFormat timestamp format=\"full\"}}.\n{{else}}\n    Rule \"{{{ruleName}}}\" in detector \"{{{detectorName}}}\" cleared at {{dateTimeFormat timestamp format=\"full\"}}.\n{{/if}}\n\n{{#if anomalous}}\nTriggering condition: {{{readableRule}}}\n{{/if}}\n\n{{#if anomalous}}Snowflake Traffic is below 1 for 3 hours: \nNumber of queries: {{inputs.A.value}}\n{{else}}Current signal value(s):\nNumber of queries: {{inputs.A.value}}\n{{/if}}\n\n{{#notEmpty dimensions}}\nSignal details:\n{{{dimensions}}}\n{{/notEmpty}}\n\n{{#if anomalous}}\n{{#if runbookUrl}}Runbook: {{{runbookUrl}}}{{/if}}\n{{#if tip}}Tip: {{{tip}}}{{/if}}\n{{/if}}",
+      "parameterizedSubject": null,
+      "runbookUrl": null,
+      "severity": "Critical",
+      "tip": "This alert looks at last 3 hours due to the possible latency of data existing in Snowflake internal ACCOUNT_USAGE https://docs.snowflake.com/en/sql-reference/account-usage.html#account-usage-views"
+    }
+  ],
+  "sf_metricsInObjectProgramText": null,
+  "tags": [],
+  "teams": [],
+  "timezone": "",
+  "visualizationOptions": {
+    "disableSampling": false,
+    "publishLabelOptions": [
+      {
+        "displayName": "Total Queries",
+        "label": "A",
+        "paletteIndex": null,
+        "valuePrefix": null,
+        "valueSuffix": null,
+        "valueUnit": null
+      }
+    ],
+    "showDataMarkers": true,
+    "showEventLines": false,
+    "time": {
+      "range": 75600000,
+      "rangeEnd": 0,
+      "type": "relative"
+    }
+  }
+}

@@ -1,0 +1,112 @@
+# HIGH CARDINALITY Query_ID Metrics 
+# Replace the DB metrics block in snowflake-metrics.yaml with these definitions for HIGH CARDINALITY Query ID based metrics
+- query: "select SCHEMA_NAME, QUERY_ID, EXECUTION_STATUS, ERROR_MESSAGE, QUERY_TYPE, WAREHOUSE_NAME, DATABASE_NAME, WAREHOUSE_SIZE, USER_NAME, COUNT(QUERY_ID), AVG(transaction_blocked_time), SUM(transaction_blocked_time), AVG(queued_overload_time), SUM(queued_overload_time), AVG(queued_repair_time), SUM(queued_repair_time), AVG(queued_provisioning_time), SUM(queued_provisioning_time), AVG(TOTAL_ELAPSED_TIME), SUM(TOTAL_ELAPSED_TIME), AVG(EXECUTION_TIME), SUM(EXECUTION_TIME), AVG(COMPILATION_TIME), SUM(COMPILATION_TIME), AVG(BYTES_SCANNED), SUM(BYTES_SCANNED), AVG(BYTES_WRITTEN), SUM(BYTES_WRITTEN), AVG(BYTES_DELETED), SUM(BYTES_DELETED), AVG(BYTES_SPILLED_TO_LOCAL_STORAGE), SUM(BYTES_SPILLED_TO_LOCAL_STORAGE), AVG(BYTES_SPILLED_TO_REMOTE_STORAGE), SUM(BYTES_SPILLED_TO_REMOTE_STORAGE), AVG(PERCENTAGE_SCANNED_FROM_CACHE), SUM(PARTITIONS_SCANNED), SUM(PARTITIONS_TOTAL), SUM(ROWS_UNLOADED), SUM(ROWS_DELETED), SUM(ROWS_UPDATED), SUM(ROWS_INSERTED), SUM(COALESCE(ROWS_PRODUCED,0)) from QUERY_HISTORY where start_time >= date_trunc(day, current_date) group by 1, 2, 3, 4, 5, 6, 7, 8, 9;"
+  metrics:
+    - metricName: "snowflake.database.query.count"
+      valueColumn: "COUNT(query_id)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.transaction_blocked_time.avg"
+      valueColumn: "AVG(transaction_blocked_time)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.transaction_blocked_time.sum"
+      valueColumn: "SUM(transaction_blocked_time)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.queued_overload_time.avg"
+      valueColumn: "AVG(queued_overload_time)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.queued_overload_time.sum"
+      valueColumn: "SUM(queued_overload_time)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.queued_repair_time.avg"
+      valueColumn: "AVG(queued_repair_time)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.queued_repair_time.sum"
+      valueColumn: "SUM(queued_repair_time)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.queued_provisioning_time.avg"
+      valueColumn: "AVG(queued_provisioning_time)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.queued_provisioning_time.sum"
+      valueColumn: "SUM(queued_provisioning_time)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.total_elapsed_time.avg"
+      valueColumn: "AVG(TOTAL_ELAPSED_TIME)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.total_elapsed_time.sum"
+      valueColumn: "SUM(TOTAL_ELAPSED_TIME)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.query.execution_time.avg"
+      valueColumn: "AVG(EXECUTION_TIME)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.query.execution_time.sum"
+      valueColumn: "SUM(EXECUTION_TIME)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.query.compilation_time.avg"
+      valueColumn: "AVG(COMPILATION_TIME)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.query.compilation_time.sum"
+      valueColumn: "SUM(COMPILATION_TIME)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.query.bytes_scanned.avg"
+      valueColumn: "AVG(BYTES_SCANNED)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.query.bytes_scanned.sum"
+      valueColumn: "SUM(BYTES_SCANNED)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.query.bytes_written.avg"
+      valueColumn: "AVG(BYTES_WRITTEN)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.query.bytes_written.sum"
+      valueColumn: "SUM(BYTES_WRITTEN)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.query.bytes_deleted.avg"
+      valueColumn: "AVG(BYTES_DELETED)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.query.bytes_deleted.sum"
+      valueColumn: "Sum(BYTES_DELETED)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.query.bytes_spilled.local.avg"
+      valueColumn: "AVG(BYTES_SPILLED_TO_LOCAL_STORAGE)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.query.bytes_spilled.local.sum"
+      valueColumn: "SUM(BYTES_SPILLED_TO_LOCAL_STORAGE)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.query.bytes_spilled.remote.avg"
+      valueColumn: "AVG(BYTES_SPILLED_TO_REMOTE_STORAGE)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.query.bytes_spilled.remote.sum"
+      valueColumn: "SUM(BYTES_SPILLED_TO_REMOTE_STORAGE)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.query.data_scanned_cache.avg"
+      valueColumn: "AVG(PERCENTAGE_SCANNED_FROM_CACHE)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.query.partitions_scanned.sum"
+      valueColumn: "SUM(PARTITIONS_SCANNED)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.query.partitions_total.sum"
+      valueColumn: "SUM(PARTITIONS_TOTAL)"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]      
+    - metricName: "snowflake.rows_unloaded.sum"
+      valueColumn: "SUM(ROWS_UNLOADED)"
+      dimensionColumns: ["SCHEMA_NAME", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.rows_deleted.sum"
+      valueColumn: "SUM(ROWS_DELETED)"
+      dimensionColumns: ["SCHEMA_NAME", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.rows_updated.sum"
+      valueColumn: "SUM(ROWS_UPDATED)"
+      dimensionColumns: ["SCHEMA_NAME", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.rows_inserted.sum"
+      valueColumn: "SUM(ROWS_INSERTED)"
+      dimensionColumns: ["SCHEMA_NAME", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+    - metricName: "snowflake.rows_produced.sum"
+      valueColumn: "SUM(COALESCE(ROWS_PRODUCED,0))"
+      dimensionColumns: ["SCHEMA_NAME", "QUERY_ID", "EXECUTION_STATUS", "ERROR_MESSAGE", "QUERY_TYPE", "WAREHOUSE_NAME", "DATABASE_NAME", "WAREHOUSE_SIZE", "USER_NAME"]
+
+
+# # Snowflake Billing Currency metric
+- query: "select ORGANIZATION_NAME, CURRENCY, SUM(USAGE_IN_CURRENCY) from USAGE_IN_CURRENCY_DAILY group by 1, 2;"
+  metrics:
+    - metricName: "snowflake.billing.currency.sum"
+      valueColumn: "SUM(USAGE_IN_CURRENCY)"
+      dimensionColumns: ["ORGANIZATION_NAME", "CURRENCY"]
+
