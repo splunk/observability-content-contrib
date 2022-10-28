@@ -21,6 +21,10 @@ Launch Minikube with at least 4 CPUs, 4 GiB Memory and 32GB of disk space.
 
     minikube start --cpus=6 --memory 4096 --disk-size 32g --container-runtime=docker --vm=true
 
+If you are running minikube on an Apple M1 device currently docker desktop for a supported driver.
+
+    minikube start --cpus=5 --memory 4096 --disk-size 32g --container-runtime=docker --vm=true --driver=docker
+
 Check minikube's docker-daemon environment variables using the command:
 
     minikube docker-env
