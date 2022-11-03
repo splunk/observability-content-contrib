@@ -8,3 +8,7 @@ This dashboard requires [SC4SNMP](https://splunk.github.io/splunk-connect-for-sn
 
 - [SC4SNMP official documentation](https://splunk.github.io/splunk-connect-for-snmp/main)
 - [Walkthrough of SC4SNMP setup with Linux agents running `snpmd`](https://smathur-splunk.github.io/workshops/snmp_intro)
+
+Follow these links to set up and configure SC4SNMP to send data to O11y Cloud. Set up SNMP agents as described in the second link and configure them for polling by SC4SNMP.
+
+The dashboard should automatically populate, but metric names may need changing as they may vary from agent to agent.
