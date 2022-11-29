@@ -6,3 +6,13 @@ You may also want to collect log events using the integration available [here](h
 
 You should be able to import these examples directly using the UI. The option is
 available using the "+"(upper right corner) -> Import -> Dashboard Group option.
+
+The content will provide:
+
+1. Aggregate View:
+
+![Aggregate View Screenshot](./occ-instances.png)
+
+2. Instance View:
+
+![Instance View Screenshot](./occ-instance.png)
