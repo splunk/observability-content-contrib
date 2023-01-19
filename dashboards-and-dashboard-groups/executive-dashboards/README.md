@@ -14,6 +14,8 @@ Executive Dashboards in this group are focused on high level comparisons over ti
 
 
 ## Log Observer Severity Metric
+Note: When using Log Observer Connect this metric will need to be metricized in Splunk Cloud.
+
 This metric enables visualizing log observer ingest by severity/log level.
 ```
 Matching Condition: Match All
