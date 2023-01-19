@@ -70,7 +70,7 @@ resource "signalfx_dashboard" "Logs-Exec" {
 # signalfx_list_chart.Logs-Exec_0:
 resource "signalfx_list_chart" "Logs-Exec_0" {
     color_by                = "Dimension"
-    description             = "Logs - Logs Received per Day by Token Top 5 (7 day avg)"
+    description             = "Logs Received per Day by Token Top 5 (7 day avg)"
     disable_sampling        = false
     hide_missing_values     = false
     max_delay               = 0
@@ -127,7 +127,7 @@ resource "signalfx_list_chart" "Logs-Exec_0" {
 # signalfx_list_chart.Logs-Exec_1:
 resource "signalfx_list_chart" "Logs-Exec_1" {
     color_by                = "Dimension"
-    description             = "Logs Logs Received per Day by Token Top & Bottom 5 (12 week comparison)"
+    description             = "Logs Received per Day by Token Top & Bottom 5 (12 week comparison)"
     disable_sampling        = false
     hide_missing_values     = false
     max_delay               = 0
@@ -207,7 +207,7 @@ resource "signalfx_list_chart" "Logs-Exec_1" {
 # signalfx_list_chart.Logs-Exec_2:
 resource "signalfx_list_chart" "Logs-Exec_2" {
     color_by                = "Dimension"
-    description             = "Logs - Profiling Logs Received per Day by Token Top 5 (7 day avg)"
+    description             = "Profiling Logs Received per Day by Token Top 5 (7 day avg)"
     disable_sampling        = false
     hide_missing_values     = false
     max_delay               = 0
@@ -346,8 +346,9 @@ resource "signalfx_list_chart" "Logs-Exec_3" {
 resource "signalfx_text_chart" "Logs-Exec_4" {
     markdown = <<-EOF
         ###_Log Observer Events charts require this query_
+        ##### Note: Logs ingested with Log Observer Connect will need to be metricized in Splunk Cloud
         
-        Setup Log Pipeline Management Metric:
+        **Setup Log Pipeline Management Metric:**
         ##### -Matching Condition: Match All
         ##### -Operation: count
         ##### -Dimensions: ["severity","deployment.environment"]
@@ -361,7 +362,7 @@ resource "signalfx_text_chart" "Logs-Exec_4" {
 # signalfx_list_chart.Logs-Exec_5:
 resource "signalfx_list_chart" "Logs-Exec_5" {
     color_by                = "Dimension"
-    description             = "Logs - Events per Day by Log Level (7 day avg)"
+    description             = "Events per Day by Log Level (7 day avg)"
     disable_sampling        = false
     hide_missing_values     = false
     max_delay               = 0
@@ -498,7 +499,7 @@ resource "signalfx_time_chart" "Logs-Exec_7" {
     axes_include_zero  = false
     axes_precision     = 0
     color_by           = "Dimension"
-    description        = "Logs - Events Received per Day by Log Level (7 day avg)"
+    description        = "Events Received per Day by Log Level (7 day avg)"
     disable_sampling   = false
     max_delay          = 0
     minimum_resolution = 0
