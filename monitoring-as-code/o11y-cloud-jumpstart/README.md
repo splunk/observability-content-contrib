@@ -6,13 +6,9 @@
 
 This repository provides detectors, dashboard groups, and dashboards that can easily be deployed in a Splunk Observability Cloud org using Terraform.
 
-This can be useful for the assets themselves, but also as a construct for how you can easily share assets across multiple parent/child orgs.
+This can be useful for the assets themselves, but also as a construct for how you can easily share assets across multiple parent/child orgs. Also included is an [export script](./export_script) which can be used to easily export dashboards, dashboard groups, and detectors.
 
-Also included is an [export script](./export_script) which can be used to easily export dashboards, dashboard groups, and detectors.
-
-These are complimentary to the out of the box content provided by Splunk.
-
-This repository and its assets are provided "as-is" and are not supported by Splunk.
+These are complimentary to the out of the box content provided by Splunk. This repository and its assets are provided "as-is" and are not supported by Splunk.
 
 ## Clone the repository
 
@@ -24,7 +20,7 @@ This repository and its assets are provided "as-is" and are not supported by Spl
 terraform init --upgrade
 ```
 
-## Create a workspace (Optional)
+## Create a workspace (optional)
 
 ``` text
 terraform workspace new my_workspace
@@ -40,7 +36,7 @@ Where `my_workspace` is the name of the workspace you want to create.
 
 ## Create a `terraform.tfvars` file
 
-Copy the template file `terraform.tfvars.template` to `terraform.tfvars` and fill in the values.
+Copy the template file `terraform.tfvars.template` to `terraform.tfvars` and fill in the values e.g.
 
 ``` text
 access_token="1234xxx5678yyyy"
@@ -48,7 +44,6 @@ realm="eu0"
 o11y_prefix="[Splunk]"
 ```
 
-``` text
 ## Review the execution plan
 
 ``` text
@@ -65,13 +60,11 @@ terraform apply
 
 If you created a workspace you will first need to ensure you are in the correct workspace e.g.
 
-```bash
+``` text
 terraform workspace select my_workspace
 ```
 
-Where `my_workspace` is the name of the workspace you want to be in.
-
-Then run the destroy command.
+Where `my_workspace` is the name of the workspace you want to be in. Then run the destroy command:
 
 ``` text
 terraform destroy
