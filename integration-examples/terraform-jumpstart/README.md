@@ -16,7 +16,7 @@ These are complimentary to the out of the box content provided by Splunk. This r
 
 ## Change into JumpStart directory
 
-`cd observability-content-contrib/monitoring-as-code/o11y-cloud-jumpstart`
+`cd observability-content-contrib/integration-examples/terraform-jumpstart`
 
 ## Initialise Terraform
 
