@@ -59,3 +59,8 @@ module "rum_and_synthetics_dashboard" {
   source     = "./modules/dashboards/rum_and_synthetics"
   o11y_prefix = var.o11y_prefix
 }
+
+module "executive-dashboards" {
+  source     = "./modules/dashboards/executive-dashboards"
+  o11y_prefix = var.o11y_prefix
+}
