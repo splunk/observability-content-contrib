@@ -12,7 +12,11 @@ These are complimentary to the out of the box content provided by Splunk. This r
 
 ## Clone the repository
 
-`git clone https://github.com/signalfx/signalfx-jumpstart.git`
+`git clone https://github.com/splunk/observability-content-contrib.git`
+
+## Change into JumpStart directory
+
+`cd observability-content-contrib/monitoring-as-code/o11y-cloud-jumpstart`
 
 ## Initialise Terraform
 
