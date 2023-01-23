@@ -3,7 +3,7 @@ resource "signalfx_detector" "k8s_container_restarts" {
   description  = "Container restart count in the last 5m is > 0"
   program_text = <<-EOF
     A = data('k8s.container.restarts').sum(by=['k8s.cluster.name', 'k8s.namespace.name', 'k8s.pod.name']).delta().sum(over='5m').above(0, inclusive=True, clamp=True).publish(label='A')
-    detect(when(A > threshold(0), lasting='5m')).publish('K8S Container restart count is > 0')
+    detect(when(A > threshold(0), lasting='1m')).publish('K8S Container restart count is > 0')
   EOF
   rule {
     detect_label       = "K8S Container restart count is > 0"
