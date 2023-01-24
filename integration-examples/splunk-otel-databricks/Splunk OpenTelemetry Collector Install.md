@@ -1,5 +1,13 @@
 # Splunk OpenTelemetry Collector Installation on Databricks
 
+## OpenTelemetry Collector Installation
+
+There are multiple ways to install the splunk opentelemetry collector on databricks and the host infrastructure. An example start-up script has been provided where Splunk Observability Cloud credentials are saved in the Databricks secret store.
+
+The `splunk-start-otel.sh` script will execute successfully if using paid editions but not on the community edition of Databricks. This script only installs the default collector without Apache Spark metrics collection enabled. To enable this metric collection the agent yaml file will need to modified for the controller or workers.
+
+The manual installation and configuration of the splunk opentelemtry collector was tested on community edition.
+
 ## Modify the `httpforwarder` receiver configuration
 
 ### To begin one will need to modify the OpenTelemetry agent yaml file, sections for
