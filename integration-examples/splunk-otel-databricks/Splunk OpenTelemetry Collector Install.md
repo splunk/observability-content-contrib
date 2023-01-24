@@ -8,7 +8,7 @@ The `splunk-start-otel.sh` script will execute successfully if using paid editio
 
 ## Pre-installation
 
-The `SPLUNK_ACCESS_TOKEN` must be stored in the Databricks secret store prior to running the start-up script.
+The desired [Ingest Token](https://docs.splunk.com/Observability/admin/authentication-tokens/tokens.html#nav-Create-and-manage-authentication-tokens) is stored as a secret titled `SPLUNK_ACCESS_TOKEN` in the Databricks secret store for each  hosting platform. The Splunk Observability Cloud Ingest Token must be stored in the Databricks secret store prior to running the start-up script.
 
 | Secret Management |  |  |
 | ----------- | ----------- | ----------- |
