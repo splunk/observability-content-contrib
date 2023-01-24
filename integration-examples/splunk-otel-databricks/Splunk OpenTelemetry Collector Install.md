@@ -6,11 +6,35 @@ There are multiple ways to install the splunk opentelemetry collector on databri
 
 The `splunk-start-otel.sh` script will execute successfully if using paid editions but not on the community edition of Databricks. This script only installs the default collector without Apache Spark metrics collection enabled. To enable this metric collection the agent yaml file will need to modified for the controller or workers.
 
-The manual installation and configuration of the splunk opentelemtry collector was tested on community edition.
+## Pre-installation
 
-## Modify the `httpforwarder` receiver configuration
+The `SPLUNK_ACCESS_TOKEN` must be stored in the Databricks secret store prior to running the start-up script.
 
-### To begin one will need to modify the OpenTelemetry agent yaml file, sections for
+| Secret Management |  |  |
+| ----------- | ----------- | ----------- |
+| Secret Name | Platform | URL |
+| `SPLUNK_ACCESS_TOKEN` | AWS | https://docs.databricks.com/security/secrets/secrets.html#create-a-secret |
+| `SPLUNK_ACCESS_TOKEN` | Azure | https://learn.microsoft.com/en-us/azure/databricks/security/secrets/ |
+| `SPLUNK_ACCESS_TOKEN` | GCP | https://docs.gcp.databricks.com/security/secrets/secrets.html |
+
+In addition to the secret being stored default environment variables for the installation scripts to use need to be set.
+
+| Environment Variables |  |
+| ----------- | ----------- |
+| Name | Value(s) |
+| splunkObservability.realm | `us0` `us1` `eu1` `jp0` or a `future_realm`
+| splunkObservability.accessToken | Splunk Observability Cloud [Ingest Token](https://docs.splunk.com/Observability/admin/authentication-tokens/tokens.html#nav-Create-and-manage-authentication-tokens) |
+| clusterName | `my-local-otel-collector-cluster` or `another-useful-cluster-name`
+| OTEL_SERVICE_NAME |  `Splunk-Databricks-OTEL` or `Another-Service-Name` |
+| OTEL_TRACES_EXPORTER |  `jaeger-thrift-splunk` |
+| OTEL_EXPORTER_JAEGER_ENDPOINT |  `https://ingest.<splunkObservability.realm>.signalfx.com/v2/trace` |
+|||
+
+## Post-Installation
+
+### Modify the `httpforwarder` receiver configuration for  spark worker or controller
+
+ To begin modify the OpenTelemetry agent yaml file, sections for:
 
 * extensions
 * receivers
