@@ -13,7 +13,7 @@ This script requires Python 3. You can optionally create a virtual environment:
 ```
 python3 -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ## Usage
@@ -43,7 +43,7 @@ optional arguments:
 Here's an example for a dashboard:
 
 ```
-python export.py --key XXX --dashboard DjJ6MCMAgAA --name sfx_aws_sqs_queue --output ./
+python3 export.py --key XXX --dashboard DjJ6MCMAgAA --name sfx_aws_sqs_queue --output ./
 ```
 
 This command will recursively export each individual chart in a dashboard group and emit a dashboard definition where these charts are referred to by their Terraform resource name. The output will reside in a file called `sfx_aws_sqs_queue.tf`.

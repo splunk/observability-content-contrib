@@ -56,7 +56,7 @@ resource "signalfx_detector" "k8s_deployment_not_at_spec" {
     A = data('k8s.deployment.available').sum(by=['k8s.cluster.name', 'k8s.deployment.name', 'k8s.namespace.name']).publish(label='A', enable=False)
     B = data('k8s.deployment.desired').sum(by=['k8s.cluster.name', 'k8s.deployment.name', 'k8s.namespace.name']).publish(label='B', enable=False)
     C = (A-B).publish(label='C')
-    detect((when((C > 0) or (C < 0), lasting='5m', at_least=0.8))).publish('K8S Cluster Deployment is not at spec')
+    detect((when((C > 0) or (C < 0), lasting='2m', at_least=0.8))).publish('K8S Cluster Deployment is not at spec')
   EOF
   rule {
     detect_label       = "K8S Cluster Deployment is not at spec"
