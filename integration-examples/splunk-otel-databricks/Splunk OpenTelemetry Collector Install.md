@@ -8,7 +8,7 @@ The `splunk-start-otel.sh` script will execute successfully if using paid editio
 
 ## Pre-installation
 
-The desired [Ingest Token](https://docs.splunk.com/Observability/admin/authentication-tokens/tokens.html#nav-Create-and-manage-authentication-tokens) is stored as a secret titled `SPLUNK_ACCESS_TOKEN` in the Databricks secret store for each  hosting platform. The Splunk Observability Cloud Ingest Token must be stored in the Databricks secret store prior to running the start-up script.
+An [Ingest Token](https://docs.splunk.com/Observability/admin/authentication-tokens/tokens.html#nav-Create-and-manage-authentication-tokens) for Splunk Observabiity Cloud is stored as a secret titled `SPLUNK_ACCESS_TOKEN` in the Databricks secret store for each hosting platform. This must be stored in the Databricks secret store prior to running the start-up script.
 
 | Secret Management |  |  |
 | ----------- | ----------- | ----------- |
@@ -32,15 +32,15 @@ In addition to the secret being stored default environment variables for the ins
 
 ## Post-Installation
 
-### Modify the `httpforwarder` receiver configuration for  spark worker or controller
-
- To begin modify the OpenTelemetry agent yaml file, sections for:
+To begin modify the OpenTelemetry agent yaml file, sections for:
 
 * extensions
 * receivers
 * exporters
 
-#### These sections need to have a semi-colon and a non-conflicting port such as 7070 appended to the endpoint value
+The extensions, receievers, and exporter sections need to have a semi-colon and a non-conflicting port such as 7070 appended to the endpoint value.
+
+### Modify the `httpforwarder` Receiver configuration section
 
 ##### Path: `extensions/http_forwarder/ingress/endpoint`
 
@@ -56,7 +56,9 @@ extensions:
 
 ## Modify the OpenTelemetry receivers
 
-### Insert into the receivers section to include spark properties for your environment
+### Insert configuration into the Receivers section
+
+If you would like to collect [apache spark](https://docs.splunk.com/Observability/gdi/spark/spark.html) metrics include spark properties for your environment for:
 
 * `collectd_spark_worker` or
 * `collectd_spark_master`
@@ -78,7 +80,7 @@ receivers:
     intervalSeconds: 1
 ```
 
-#### Example configuration for a Controller:
+#### Example configuration for a Controller
 
 ##### Path: `receivers/smartagent/collectd_spark_master`
 
@@ -96,9 +98,9 @@ receivers:
     intervalSeconds: 1
 ```
 
-### Modify the exporters section
+### Modify the Exporters section
 
-#### Modify api_url: <http://${SPLUNK_API_URL}:7070> to match the port used for the http_forwarder extension
+#### Modify api_url: <http://${SPLUNK_API_URL}:7070> to match the port used for the http_forwarder extension.
 
 ##### Yaml Path: `exporters/signalfx/api_url`
 
