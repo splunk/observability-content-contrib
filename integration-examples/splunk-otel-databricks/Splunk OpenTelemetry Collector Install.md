@@ -8,7 +8,7 @@ The `splunk-start-otel.sh` script will execute successfully if using paid editio
 
 ## Pre-installation
 
-An [Ingest Token](https://docs.splunk.com/Observability/admin/authentication-tokens/tokens.html#nav-Create-and-manage-authentication-tokens) for Splunk Observabiity Cloud is stored as a secret titled `SPLUNK_ACCESS_TOKEN` in the Databricks secret store for each hosting platform. This must be stored in the Databricks secret store prior to running the start-up script.
+The script expects a valid Splunk Observability API [Ingest Token](https://docs.splunk.com/Observability/admin/authentication-tokens/tokens.html#nav-Create-and-manage-authentication-tokens) which is stored as a secret titled `SPLUNK_ACCESS_TOKEN` in the Databricks secret store for each hosting platform. This must be stored in the Databricks secret store prior to running the start-up script.
 
 | Secret Management |  |  |
 | ----------- | ----------- | ----------- |
@@ -17,7 +17,7 @@ An [Ingest Token](https://docs.splunk.com/Observability/admin/authentication-tok
 | `SPLUNK_ACCESS_TOKEN` | Azure | https://learn.microsoft.com/en-us/azure/databricks/security/secrets/ |
 | `SPLUNK_ACCESS_TOKEN` | GCP | https://docs.gcp.databricks.com/security/secrets/secrets.html |
 
-In addition to the secret being stored default environment variables for the installation scripts to use need to be set.
+ In addition to the secret being stored default environment variables for the installation scripts to use need to be set. These can be set in the environment variable section of the databricks console or on the command line manually.  (E.G. `export splunkObservability.accessToken="This_is_my_api_token"`)
 
 | Environment Variables |  |
 | ----------- | ----------- |
