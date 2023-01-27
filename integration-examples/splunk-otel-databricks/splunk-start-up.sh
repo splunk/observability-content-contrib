@@ -38,8 +38,9 @@ if [ \$DB_IS_DRIVER ]; then
 	-- \$SPLUNK_ACCESS_TOKEN)"
 EOF
 
-# Determine where the script is being executed: 
-# if: Driver: do driver stuff, else if Worker: do worker stuff, else Driver and Worker: do stuff
+# Determine where the script is being executed and run logic, set parameters etc (https://docs.databricks.com/clusters/init-scripts.html): ##
+# if: Driver: do driver stuff, else if Worker: do worker stuff, else Driver and Worker: do stuff ##
+
 echo $DB_IS_DRIVER
 if [[ $DB_IS_DRIVER = "TRUE" ]]; then
 # Logic for the Driver would go here ##
