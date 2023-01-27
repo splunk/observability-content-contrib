@@ -118,3 +118,4 @@ References:
   1. Splunk Documentation <https://docs.splunk.com/Observability/gdi/spark/spark.html>
   2. Example Configurations for worker and controller <https://github.com/signalfx/splunk-otel-collector/tree/main/tests/receivers/smartagent/collectd-spark/testdata>.
   3. httpforwarder Documentation <https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/extension/httpforwarder/README.md>
+  4. Databricks Init Script Documentation: <https://docs.databricks.com/clusters/init-scripts.html>
