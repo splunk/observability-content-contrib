@@ -7,7 +7,7 @@ resource "signalfx_detector" "k8s_container_restarts" {
   EOF
   rule {
     detect_label       = "K8S Container restart count is > 0"
-    severity           = "Warning"
+    severity           = "Critical"
     parameterized_body = var.message_body
   }
 }
