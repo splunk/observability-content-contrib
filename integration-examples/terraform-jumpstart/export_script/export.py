@@ -30,7 +30,7 @@ terraform {
       source = "splunk-terraform/signalfx"
     }
   }
-  required_version = ">= 1.0"
+  required_version = ">= 0.15.3"
 }
 '''
     with open('main.tf', 'w') as tffile:
