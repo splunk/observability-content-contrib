@@ -102,10 +102,10 @@ resource "signalfx_dashboard" "TOKEN-USAGE-EXEC" {
         values_suggested       = []
     }
     variable {
-        alias                  = "Service"
+        alias                  = "tokenName"
         apply_if_exist         = false
-        description            = "APM Service Name"
-        property               = "sf_service"
+        description            = "Token Name"
+        property               = "tokenName"
         replace_only           = true
         restricted_suggestions = false
         value_required         = true
