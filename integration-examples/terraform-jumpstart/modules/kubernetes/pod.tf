@@ -17,7 +17,7 @@ resource "signalfx_detector" "k8s_pods_pending" {
   name         = "${var.o11y_prefix} K8S Pods pending"
   description  = "Alerts when pods are in pending state"
   program_text = <<-EOF
-    A = data('k8s.pod.phase', filter=filter('k8s.namespace.name', '*') and filter('k8s.cluster.name', '*') and filter('metric_source', 'kubernetes')).below(2).count(by=['k8s.cluster.name', 'k8s.namespace.name']).publish(label='A')
+    A = data('k8s.pod.phase', filter=filter('k8s.namespace.name', '*') and filter('k8s.cluster.name', '*') and filter('metric_source', 'kubernetes') and filter('k8s.workload.name', '*')).below(2).count(by=['k8s.cluster.name', 'k8s.namespace.name', 'k8s.workload.name']).publish(label='A')
     detect(when(A > threshold(0)), auto_resolve_after='5m').publish('K8s Pods in pending state')
   EOF
   rule {
