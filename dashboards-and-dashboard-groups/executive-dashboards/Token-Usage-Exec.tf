@@ -84,10 +84,6 @@ resource "signalfx_dashboard" "TOKEN-USAGE-EXEC" {
         width    = 3
     }
 
-    permissions {
-        parent = "E0jpPPqAYAA"
-    }
-
     variable {
         alias                  = "Environment"
         apply_if_exist         = false
