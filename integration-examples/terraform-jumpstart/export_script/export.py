@@ -154,6 +154,8 @@ def handle_dashboard(sfx, id, name, args):
             tf_type = "signalfx_event_feed_chart"
         elif chart_type == "TableChart":
             tf_type = "signalfx_table_chart"
+        elif chart_type == "LogsChart":
+            tf_type = "signalfx_log_view"
         else:
             print(f"Exiting: Unknown chart type {chart_type}", file=sys.stderr)
             sys.exit()
