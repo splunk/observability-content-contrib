@@ -53,15 +53,8 @@ resource "signalfx_dashboard" "Logs-Exec" {
     chart {
         chart_id = signalfx_time_chart.Logs-Exec_7.id
         column   = 0
-        height   = 1
+        height   = 2
         row      = 3
-        width    = 6
-    }
-    chart {
-        chart_id = signalfx_text_chart.Logs-Exec_4.id
-        column   = 0
-        height   = 1
-        row      = 2
         width    = 6
     }
 
@@ -341,23 +334,6 @@ resource "signalfx_list_chart" "Logs-Exec_3" {
         label        = "B"
         value_unit   = "Millisecond"
     }
-}
-# signalfx_text_chart.Logs-Exec_4:
-resource "signalfx_text_chart" "Logs-Exec_4" {
-    markdown = <<-EOF
-        ###_Log Observer Events charts require this query_
-        ##### Note: Logs ingested with Log Observer Connect will need to be metricized in Splunk Cloud
-        
-        **Setup Log Pipeline Management Metric:**
-        ##### -Matching Condition: Match All
-        ##### -Operation: count
-        ##### -Dimensions: ["severity","deployment.environment"]
-        ###### (Replace "deployment.environment" with your environment dimension)
-        ##### -Field: null
-        ##### -Metric Name: logs.events.count
-        ##### -Metric Type: COUNTER
-    EOF
-    name     = "LO Events Query"
 }
 # signalfx_list_chart.Logs-Exec_5:
 resource "signalfx_list_chart" "Logs-Exec_5" {
