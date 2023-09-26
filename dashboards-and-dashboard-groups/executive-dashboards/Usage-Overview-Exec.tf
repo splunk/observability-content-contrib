@@ -1,96 +1,96 @@
-# signalfx_dashboard.Billing-Exec:
-resource "signalfx_dashboard" "Billing-Exec" {
+# signalfx_dashboard.License-Exec:
+resource "signalfx_dashboard" "Usage-Overview-Exec" {
     depends_on = [signalfx_dashboard.RUM-Exec]
     charts_resolution = "default"
     dashboard_group   = signalfx_dashboard_group.exec_dashboard_group.id
-    description       = "Executive Level Dashboard for Billing Metrics"
-    name              = "Billing - Exec"
+    description       = "Executive Level Dashboard for Overall Usage Metrics"
+    name              = "License Usage Overview - Exec"
     time_range        = "-12w"
 
     chart {
-        chart_id = signalfx_list_chart.Billing-Exec_10.id
-        column   = 6
-        height   = 2
-        row      = 4
-        width    = 3
-    }
-    chart {
-        chart_id = signalfx_list_chart.Billing-Exec_8.id
-        column   = 0
-        height   = 2
-        row      = 4
-        width    = 3
-    }
-    chart {
-        chart_id = signalfx_list_chart.Billing-Exec_9.id
-        column   = 3
-        height   = 2
-        row      = 4
-        width    = 3
-    }
-    chart {
-        chart_id = signalfx_list_chart.Billing-Exec_2.id
-        column   = 6
-        height   = 2
-        row      = 0
-        width    = 3
-    }
-    chart {
-        chart_id = signalfx_list_chart.Billing-Exec_0.id
-        column   = 0
-        height   = 2
-        row      = 0
-        width    = 3
-    }
-    chart {
-        chart_id = signalfx_list_chart.Billing-Exec_4.id
-        column   = 0
-        height   = 2
-        row      = 2
-        width    = 3
-    }
-    chart {
-        chart_id = signalfx_list_chart.Billing-Exec_5.id
-        column   = 3
-        height   = 2
-        row      = 2
-        width    = 3
-    }
-    chart {
-        chart_id = signalfx_list_chart.Billing-Exec_6.id
-        column   = 6
-        height   = 2
-        row      = 2
-        width    = 3
-    }
-    chart {
-        chart_id = signalfx_list_chart.Billing-Exec_7.id
+        chart_id = signalfx_list_chart.License-Exec_10.id
         column   = 9
         height   = 2
         row      = 2
         width    = 3
     }
     chart {
-        chart_id = signalfx_list_chart.Billing-Exec_3.id
+        chart_id = signalfx_list_chart.License-Exec_8.id
+        column   = 0
+        height   = 2
+        row      = 4
+        width    = 3
+    }
+    chart {
+        chart_id = signalfx_list_chart.License-Exec_9.id
+        column   = 3
+        height   = 2
+        row      = 4
+        width    = 3
+    }
+    chart {
+        chart_id = signalfx_list_chart.License-Exec_2.id
+        column   = 6
+        height   = 2
+        row      = 0
+        width    = 3
+    }
+    chart {
+        chart_id = signalfx_list_chart.License-Exec_0.id
+        column   = 0
+        height   = 2
+        row      = 0
+        width    = 3
+    }
+    chart {
+        chart_id = signalfx_list_chart.License-Exec_4.id
+        column   = 0
+        height   = 2
+        row      = 2
+        width    = 3
+    }
+    chart {
+        chart_id = signalfx_list_chart.License-Exec_5.id
+        column   = 3
+        height   = 2
+        row      = 2
+        width    = 3
+    }
+    chart {
+        chart_id = signalfx_list_chart.License-Exec_7.id
+        column   = 6
+        height   = 2
+        row      = 2
+        width    = 3
+    }
+    chart {
+        chart_id = signalfx_list_chart.License-Exec_3.id
         column   = 9
         height   = 2
         row      = 0
         width    = 3
     }
     chart {
-        chart_id = signalfx_list_chart.Billing-Exec_1.id
+        chart_id = signalfx_list_chart.License-Exec_1.id
         column   = 3
         height   = 2
         row      = 0
+        width    = 3
+    }
+    chart {
+        chart_id = signalfx_list_chart.License-Exec_11.id
+        column   = 6
+        height   = 2
+        row      = 4
         width    = 3
     }
 
 }
 
-# signalfx_list_chart.Billing-Exec_0:
-resource "signalfx_list_chart" "Billing-Exec_0" {
+# signalfx_list_chart.License-Exec_0:
+resource "signalfx_list_chart" "License-Exec_0" {
     color_by                = "Dimension"
-    description             = "APM - Hosts Billing metric (7 day avg)"
+    description             = "APM - Hosts License metric (7 day avg)"
     disable_sampling        = false
     hide_missing_values     = false
     max_delay               = 0
@@ -153,10 +153,10 @@ resource "signalfx_list_chart" "Billing-Exec_0" {
         label        = "H"
     }
 }
-# signalfx_list_chart.Billing-Exec_1:
-resource "signalfx_list_chart" "Billing-Exec_1" {
+# signalfx_list_chart.License-Exec_1:
+resource "signalfx_list_chart" "License-Exec_1" {
     color_by                = "Dimension"
-    description             = "APM - TPM Span Bytes Billing metric"
+    description             = "APM - TPM Span Bytes License metric"
     disable_sampling        = false
     hide_missing_values     = false
     max_delay               = 0
@@ -210,10 +210,10 @@ resource "signalfx_list_chart" "Billing-Exec_1" {
         label        = "E"
     }
 }
-# signalfx_list_chart.Billing-Exec_2:
-resource "signalfx_list_chart" "Billing-Exec_2" {
+# signalfx_list_chart.License-Exec_2:
+resource "signalfx_list_chart" "License-Exec_2" {
     color_by                = "Dimension"
-    description             = "APM - TPM Troubleshooting Metric Sets Billing metric (7 day avg)"
+    description             = "APM - TPM Troubleshooting Metric Sets License metric (7 day avg)"
     disable_sampling        = false
     hide_missing_values     = false
     max_delay               = 0
@@ -266,10 +266,10 @@ resource "signalfx_list_chart" "Billing-Exec_2" {
         label        = "E"
     }
 }
-# signalfx_list_chart.Billing-Exec_3:
-resource "signalfx_list_chart" "Billing-Exec_3" {
+# signalfx_list_chart.License-Exec_3:
+resource "signalfx_list_chart" "License-Exec_3" {
     color_by                = "Dimension"
-    description             = "APM - TPM Traces Billing metric (7 day avg)"
+    description             = "APM - TPM Traces License metric (7 day avg)"
     disable_sampling        = false
     hide_missing_values     = false
     max_delay               = 0
@@ -322,10 +322,10 @@ resource "signalfx_list_chart" "Billing-Exec_3" {
         label        = "E"
     }
 }
-# signalfx_list_chart.Billing-Exec_4:
-resource "signalfx_list_chart" "Billing-Exec_4" {
+# signalfx_list_chart.License-Exec_4:
+resource "signalfx_list_chart" "License-Exec_4" {
     color_by                = "Dimension"
-    description             = "IMM - Hosts Billing metric (7 day avg)"
+    description             = "IMM - Hosts License metric (7 day avg)"
     disable_sampling        = false
     hide_missing_values     = false
     max_delay               = 0
@@ -392,10 +392,10 @@ resource "signalfx_list_chart" "Billing-Exec_4" {
         label        = "H"
     }
 }
-# signalfx_list_chart.Billing-Exec_5:
-resource "signalfx_list_chart" "Billing-Exec_5" {
+# signalfx_list_chart.License-Exec_5:
+resource "signalfx_list_chart" "License-Exec_5" {
     color_by                = "Dimension"
-    description             = "IMM - Custom Metrics Billing metric (7 day avg)"
+    description             = "IMM - Custom Metrics License metric (7 day avg)"
     disable_sampling        = false
     hide_missing_values     = false
     max_delay               = 0
@@ -448,66 +448,10 @@ resource "signalfx_list_chart" "Billing-Exec_5" {
         label        = "E"
     }
 }
-# signalfx_list_chart.Billing-Exec_6:
-resource "signalfx_list_chart" "Billing-Exec_6" {
+# signalfx_list_chart.License-Exec_7:
+resource "signalfx_list_chart" "License-Exec_7" {
     color_by                = "Dimension"
-    description             = "IMM - High Resolution Metrics Billing metric (7 day avg)"
-    disable_sampling        = false
-    hide_missing_values     = false
-    max_delay               = 0
-    max_precision           = 2
-    name                    = "IMM - High Resolution Metrics"
-    program_text            = <<-EOF
-        C = data('sf.org.numHighResolutionMetrics').mean(over='7d').publish(label='C')
-        D = data('sf.org.numHighResolutionMetrics').mean(over='7d').timeshift('4w').publish(label='D', enable=False)
-        E = data('sf.org.numHighResolutionMetrics').mean(over='7d').timeshift('12w').publish(label='E', enable=False)
-        F = (((C-D)/D)*100).publish(label='F')
-        G = (((C-E)/E)*100).publish(label='G')
-    EOF
-    secondary_visualization = "None"
-    time_range              = 900
-    unit_prefix             = "Metric"
-
-    legend_options_fields {
-        enabled  = false
-        property = "sf_originatingMetric"
-    }
-    legend_options_fields {
-        enabled  = false
-        property = "orgId"
-    }
-    legend_options_fields {
-        enabled  = true
-        property = "sf_metric"
-    }
-
-    viz_options {
-        display_name = "12 Week Comparison"
-        label        = "G"
-        value_suffix = "%"
-    }
-    viz_options {
-        display_name = "4 Week Comparison"
-        label        = "F"
-        value_suffix = "%"
-    }
-    viz_options {
-        display_name = "Current High Resolution Metrics"
-        label        = "C"
-    }
-    viz_options {
-        display_name = "D"
-        label        = "D"
-    }
-    viz_options {
-        display_name = "E"
-        label        = "E"
-    }
-}
-# signalfx_list_chart.Billing-Exec_7:
-resource "signalfx_list_chart" "Billing-Exec_7" {
-    color_by                = "Dimension"
-    description             = "IMM - Data Points Per Minute Billing metric (7 day avg)"
+    description             = "IMM - Data Points Per Minute License metric (7 day avg)"
     disable_sampling        = false
     hide_missing_values     = false
     max_delay               = 0
@@ -568,10 +512,10 @@ resource "signalfx_list_chart" "Billing-Exec_7" {
         label        = "E"
     }
 }
-# signalfx_list_chart.Billing-Exec_8:
-resource "signalfx_list_chart" "Billing-Exec_8" {
+# signalfx_list_chart.License-Exec_8:
+resource "signalfx_list_chart" "License-Exec_8" {
     color_by                = "Dimension"
-    description             = "Logs - Ingest Bytes Billing metric (7 day avg)"
+    description             = "Logs - Ingest Bytes License metric (7 day avg)"
     disable_sampling        = false
     hide_missing_values     = false
     max_delay               = 0
@@ -631,10 +575,10 @@ resource "signalfx_list_chart" "Billing-Exec_8" {
         value_unit   = "Byte"
     }
 }
-# signalfx_list_chart.Billing-Exec_9:
-resource "signalfx_list_chart" "Billing-Exec_9" {
+# signalfx_list_chart.License-Exec_9:
+resource "signalfx_list_chart" "License-Exec_9" {
     color_by                = "Dimension"
-    description             = "Logs - Per Host Ingest Bytes Billing metric (7 day avg)"
+    description             = "Logs - Per Host Ingest Bytes License metric (7 day avg)"
     disable_sampling        = false
     hide_missing_values     = false
     max_delay               = 0
@@ -709,8 +653,8 @@ resource "signalfx_list_chart" "Billing-Exec_9" {
         label        = "H"
     }
 }
-# signalfx_list_chart.Billing-Exec_10:
-resource "signalfx_list_chart" "Billing-Exec_10" {
+# signalfx_list_chart.License-Exec_10:
+resource "signalfx_list_chart" "License-Exec_10" {
     color_by                = "Dimension"
     description             = "RUM/APM - RUM Span Bytes (7 day avg)"
     disable_sampling        = false
@@ -774,5 +718,70 @@ resource "signalfx_list_chart" "Billing-Exec_10" {
         display_name = "E"
         label        = "E"
         value_unit   = "Byte"
+    }
+}
+
+# signalfx_list_chart.License-Exec_11:
+resource "signalfx_list_chart" "License-Exec_11" {
+    color_by                = "Dimension"
+    description             = "Synthetics - Datapoints Received (7 day avg)"
+    disable_sampling        = false
+    hide_missing_values     = false
+    max_delay               = 0
+    max_precision           = 2
+    name                    = "Synthetics - Datapoints Received"
+    program_text            = <<-EOF
+        F = (((C-D)/D)*100).publish(label='F')
+        G = (((C-E)/E)*100).publish(label='G')
+        D = data('sf.org.synthetics.numDatapointsReceived').sum().mean(over='7d').timeshift('4w').publish(label='D', enable=False)
+        E = data('sf.org.synthetics.numDatapointsReceived').sum().mean(over='7d').timeshift('12w').publish(label='E', enable=False)
+        C = data('sf.org.synthetics.numDatapointsReceived').sum().mean(over='7d').publish(label='C')
+    EOF
+    secondary_visualization = "None"
+    time_range              = 900
+    unit_prefix             = "Metric"
+
+    legend_options_fields {
+        enabled  = false
+        property = "sf_originatingMetric"
+    }
+    legend_options_fields {
+        enabled  = false
+        property = "orgId"
+    }
+    legend_options_fields {
+        enabled  = true
+        property = "sf_metric"
+    }
+    legend_options_fields {
+        enabled  = true
+        property = "tokenId"
+    }
+    legend_options_fields {
+        enabled  = true
+        property = "category"
+    }
+
+    viz_options {
+        display_name = "12 Week Comparison"
+        label        = "G"
+        value_suffix = "%"
+    }
+    viz_options {
+        display_name = "4 Week Comparison"
+        label        = "F"
+        value_suffix = "%"
+    }
+    viz_options {
+        display_name = "Current Rum Span Bytes"
+        label        = "C"
+    }
+    viz_options {
+        display_name = "D"
+        label        = "D"
+    }
+    viz_options {
+        display_name = "E"
+        label        = "E"
     }
 }
