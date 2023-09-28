@@ -648,7 +648,7 @@ resource "signalfx_list_chart" "RUM-Exec_7" {
 }
 # signalfx_list_chart.RUM-Exec_8:
 resource "signalfx_list_chart" "RUM-Exec_8" {
-    color_by                = "Dimension"
+    color_by                = "Metric"
     description             = "Workflow rate Top and Bottom 5 (12 week comparison)"
     disable_sampling        = false
     hide_missing_values     = false
@@ -846,7 +846,7 @@ resource "signalfx_list_chart" "RUM-Exec_9" {
 }
 # signalfx_list_chart.RUM-Exec_10:
 resource "signalfx_list_chart" "RUM-Exec_10" {
-    color_by                = "Dimension"
+    color_by                = "Metric"
     description             = "Workflow latency change Top and Bottom 5 (12 week comparison)"
     disable_sampling        = false
     hide_missing_values     = false

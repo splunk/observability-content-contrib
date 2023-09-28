@@ -43,7 +43,7 @@ Metric Name: logs.events.count
 - Provides 4 week and 12 week comparisons of Log Observer usage
   - Logs received per day by token
   - Profiling logs received per day by token
-  - Logs per day by severity (requires setting up the [Log Observer metric](#log-observer-severity-metric) mentioned above)
+  - Logs per day by severity 
 
 
 ### Real User Monitoring (RUM) overview:
@@ -61,8 +61,8 @@ Metric Name: logs.events.count
   - RUM Workflow latency (p75)
 
 
-### Billing overview:
-- Provides 4 week and 12 week comparisons of "Billable Metrics"
+### License Usage overview:
+- Provides 4 week and 12 week comparisons of "License Metrics"
   - APM Hosts
   - APM Span Bytes Received
   - APM Troubleshooting Metric Sets
@@ -73,3 +73,15 @@ Metric Name: logs.events.count
   - IMM Data Points per Minute (DPM)
   - Log Observer ingest bytes
   - Log Observer ingest bytes per host
+  - Synthetics Datapoints Received
+
+
+### Token Usage overview:
+- Token Usage Rate 4 week and 12 week comparisons
+- MTS Token Usage 4 week and 12 week comparisons
+- Total MTS Usage by Token
+- Bundled Metrics by Token
+- Custom Metrics by Token
+- Resource Metrics by Token
+- APM Bundled Metrics by Token
+- Logs and Profiling Logs by Token
