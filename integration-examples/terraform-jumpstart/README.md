@@ -34,7 +34,7 @@ Where `my_workspace` is the name of the workspace you want to create.
 
 ## 5. Terraform variables description
 
-- `access_token`: Observability Access Token
+- `api_token`: Observability API Token
 - `splunk_realm`: Observability Realm (`eu0`, `us0`, `us1`, `us2`, `jp0`, `au0`)
 - `o11y_prefix`: Text that will prefix all the detectors, dashboard groups, and dashboards
 
@@ -43,7 +43,7 @@ Where `my_workspace` is the name of the workspace you want to create.
 Copy the template file `terraform.tfvars.template` to `terraform.tfvars` and fill in the values e.g.
 
 ``` text
-access_token="1234xxx5678yyyy"
+api_token="1234xxx5678yyyy"
 realm="eu0"
 o11y_prefix="[Splunk]"
 ```
