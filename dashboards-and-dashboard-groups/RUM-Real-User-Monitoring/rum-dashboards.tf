@@ -8,19 +8,22 @@ terraform {
 
 }
 
-# Expects an environment variable named `signalfx_auth_token`
-# Example: `export TF_VAR_signalfx_auth_token='this_is_my_api_token'`
-variable "signalfx_auth_token" {
+variable "access_token" {
   type = string
+  description = "Splunk Access Token"
+
 }
 
+variable "realm" {
+  type = string
+  description = "Splunk Realm"
+}
 
 # Configure the SignalFx provider
 provider "signalfx" {
-  auth_token = "${var.signalfx_auth_token}"
-  # If your organization uses a different realm
-  # api_url = "https://api.us2.signalfx.com"
-  # If your organization uses a custom URL
+  auth_token = var.access_token
+  api_url = "https://api.${var.realm}.signalfx.com"
+  # If your organization uses a custom URL modify this to use:
   # custom_app_url = "https://myorg.signalfx.com"
 }
 

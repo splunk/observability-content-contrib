@@ -10,22 +10,6 @@ This folder contains a Dashboard Group and individual Dashboards for Snowflake a
 2. [`splunk-otel-collector.conf`](./Configuration/splunk-otel-collector.conf) Contains referenced variables like snowflake username / password, and Splunk Observability token, etc
 3. [`snowflake-metrics.yaml`](./Configuration/snowflake-metrics.yaml) Contains SQL queries and mappings for our Splunk Observability metrics and dimensions pulling metrics from the Snowflake `SNOWFLAKE/ACCOUNT_USAGE` internal view.
 
-### Log Observer Severity Metric
-This Log Observer metric enables visualizing Log Observer ingest by severity/log level.  
-```
-Matching Condition: Match All
-
-Operation: count
-
-Dimensions: ["severity","deployment.environment"]
-(Replace "deployment.environment" with your environment dimension)
-
-Field: null
-
-Metric Name: logs.events.count
-
-```
-
 ## Sections
 ### Snowflake Home (overview):
   - General overview of Snowflake activity including Queries, errors, storage, user, login, credit counts, etc
