@@ -1,5 +1,5 @@
-variable "access_token" {
-  description = "Splunk Access Token"
+variable "api_token" {
+  description = "Splunk API Token"
 }
 
 variable "realm" {
