@@ -8,26 +8,8 @@ Executive Dashboards in this group are focused on high level comparisons over ti
     ```
     api_url - (Optional) The API URL to use for communicating with SignalFx. This is helpful for organizations that need to set their Realm or use a proxy. You can also set it using the SFX_API_URL environment variable.
     ```
-- Log Events dashboards can be enriched with a Log Observer Metric noted below
 
 **Reminder:** These dashboards can be edited to include more context or split by dimensions specific to your own concerns. 
-
-
-## Log Observer Severity Metric
-Note: When using Log Observer Connect this metric will need to be metricized in Splunk Cloud.
-
-This metric enables visualizing log observer ingest by severity/log level.
-```
-Matching Condition: Match All
-
-Operation: count
-
-Dimensions: ["severity","deployment.environment"]
-(Replace "deployment.environment" with your environment dimension)
-
-Field: null
-
-Metric Name: logs.events.count
 
 ```
 
