@@ -119,7 +119,7 @@ resource "signalfx_list_chart" "Logs-Exec_0" {
 }
 # signalfx_list_chart.Logs-Exec_1:
 resource "signalfx_list_chart" "Logs-Exec_1" {
-    color_by                = "Dimension"
+    color_by                = "Metric"
     description             = "Logs Received per Day by Token Top & Bottom 5 (12 week comparison)"
     disable_sampling        = false
     hide_missing_values     = false
@@ -179,12 +179,13 @@ resource "signalfx_list_chart" "Logs-Exec_1" {
     }
 
     viz_options {
-        display_name = "D"
-        label        = "D"
+        display_name = "Log Events by Token (Top)"
+        label        = "C"
+        value_suffix = "%"
     }
     viz_options {
-        display_name = "Log Events by Token"
-        label        = "C"
+        display_name = "Log Events by Token (Bottom)"
+        label        = "D"
         value_suffix = "%"
     }
     viz_options {
@@ -256,7 +257,7 @@ resource "signalfx_list_chart" "Logs-Exec_2" {
 }
 # signalfx_list_chart.Logs-Exec_3:
 resource "signalfx_list_chart" "Logs-Exec_3" {
-    color_by                = "Dimension"
+    color_by                = "Metric"
     description             = "Logs Profiling Logs Received per Day by Token Top & Bottom 5 (12 week comparison)"
     disable_sampling        = false
     hide_missing_values     = false
@@ -346,15 +347,7 @@ resource "signalfx_list_chart" "Logs-Exec_5" {
     name                    = "Events per Day by Log Level"
     program_text            = <<-EOF
         C = data('logs.events.count', rollup='sum').sum(by=['severity'], allow_missing=['severity']).mean(over='7d').sum(over='1d').publish(label='C')
-        
-        ### Relies on a Log Pipeline Management Metric
-        ### Setup with below information
-        ## Matching Condition: Match All
-        ## Operation: count
-        ## Dimensions: ["severity","deployment.environment"]
-        ## Field: null
-        ## Metric Name: logs.events.count
-        ## Metric Type: COUNTER
+        D = data('log_entry_count', rollup='sum').sum(by=['severity'], allow_missing=['severity']).mean(over='7d').sum(over='1d').publish(label='C')
     EOF
     secondary_visualization = "None"
     sort_by                 = "-value"
@@ -404,15 +397,10 @@ resource "signalfx_list_chart" "Logs-Exec_6" {
         A = data('logs.events.count').sum(by=['severity'], allow_missing=['severity']).mean(over='7d').sum(over='1d').publish(label='A', enable=False)
         B = data('logs.events.count').sum(by=['severity'], allow_missing=['severity']).timeshift('12w').mean(over='7d').sum(over='1d').publish(label='B', enable=False)
         C = (((A-B)/B)*100).mean(by=['severity'], allow_missing=['severity']).mean(over='7d').publish(label='C')
-        
-        ### Relies on a Log Pipeline Management Metric
-        ### Setup with below information
-        ## Matching Condition: Match All
-        ## Operation: count
-        ## Dimensions: ["severity","deployment.environment"]
-        ## Field: null
-        ## Metric Name: logs.events.count
-        ## Metric Type: COUNTER
+
+        D = data('log_entry_count').sum(by=['severity'], allow_missing=['severity']).mean(over='7d').sum(over='1d').publish(label='D', enable=False)
+        E = data('log_entry_count').sum(by=['severity'], allow_missing=['severity']).timeshift('12w').mean(over='7d').sum(over='1d').publish(label='E', enable=False)
+        F = (((D-E)/E)*100).mean(by=['severity'], allow_missing=['severity']).mean(over='7d').publish(label='F')
     EOF
     secondary_visualization = "None"
     sort_by                 = "-value"
@@ -462,6 +450,11 @@ resource "signalfx_list_chart" "Logs-Exec_6" {
         value_suffix = "%"
     }
     viz_options {
+        display_name = "F"
+        label        = "F"
+        value_suffix = "%"
+    }
+    viz_options {
         display_name = "rum.webvitals_fid.time.ns.p75 - Sum by sf_ua_browsername"
         label        = "A"
     }
@@ -483,15 +476,7 @@ resource "signalfx_time_chart" "Logs-Exec_7" {
     plot_type          = "AreaChart"
     program_text       = <<-EOF
         C = data('logs.events.count', rollup='sum').sum(by=['severity'], allow_missing=['severity']).sum(over='1d').mean(over='7d').publish(label='Event Count')
-        
-        ### Relies on a Log Pipeline Management Metric
-        ### Setup with below information
-        ## Matching Condition: Match All
-        ## Operation: count
-        ## Dimensions: ["severity","deployment.environment"]
-        ## Field: null
-        ## Metric Name: logs.events.count
-        ## Metric Type: COUNTER
+        B = data('log_entry_count', rollup='sum').sum(by=['severity'], allow_missing=['severity']).sum(over='1d').mean(over='7d').publish(label='Entry Count')
     EOF
     show_data_markers  = false
     show_event_lines   = false

@@ -93,7 +93,7 @@ resource "signalfx_dashboard" "APM_IMM-Exec" {
 
 # signalfx_list_chart.APM_IMM-Exec_0:
 resource "signalfx_list_chart" "APM_IMM-Exec_0" {
-    color_by                = "Scale"
+    color_by                = "Metric"
     description             = "Traffic Change Top and Bottom 5 (12 week comparison)"
     disable_sampling        = false
     hide_missing_values     = false
@@ -111,21 +111,6 @@ resource "signalfx_list_chart" "APM_IMM-Exec_0" {
     sort_by                 = "-value"
     time_range              = 900
     unit_prefix             = "Metric"
-
-    color_scale {
-        color = "lime_green"
-        gt    = 340282346638528860000000000000000000000
-        gte   = 340282346638528860000000000000000000000
-        lt    = 340282346638528860000000000000000000000
-        lte   = 0
-    }
-    color_scale {
-        color = "red"
-        gt    = 0
-        gte   = 340282346638528860000000000000000000000
-        lt    = 340282346638528860000000000000000000000
-        lte   = 340282346638528860000000000000000000000
-    }
 
     viz_options {
         color        = "brown"
@@ -218,7 +203,7 @@ resource "signalfx_list_chart" "APM_IMM-Exec_1" {
 }
 # signalfx_list_chart.APM_IMM-Exec_2:
 resource "signalfx_list_chart" "APM_IMM-Exec_2" {
-    color_by                = "Scale"
+    color_by                = "Metric"
     description             = "Latency (P90) Top and Bottom 5 (12 week comparison)"
     disable_sampling        = false
     hide_missing_values     = false
@@ -254,21 +239,6 @@ resource "signalfx_list_chart" "APM_IMM-Exec_2" {
     sort_by                 = "+value"
     time_range              = 900
     unit_prefix             = "Metric"
-
-    color_scale {
-        color = "lime_green"
-        gt    = 0
-        gte   = 340282346638528860000000000000000000000
-        lt    = 340282346638528860000000000000000000000
-        lte   = 340282346638528860000000000000000000000
-    }
-    color_scale {
-        color = "red"
-        gt    = 340282346638528860000000000000000000000
-        gte   = 340282346638528860000000000000000000000
-        lt    = 340282346638528860000000000000000000000
-        lte   = 0
-    }
 
     viz_options {
         color        = "aquamarine"
@@ -379,7 +349,7 @@ resource "signalfx_list_chart" "APM_IMM-Exec_3" {
 }
 # signalfx_list_chart.APM_IMM-Exec_4:
 resource "signalfx_list_chart" "APM_IMM-Exec_4" {
-    color_by                = "Scale"
+    color_by                = "Metric"
     description             = "Error rate Top and Bottom 5 (12 week comparison)"
     disable_sampling        = true
     hide_missing_values     = false
@@ -400,21 +370,6 @@ resource "signalfx_list_chart" "APM_IMM-Exec_4" {
     sort_by                 = "+value"
     time_range              = 900
     unit_prefix             = "Metric"
-
-    color_scale {
-        color = "lime_green"
-        gt    = 340282346638528860000000000000000000000
-        gte   = 340282346638528860000000000000000000000
-        lt    = 340282346638528860000000000000000000000
-        lte   = 0
-    }
-    color_scale {
-        color = "red"
-        gt    = 0
-        gte   = 340282346638528860000000000000000000000
-        lt    = 340282346638528860000000000000000000000
-        lte   = 340282346638528860000000000000000000000
-    }
 
     legend_options_fields {
         enabled  = false
@@ -544,7 +499,7 @@ resource "signalfx_list_chart" "APM_IMM-Exec_5" {
 }
 # signalfx_list_chart.APM_IMM-Exec_6:
 resource "signalfx_list_chart" "APM_IMM-Exec_6" {
-    color_by                = "Dimension"
+    color_by                = "Metric"
     description             = "Service Saturation of CPU/MEM/DISK Top and Bottom 5 (12 week comparison)"
     disable_sampling        = false
     hide_missing_values     = false
