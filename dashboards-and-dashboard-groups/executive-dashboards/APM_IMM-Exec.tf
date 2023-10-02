@@ -128,13 +128,13 @@ resource "signalfx_list_chart" "APM_IMM-Exec_0" {
         color        = "lilac"
         display_name = "Requests"
         label        = "A"
-        value_suffix = "requests/s"
+        value_suffix = "requests/m"
     }
     viz_options {
         color        = "lilac"
         display_name = "Requests(-4w)"
         label        = "B"
-        value_suffix = "requests/s"
+        value_suffix = "requests/m"
     }
 }
 # signalfx_list_chart.APM_IMM-Exec_1:
@@ -186,19 +186,19 @@ resource "signalfx_list_chart" "APM_IMM-Exec_1" {
         color        = "lilac"
         display_name = "-12w"
         label        = "E"
-        value_suffix = "requests/s"
+        value_suffix = "requests/m"
     }
     viz_options {
         color        = "lilac"
         display_name = "-4w"
         label        = "D"
-        value_suffix = "requests/s"
+        value_suffix = "requests/m"
     }
     viz_options {
         color        = "lilac"
         display_name = "Today"
         label        = "C"
-        value_suffix = "requests/s"
+        value_suffix = " "
     }
 }
 # signalfx_list_chart.APM_IMM-Exec_2:
@@ -256,13 +256,13 @@ resource "signalfx_list_chart" "APM_IMM-Exec_2" {
         color        = "lilac"
         display_name = "Requests"
         label        = "A"
-        value_suffix = "requests/s"
+        value_suffix = "requests/m"
     }
     viz_options {
         color        = "lilac"
         display_name = "Requests(-4w)"
         label        = "B"
-        value_suffix = "requests/s"
+        value_suffix = "requests/m"
     }
 }
 # signalfx_list_chart.APM_IMM-Exec_3:
@@ -332,13 +332,13 @@ resource "signalfx_list_chart" "APM_IMM-Exec_3" {
         color        = "lilac"
         display_name = "-12w"
         label        = "E"
-        value_suffix = "requests/s"
+        value_suffix = "requests/m"
     }
     viz_options {
         color        = "lilac"
         display_name = "-4w"
         label        = "D"
-        value_suffix = "requests/s"
+        value_suffix = "requests/m"
     }
     viz_options {
         color        = "lilac"
