@@ -773,7 +773,7 @@ resource "signalfx_list_chart" "License-Exec_11" {
         value_suffix = "%"
     }
     viz_options {
-        display_name = "Current Rum Span Bytes"
+        display_name = "Synthetics Datapoints Received"
         label        = "C"
     }
     viz_options {
