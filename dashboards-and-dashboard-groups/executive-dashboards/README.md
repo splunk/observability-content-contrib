@@ -8,6 +8,8 @@ Executive Dashboards in this group are focused on high level comparisons over ti
     ```
     api_url - (Optional) The API URL to use for communicating with SignalFx. This is helpful for organizations that need to set their Realm or use a proxy. You can also set it using the SFX_API_URL environment variable.
     ```
+  
+  Another option for adding this dashboard to your Splunk Observability environment is to import the included [`Exec-Level-Dashbaord-Group.json`](./Exec-Level-Dashboard-Group.json) in the same manner as you'd [import other exported dashboards](https://docs.splunk.com/observability/en/data-visualization/dashboards/dashboards-import-export.html#import-a-dashboard) and dashboard groups.
 
 **Reminder:** These dashboards can be edited to include more context or split by dimensions specific to your own concerns. 
 
@@ -61,7 +63,7 @@ Executive Dashboards in this group are focused on high level comparisons over ti
 ### Token Usage overview:
 - Token Usage Rate 4 week and 12 week comparisons
 - MTS Token Usage 4 week and 12 week comparisons
-- Total MTS Usage by Token
+- Mean MTS Usage by Token
 - Bundled Metrics by Token
 - Custom Metrics by Token
 - Resource Metrics by Token

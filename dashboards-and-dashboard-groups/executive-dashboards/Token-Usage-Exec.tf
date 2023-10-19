@@ -297,11 +297,11 @@ resource "signalfx_list_chart" "TOKEN-USAGE-EXEC_1" {
 # signalfx_list_chart.TOKEN-USAGE-EXEC_2:
 resource "signalfx_list_chart" "TOKEN-USAGE-EXEC_2" {
     color_by                = "Scale"
-    description             = "Total MTS usage by Token Name Using 7 Day Means"
+    description             = "Mean MTS usage by Token Name Using 7 Day Means"
     disable_sampling        = false
     hide_missing_values     = false
     max_precision           = 2
-    name                    = "Total MTS usage by Token Name"
+    name                    = "Mean MTS usage(7d) by Token Name"
     program_text            = <<-EOF
         A = data('sf.org.numBundledMetricsByToken', filter=filter('tokenName', '*')).sum(by=['tokenName']).mean(over='7d').publish(label='A', enable=False)
         
