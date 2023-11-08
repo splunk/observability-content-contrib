@@ -114,8 +114,8 @@ resource "signalfx_dashboard" "TOKEN-USAGE-EXEC" {
 
 # signalfx_list_chart.TOKEN-USAGE-EXEC_0:
 resource "signalfx_list_chart" "TOKEN-USAGE-EXEC_0" {
-    color_by                = "Scale"
-    description             = "Token Usage Change Top and Bottom 5 (12 Week Comparison of  7 Day Means)"
+    color_by                = "Metric"
+    description             = "Token Usage Change Top and Bottom 5 (12 Week Comparison of 7 Day Means)"
     disable_sampling        = false
     hide_missing_values     = false
     max_precision           = 2
@@ -152,21 +152,6 @@ resource "signalfx_list_chart" "TOKEN-USAGE-EXEC_0" {
     time_range              = 900
     timezone                = "UTC"
     unit_prefix             = "Metric"
-
-    color_scale {
-        color = "lime_green"
-        gt    = 340282346638528860000000000000000000000
-        gte   = 340282346638528860000000000000000000000
-        lt    = 340282346638528860000000000000000000000
-        lte   = 0
-    }
-    color_scale {
-        color = "red"
-        gt    = 0
-        gte   = 340282346638528860000000000000000000000
-        lt    = 340282346638528860000000000000000000000
-        lte   = 340282346638528860000000000000000000000
-    }
 
     legend_options_fields {
         enabled  = false
@@ -312,11 +297,11 @@ resource "signalfx_list_chart" "TOKEN-USAGE-EXEC_1" {
 # signalfx_list_chart.TOKEN-USAGE-EXEC_2:
 resource "signalfx_list_chart" "TOKEN-USAGE-EXEC_2" {
     color_by                = "Scale"
-    description             = "Total MTS usage by Token Name Using 7 Day Means"
+    description             = "Mean MTS usage by Token Name Using 7 Day Means"
     disable_sampling        = false
     hide_missing_values     = false
     max_precision           = 2
-    name                    = "Total MTS usage by Token Name"
+    name                    = "Mean MTS usage(7d) by Token Name"
     program_text            = <<-EOF
         A = data('sf.org.numBundledMetricsByToken', filter=filter('tokenName', '*')).sum(by=['tokenName']).mean(over='7d').publish(label='A', enable=False)
         
@@ -834,7 +819,7 @@ resource "signalfx_list_chart" "TOKEN-USAGE-EXEC_8" {
 }
 # signalfx_list_chart.TOKEN-USAGE-EXEC_9:
 resource "signalfx_list_chart" "TOKEN-USAGE-EXEC_9" {
-    color_by                = "Scale"
+    color_by                = "Metric"
     description             = "Logs Received per Day by Token 4 Week Comparison (7 Day Mean)"
     disable_sampling        = false
     hide_missing_values     = false
@@ -851,21 +836,6 @@ resource "signalfx_list_chart" "TOKEN-USAGE-EXEC_9" {
     time_range              = 900
     timezone                = "UTC"
     unit_prefix             = "Metric"
-
-    color_scale {
-        color = "aquamarine"
-        gt    = 340282346638528860000000000000000000000
-        gte   = 340282346638528860000000000000000000000
-        lt    = 340282346638528860000000000000000000000
-        lte   = 0
-    }
-    color_scale {
-        color = "gray"
-        gt    = 0
-        gte   = 340282346638528860000000000000000000000
-        lt    = 340282346638528860000000000000000000000
-        lte   = 340282346638528860000000000000000000000
-    }
 
     legend_options_fields {
         enabled  = false
@@ -901,7 +871,7 @@ resource "signalfx_list_chart" "TOKEN-USAGE-EXEC_9" {
 }
 # signalfx_list_chart.TOKEN-USAGE-EXEC_10:
 resource "signalfx_list_chart" "TOKEN-USAGE-EXEC_10" {
-    color_by                = "Scale"
+    color_by                = "Metric"
     description             = "Profiling Logs Received per Day by Token 4 Week Comparisons (7 Day Means)"
     disable_sampling        = false
     hide_missing_values     = false
@@ -918,21 +888,6 @@ resource "signalfx_list_chart" "TOKEN-USAGE-EXEC_10" {
     time_range              = 900
     timezone                = "UTC"
     unit_prefix             = "Metric"
-
-    color_scale {
-        color = "aquamarine"
-        gt    = 340282346638528860000000000000000000000
-        gte   = 340282346638528860000000000000000000000
-        lt    = 340282346638528860000000000000000000000
-        lte   = 0
-    }
-    color_scale {
-        color = "gray"
-        gt    = 0
-        gte   = 340282346638528860000000000000000000000
-        lt    = 340282346638528860000000000000000000000
-        lte   = 340282346638528860000000000000000000000
-    }
 
     legend_options_fields {
         enabled  = false

@@ -93,7 +93,7 @@ resource "signalfx_dashboard" "APM_IMM-Exec" {
 
 # signalfx_list_chart.APM_IMM-Exec_0:
 resource "signalfx_list_chart" "APM_IMM-Exec_0" {
-    color_by                = "Scale"
+    color_by                = "Metric"
     description             = "Traffic Change Top and Bottom 5 (12 week comparison)"
     disable_sampling        = false
     hide_missing_values     = false
@@ -112,21 +112,6 @@ resource "signalfx_list_chart" "APM_IMM-Exec_0" {
     time_range              = 900
     unit_prefix             = "Metric"
 
-    color_scale {
-        color = "lime_green"
-        gt    = 340282346638528860000000000000000000000
-        gte   = 340282346638528860000000000000000000000
-        lt    = 340282346638528860000000000000000000000
-        lte   = 0
-    }
-    color_scale {
-        color = "red"
-        gt    = 0
-        gte   = 340282346638528860000000000000000000000
-        lt    = 340282346638528860000000000000000000000
-        lte   = 340282346638528860000000000000000000000
-    }
-
     viz_options {
         color        = "brown"
         display_name = "% Change"
@@ -143,13 +128,13 @@ resource "signalfx_list_chart" "APM_IMM-Exec_0" {
         color        = "lilac"
         display_name = "Requests"
         label        = "A"
-        value_suffix = "requests/s"
+        value_suffix = "requests/m"
     }
     viz_options {
         color        = "lilac"
         display_name = "Requests(-4w)"
         label        = "B"
-        value_suffix = "requests/s"
+        value_suffix = "requests/m"
     }
 }
 # signalfx_list_chart.APM_IMM-Exec_1:
@@ -201,24 +186,24 @@ resource "signalfx_list_chart" "APM_IMM-Exec_1" {
         color        = "lilac"
         display_name = "-12w"
         label        = "E"
-        value_suffix = "requests/s"
+        value_suffix = "requests/m"
     }
     viz_options {
         color        = "lilac"
         display_name = "-4w"
         label        = "D"
-        value_suffix = "requests/s"
+        value_suffix = "requests/m"
     }
     viz_options {
         color        = "lilac"
         display_name = "Today"
         label        = "C"
-        value_suffix = "requests/s"
+        value_suffix = " "
     }
 }
 # signalfx_list_chart.APM_IMM-Exec_2:
 resource "signalfx_list_chart" "APM_IMM-Exec_2" {
-    color_by                = "Scale"
+    color_by                = "Metric"
     description             = "Latency (P90) Top and Bottom 5 (12 week comparison)"
     disable_sampling        = false
     hide_missing_values     = false
@@ -255,21 +240,6 @@ resource "signalfx_list_chart" "APM_IMM-Exec_2" {
     time_range              = 900
     unit_prefix             = "Metric"
 
-    color_scale {
-        color = "lime_green"
-        gt    = 0
-        gte   = 340282346638528860000000000000000000000
-        lt    = 340282346638528860000000000000000000000
-        lte   = 340282346638528860000000000000000000000
-    }
-    color_scale {
-        color = "red"
-        gt    = 340282346638528860000000000000000000000
-        gte   = 340282346638528860000000000000000000000
-        lt    = 340282346638528860000000000000000000000
-        lte   = 0
-    }
-
     viz_options {
         color        = "aquamarine"
         display_name = "% Change"
@@ -286,13 +256,13 @@ resource "signalfx_list_chart" "APM_IMM-Exec_2" {
         color        = "lilac"
         display_name = "Requests"
         label        = "A"
-        value_suffix = "requests/s"
+        value_suffix = "requests/m"
     }
     viz_options {
         color        = "lilac"
         display_name = "Requests(-4w)"
         label        = "B"
-        value_suffix = "requests/s"
+        value_suffix = "requests/m"
     }
 }
 # signalfx_list_chart.APM_IMM-Exec_3:
@@ -334,14 +304,14 @@ resource "signalfx_list_chart" "APM_IMM-Exec_3" {
     unit_prefix             = "Metric"
 
     color_scale {
-        color = "aquamarine"
+        color = "lime_green"
         gt    = 340282346638528860000000000000000000000
         gte   = -100
         lt    = 340282346638528860000000000000000000000
         lte   = 0
     }
     color_scale {
-        color = "gray"
+        color = "red"
         gt    = 0
         gte   = 340282346638528860000000000000000000000
         lt    = 340282346638528860000000000000000000000
@@ -362,13 +332,13 @@ resource "signalfx_list_chart" "APM_IMM-Exec_3" {
         color        = "lilac"
         display_name = "-12w"
         label        = "E"
-        value_suffix = "requests/s"
+        value_suffix = "requests/m"
     }
     viz_options {
         color        = "lilac"
         display_name = "-4w"
         label        = "D"
-        value_suffix = "requests/s"
+        value_suffix = "requests/m"
     }
     viz_options {
         color        = "lilac"
@@ -379,7 +349,7 @@ resource "signalfx_list_chart" "APM_IMM-Exec_3" {
 }
 # signalfx_list_chart.APM_IMM-Exec_4:
 resource "signalfx_list_chart" "APM_IMM-Exec_4" {
-    color_by                = "Scale"
+    color_by                = "Metric"
     description             = "Error rate Top and Bottom 5 (12 week comparison)"
     disable_sampling        = true
     hide_missing_values     = false
@@ -400,21 +370,6 @@ resource "signalfx_list_chart" "APM_IMM-Exec_4" {
     sort_by                 = "+value"
     time_range              = 900
     unit_prefix             = "Metric"
-
-    color_scale {
-        color = "lime_green"
-        gt    = 340282346638528860000000000000000000000
-        gte   = 340282346638528860000000000000000000000
-        lt    = 340282346638528860000000000000000000000
-        lte   = 0
-    }
-    color_scale {
-        color = "red"
-        gt    = 0
-        gte   = 340282346638528860000000000000000000000
-        lt    = 340282346638528860000000000000000000000
-        lte   = 340282346638528860000000000000000000000
-    }
 
     legend_options_fields {
         enabled  = false
@@ -479,14 +434,14 @@ resource "signalfx_list_chart" "APM_IMM-Exec_5" {
     unit_prefix             = "Metric"
 
     color_scale {
-        color = "lime_green"
+        color = "red"
         gt    = 2
         gte   = 340282346638528860000000000000000000000
         lt    = 340282346638528860000000000000000000000
         lte   = 10
     }
     color_scale {
-        color = "red"
+        color = "lime_green"
         gt    = 340282346638528860000000000000000000000
         gte   = 0
         lt    = 340282346638528860000000000000000000000
@@ -544,7 +499,7 @@ resource "signalfx_list_chart" "APM_IMM-Exec_5" {
 }
 # signalfx_list_chart.APM_IMM-Exec_6:
 resource "signalfx_list_chart" "APM_IMM-Exec_6" {
-    color_by                = "Dimension"
+    color_by                = "Metric"
     description             = "Service Saturation of CPU/MEM/DISK Top and Bottom 5 (12 week comparison)"
     disable_sampling        = false
     hide_missing_values     = false
@@ -695,14 +650,14 @@ resource "signalfx_list_chart" "APM_IMM-Exec_7" {
     unit_prefix             = "Metric"
 
     color_scale {
-        color = "lime_green"
+        color = "red"
         gt    = 70
         gte   = 340282346638528860000000000000000000000
         lt    = 340282346638528860000000000000000000000
         lte   = 100
     }
     color_scale {
-        color = "red"
+        color = "lime_green"
         gt    = 340282346638528860000000000000000000000
         gte   = 0
         lt    = 340282346638528860000000000000000000000

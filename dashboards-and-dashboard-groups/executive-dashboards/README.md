@@ -8,26 +8,10 @@ Executive Dashboards in this group are focused on high level comparisons over ti
     ```
     api_url - (Optional) The API URL to use for communicating with SignalFx. This is helpful for organizations that need to set their Realm or use a proxy. You can also set it using the SFX_API_URL environment variable.
     ```
-- Log Events dashboards can be enriched with a Log Observer Metric noted below
+  
+  Another option for adding this dashboard to your Splunk Observability environment is to import the included [`Exec-Level-Dashbaord-Group.json`](./Exec-Level-Dashboard-Group.json) in the same manner as you'd [import other exported dashboards](https://docs.splunk.com/observability/en/data-visualization/dashboards/dashboards-import-export.html#import-a-dashboard) and dashboard groups.
 
 **Reminder:** These dashboards can be edited to include more context or split by dimensions specific to your own concerns. 
-
-
-## Log Observer Severity Metric
-Note: When using Log Observer Connect this metric will need to be metricized in Splunk Cloud.
-
-This metric enables visualizing log observer ingest by severity/log level.
-```
-Matching Condition: Match All
-
-Operation: count
-
-Dimensions: ["severity","deployment.environment"]
-(Replace "deployment.environment" with your environment dimension)
-
-Field: null
-
-Metric Name: logs.events.count
 
 ```
 
@@ -43,7 +27,7 @@ Metric Name: logs.events.count
 - Provides 4 week and 12 week comparisons of Log Observer usage
   - Logs received per day by token
   - Profiling logs received per day by token
-  - Logs per day by severity (requires setting up the [Log Observer metric](#log-observer-severity-metric) mentioned above)
+  - Logs per day by severity 
 
 
 ### Real User Monitoring (RUM) overview:
@@ -61,8 +45,8 @@ Metric Name: logs.events.count
   - RUM Workflow latency (p75)
 
 
-### Billing overview:
-- Provides 4 week and 12 week comparisons of "Billable Metrics"
+### License Usage overview:
+- Provides 4 week and 12 week comparisons of "License Metrics"
   - APM Hosts
   - APM Span Bytes Received
   - APM Troubleshooting Metric Sets
@@ -73,3 +57,15 @@ Metric Name: logs.events.count
   - IMM Data Points per Minute (DPM)
   - Log Observer ingest bytes
   - Log Observer ingest bytes per host
+  - Synthetics Datapoints Received
+
+
+### Token Usage overview:
+- Token Usage Rate 4 week and 12 week comparisons
+- MTS Token Usage 4 week and 12 week comparisons
+- Mean MTS Usage by Token
+- Bundled Metrics by Token
+- Custom Metrics by Token
+- Resource Metrics by Token
+- APM Bundled Metrics by Token
+- Logs and Profiling Logs by Token
