@@ -657,7 +657,7 @@ resource "signalfx_list_chart" "APM_IMM-Exec_7" {
         lte   = 100
     }
     color_scale {
-        color = "lime_greenred"
+        color = "lime_green"
         gt    = 340282346638528860000000000000000000000
         gte   = 0
         lt    = 340282346638528860000000000000000000000
