@@ -13,7 +13,7 @@ python3 otel-dashboard-o11y.py --file_path ./metadata.yaml
 ## Generate dashboards for many receivers
 If the `--file_path` argument is not used the script will look in the local directory [`./otel-receiver-yaml/`](./otel-receiver-yaml/) for available receiver `metadata.yaml` files with metrics sections. Generated Terraform configurations will be placed in the local directory [`./observability-tf-configs`](./observability-tf-configs/).
 
-`pull-otel-yaml.py` can be used to pull down all [receiver](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver) configs with a `metrics` section and place them in the `./otel-receiver-yaml` directory. 
+`pull-otel-yaml.py` can be used to pull down all [receiver](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver) configs with a `metrics` section and place them in the `./otel-receiver-yaml` directory. To avoid api rate limiting during this process a Github PAT token can be provided with the environment variable `$GITHUB_PAT_TOKEN`.
 ```
 pip3 install -r requirements.txt
 python3 pull-otel-yaml.py                          

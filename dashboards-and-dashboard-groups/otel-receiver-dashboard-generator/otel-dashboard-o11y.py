@@ -99,7 +99,7 @@ def process_yaml_file(file_path):
 
 # Run the thing
 if args.file_path == "":
-  directory = "./otel-receiver-configs"
+  directory = "./otel-receiver-yaml"
   for filename in os.listdir(directory):
       f = os.path.join(directory, filename)
       # checking if it is a file
