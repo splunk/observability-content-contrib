@@ -38,8 +38,5 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 COPY --from=build /src/MultiStageDocker/entrypoint.sh .
 
-# debug that traces are running and add other OTel configurations here
-ENV OTEL_DOTNET_AUTO_TRACES_CONSOLE_EXPORTER_ENABLED=true
-
 ENTRYPOINT ["sh", "entrypoint.sh"]
 CMD ["dotnet", "MultiStageDocker.dll"]
