@@ -10,6 +10,15 @@ The `entrypoint.sh` is essential for sourcing environment variables from the `in
 
 ## Instructions
 
+Execute or run points 1-3 manually:
+
+```bash
+docker run -d \
+  -e OTEL_DOTNET_AUTO_TRACES_CONSOLE_EXPORTER_ENABLED=true \
+  -p 8181:8080 \
+  multistagedocker:latest
+```
+
 1. Set `ENV OTEL_DOTNET_AUTO_TRACES_CONSOLE_EXPORTER_ENABLED=true` in the Dockerfile for verification purposes.
 1. Build the Docker image.
 1. Map a random host port (e.g.: 8181) to the container port (8080).
@@ -67,6 +76,8 @@ Utilize Visual Studio for constructing the Docker image by right-clicking on the
 ### instrument.sh is not found
 
 Linux distributions that do not recognize CRLF (Carriage Return Line Feed) file endings may encounter issues when executing the `entrypoint.sh` script. It is necessary to ensure that on such systems, `entrypoint.sh` uses LF (Line Feed) file endings, especially when the file has been modified in a Windows environment.
+
+See more info [here](https://en.wikipedia.org/wiki/Newline#Issues_with_different_newline_formats).
 
 ### The docker exec process may not display all environment variables
 
