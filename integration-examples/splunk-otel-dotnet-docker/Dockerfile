@@ -1,16 +1,18 @@
 #See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER app
 WORKDIR /app
-EXPOSE 80
+EXPOSE 8080
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["MultiStageDocker/MultiStageDocker.csproj", "MultiStageDocker/"]
-RUN dotnet restore "MultiStageDocker/MultiStageDocker.csproj"
+RUN dotnet restore "./MultiStageDocker/./MultiStageDocker.csproj"
 COPY . .
 WORKDIR "/src/MultiStageDocker"
-RUN dotnet build "MultiStageDocker.csproj" -c Release -o /app/build
+RUN dotnet build "./MultiStageDocker.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Add dependencies for splunk-otel-dotnet-install.sh
 RUN apt-get update && \
@@ -23,12 +25,13 @@ RUN curl -sSfL https://github.com/signalfx/splunk-otel-dotnet/releases/latest/do
 RUN sh ./splunk-otel-dotnet-install.sh
 
 FROM build AS publish
-RUN dotnet publish "MultiStageDocker.csproj" -c Release -o /app/publish /p:UseAppHost=false
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./MultiStageDocker.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 
 # Copy instrumentation file tree
-WORKDIR "/root/.splunk-otel-dotnet"
+WORKDIR "//home/app/.splunk-otel-dotnet"
 COPY --from=build /root/.splunk-otel-dotnet/ .
 
 WORKDIR /app
