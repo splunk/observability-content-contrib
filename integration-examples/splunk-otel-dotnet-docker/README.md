@@ -10,7 +10,12 @@ The `entrypoint.sh` is essential for sourcing environment variables from the `in
 
 ## Instructions
 
-Execute or run points 1-3 manually:
+To build, run from the `splunk-otel-dotnet-docker` directory:
+```
+docker build -t multistagedocker:latest .
+```
+
+To execute:
 
 ```bash
 docker run -d \
@@ -18,6 +23,8 @@ docker run -d \
   -p 8181:8080 \
   multistagedocker:latest
 ```
+
+Alternatively run points 1-3 manually:
 
 1. Set `ENV OTEL_DOTNET_AUTO_TRACES_CONSOLE_EXPORTER_ENABLED=true` in the Dockerfile for verification purposes.
 1. Build the Docker image.
