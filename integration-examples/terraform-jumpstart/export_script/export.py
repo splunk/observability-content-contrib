@@ -191,7 +191,8 @@ def write_output(directory, filename, content):
     os.chdir(directory)
     with open(filename, "w") as f:
         f.write(filter_hcl(content))
-    logging.info(f"Exported {filename} to {directory}")
+    directory = os.path.abspath(directory)
+    print(f"Exported {filename} to {directory}")
 
     os.chdir(currdir)
 
@@ -268,7 +269,7 @@ def handle_dashboard(sfx, id, name, args):
     chart_ids = {}
     out = ""
     # Iterate through and fetch each chart
-    logging.info(f"Exporting {len(charts)} charts...")
+    print(f"Exporting {len(charts)} charts... please wait...")
     for i, chart in enumerate(charts):
         api_chart = sfx.get_chart(chart["chartId"])
         chart_type = api_chart["options"]["type"]
