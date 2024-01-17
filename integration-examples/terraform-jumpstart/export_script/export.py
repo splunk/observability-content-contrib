@@ -23,12 +23,12 @@ Note: Only one of --group, --dashboard, --detector, or --globaldatalink should b
 import argparse
 import os
 import re
-import signalfx
 import logging
 import subprocess
 import sys
 import tempfile
 import json
+import signalfx
 
 # Initialize logging
 logging.basicConfig(level=logging.INFO)
@@ -89,7 +89,7 @@ parser.add_argument(
     "--output",
     dest="output",
     required=False,
-    default=".", # current directory
+    default=".",  # current directory
     help="The name of the directory to which output will be written",
 )
 group = parser.add_mutually_exclusive_group(required=True)
@@ -116,6 +116,7 @@ group.add_argument(
 
 args = parser.parse_args()
 config = vars(args)
+
 
 def init_terraform(tdir, key, api_url, resource, name):
     """Initialize Terraform."""
