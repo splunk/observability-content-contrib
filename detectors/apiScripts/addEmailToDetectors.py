@@ -81,8 +81,9 @@ if __name__ == '__main__':
   with open('token.yaml', 'r') as ymlfile:
     cfg = yaml.safe_load(ymlfile)
   
-  parser = argparse.ArgumentParser(description='Splunk - Get Recent Detectors')
-  parser.add_argument('-r', '--realm', help='Realm', required=False)
+  parser = argparse.ArgumentParser(description='Splunk - Add Email to Detectors')
+  parser.add_argument('-e', '--emailAddress', help='email address', required=True)
+  parser.add_argument('-r', '--realm', help='Realm', required=False, default='us1')
   parser.add_argument('-t', '--token', help='Token', required=False)
   args = parser.parse_args()
 
