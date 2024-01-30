@@ -60,5 +60,3 @@ venv.bak/
 .terraform/
 terraform.tfstate
 terraform.tfstate.backup
-detectors/apiScripts/.vscode/launch.json
-detectors/apiScripts/.vscode/settings.json
