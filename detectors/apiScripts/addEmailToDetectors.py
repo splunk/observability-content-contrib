@@ -14,7 +14,7 @@ import json
 token = ''
 realm = ''
 headers = ''
-emailAddress = 'ENTER-VALID-EMAIL-HERE'
+emailAddress = ''
 
 #gets list of detectors for the org
 def getDetectors(responseJSON, arrDetectors):
@@ -37,7 +37,7 @@ def updateDetector(id):
       response = requests.get(url, headers=headers)
       responseJSON = json.loads(response.text)
       toAdd = { 'type': 'Email', 'email': f'{emailAddress}' }
-
+      #iterate through the results, adding an email notification to each
       i =0
       for rule in response.json()["rules"]:
         responseJSON["rules"][i]["notifications"].append(toAdd)
@@ -46,36 +46,31 @@ def updateDetector(id):
       response = requests.put(url, headers=headers, json=responseJSON) 
 
       if response.status_code == 200:
-        print("updated id {id}")
+        print(f"updated id {id}")
       else:
-        print("ERROR: could not update id {id}")
+        print(f"ERROR: could not update id {id}")
 
     except Exception as e:
       print(f'Exception {e}')
 
-def callAPI():
+def callAPI(detectorName, limit, offset):
   arrDetectors = []
-  limit = 10000
-  offset = 0
+  # get either a list of detectors or a specific detector if detectorName was passed in the arguments
+  url = f"https://api.{realm}.signalfx.com/v2/detector?limit={limit}&offset={offset}" 
+  if(detectorName is not None):
+    url = url + f"&name={detectorName}"
 
-  url = f"https://api.{realm}.signalfx.com/v2/detector"
   response = requests.get(url, headers=headers)
-  responseJSON = json.loads(response.text)
-  try:
-    cnt = responseJSON["count"]
-  except:
-    print("ERROR: Check your token, that's the most likely issue.")
-    print(response.text)
+  if(response.status_code==404):
+    print("Detector not found")
+    return
+  if(response.status_code==401):
+    print("ERROR: You are not authorized to call the API. Please check that you are using your user API token.")
     return
 
-  if (cnt > 10000):
-    print(f'You have more than 10,000 detectors ({cnt} found).')
-    print('You will need to do this with getMetricMetadataFromReport.py.')
-    print('Presneting the results for the first 10,000.')
-    #break
-
+  responseJSON = json.loads(response.text)
   arrDetectors = getDetectors(responseJSON, arrDetectors)
-  print('updated the following detectors: {arrDetectors}')
+  print(f'updated the following detectors: {arrDetectors}')
 
 if __name__ == '__main__':
   with open('token.yaml', 'r') as ymlfile:
@@ -85,9 +80,17 @@ if __name__ == '__main__':
   parser.add_argument('-e', '--emailAddress', help='email address', required=True)
   parser.add_argument('-r', '--realm', help='Realm', required=False, default='us1')
   parser.add_argument('-t', '--token', help='Token', required=False)
+  parser.add_argument('-d', '--detectorName', help='Name of detector, else all detectors will get updated', required=False)
+  parser.add_argument('-l', '--limit', help='Number of results to return from the list of detectors that match your search criteria.', required=False, default=50)
+  parser.add_argument('-o', '--offset', help='Index, in the list of detectors that match your search criteria, at which you want to start downloading results.', required=False, default=0)
   args = parser.parse_args()
 
   token = cfg['access_token'] if args.token is None else args.token
   realm = cfg['realm'] if args.realm is None else args.realm
+  emailAddress = args.emailAddress
+  detectorName = args.detectorName
+  limit = args.limit
+  offset = args.offset
+
   headers = {"Content-Type": "application/json", "X-SF-TOKEN": f"{token}" }
-  callAPI()
+  callAPI(detectorName, limit, offset)
