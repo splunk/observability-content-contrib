@@ -5,7 +5,7 @@
             "type": "python",
             "request": "launch",
             "program": "${file}",
-            "args":["--emailAddress", "jwelkhouri@gmail.com", "--token", "uw5nmg1gCeLbxyyJ4fOtpA"],
+            "args":[],
             "justMyCode": true
         }
     ]
