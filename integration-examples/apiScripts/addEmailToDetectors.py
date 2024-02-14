@@ -6,7 +6,6 @@
 #
 # Syntax: python3 addEmailToDetectors.py
 
-import argparse
 import yaml
 import requests
 import json
@@ -54,6 +53,12 @@ def updateDetector(id):
       print(f'Exception {e}')
 
 def callAPI(detectorName, limit, offset):
+
+  if token is None or realm is None or emailAddress is None:
+   print("A User API Access Token, Realm and Email Address is required.")
+   return
+
+
   arrDetectors = []
   # get either a list of detectors or a specific detector if detectorName was passed in the arguments
   url = f"https://api.{realm}.signalfx.com/v2/detector?limit={limit}&offset={offset}" 
@@ -75,22 +80,20 @@ def callAPI(detectorName, limit, offset):
 if __name__ == '__main__':
   with open('token.yaml', 'r') as ymlfile:
     cfg = yaml.safe_load(ymlfile)
-  
-  parser = argparse.ArgumentParser(description='Splunk - Add Email to Detectors')
-  parser.add_argument('-e', '--emailAddress', help='email address', required=True)
-  parser.add_argument('-r', '--realm', help='Realm', required=False, default='us1')
-  parser.add_argument('-t', '--token', help='Token', required=False)
-  parser.add_argument('-d', '--detectorName', help='Name of detector, else all detectors will get updated', required=False)
-  parser.add_argument('-l', '--limit', help='Number of results to return from the list of detectors that match your search criteria.', required=False, default=50)
-  parser.add_argument('-o', '--offset', help='Index, in the list of detectors that match your search criteria, at which you want to start downloading results.', required=False, default=0)
-  args = parser.parse_args()
 
-  token = cfg['access_token'] if args.token is None else args.token
-  realm = cfg['realm'] if args.realm is None else args.realm
-  emailAddress = args.emailAddress
-  detectorName = args.detectorName
-  limit = args.limit
-  offset = args.offset
+  token = cfg['access_token'] 
+  realm = cfg['realm'] 
+  emailAddress = cfg['emailAddress'] 
+  detectorName = cfg['detectorName'] 
+  if cfg['limit']:
+    limit = cfg['limit']
+  else:
+    limit = 50 #default to 3 if no limit was set in config file
+
+  if cfg['offset']:
+    offset = cfg['offset']
+  else: 
+    offset = 0 #default to 0 if no offset was set in config file
 
   headers = {"Content-Type": "application/json", "X-SF-TOKEN": f"{token}" }
   callAPI(detectorName, limit, offset)

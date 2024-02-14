@@ -1,2 +1,6 @@
-access_token: Splunk-O11y-User-API-Access-Token
-realm: us1
+access_token:  #required. User API Access Token from your Splunk Observability Cloud Organization
+realm:  #required. Realm for your Splunk Observability Cloud Organization (ex: us1)
+emailAddress:   # required. Email address that you would like to add to the detector(s)
+detectorName:   # optional. If not included, script will add email address to all detectors
+limit: 50 # optional. Will default to 50; Number of results to return from the list of detectors that match your search criteria.
+offset: 0 # optional; Will default to 0; Index, in the list of detectors that match your search criteria, at which you want to start downloading results.
