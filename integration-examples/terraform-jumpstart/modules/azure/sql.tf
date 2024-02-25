@@ -42,3 +42,4 @@ resource "signalfx_detector" "azure_SQL_errors" {
     parameterized_body = var.message_body
   }
 }
+
