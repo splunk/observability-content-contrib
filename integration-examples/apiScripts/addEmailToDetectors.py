@@ -2,95 +2,94 @@
 #
 # This script will add an email notification to all detectors for an org as specifified by the emailAddress variable. 
 #
-# Edit token.yaml.sample to contain valid Access Token and Realm rename to token.yaml
+# Edit token.yaml for valid Access Token, Realm, Email Address, etc.
 #
 # Syntax: python3 addEmailToDetectors.py
 
-import argparse
 import yaml
-import requests
 import json
+import asyncio
+import aiohttp
 
 token = ''
 realm = ''
 headers = ''
 emailAddress = ''
+limit = 50
+offset = 0
 
-#gets list of detectors for the org
-def getDetectors(responseJSON, arrDetectors):
-  for results in responseJSON['results']:
-    tmpId = results['id']
+# get the detector(s) from Splunk Observability Cloud
+async def fetch_get(url):
     try:
-      updateDetector(tmpId)
-      arrDetectors.append(tmpId)
+      async with aiohttp.ClientSession(headers=headers) as session:
+        async with session.get(url) as response:
+          return await response.json()
     except Exception as e:
-      print(f'Exception for id {id}: {e}')
+      print(f'Exception {e}') 
+      return "error"
 
-  return arrDetectors
+# async reposting updated detectors back to Splunk Observability Cloud
+async def post_url(session, url, payload):
+    async with session.put(url, data=json.dumps(payload), headers=headers) as response:
+        return await response.text()
 
-#update the detector
-def updateDetector(id):
-    try:
-      
-      # get the detector
-      url = f"https://api.{realm}.signalfx.com/v2/detector/{id}"
-      response = requests.get(url, headers=headers)
-      responseJSON = json.loads(response.text)
-      toAdd = { 'type': 'Email', 'email': f'{emailAddress}' }
-      #iterate through the results, adding an email notification to each
-      i =0
-      for rule in response.json()["rules"]:
-        responseJSON["rules"][i]["notifications"].append(toAdd)
-        i = i+1
-      url = f"https://api.{realm}.signalfx.com/v2/detector/{id}"
-      response = requests.put(url, headers=headers, json=responseJSON) 
 
-      if response.status_code == 200:
-        print(f"updated id {id}")
-      else:
-        print(f"ERROR: could not update id {id}")
-
-    except Exception as e:
-      print(f'Exception {e}')
-
-def callAPI(detectorName, limit, offset):
-  arrDetectors = []
+async def main():
+  if token is None or realm is None or emailAddress is None:
+   print("A User API Access Token, Realm and Email Address is required.")
+   return
+  
   # get either a list of detectors or a specific detector if detectorName was passed in the arguments
   url = f"https://api.{realm}.signalfx.com/v2/detector?limit={limit}&offset={offset}" 
   if(detectorName is not None):
     url = url + f"&name={detectorName}"
 
-  response = requests.get(url, headers=headers)
-  if(response.status_code==404):
-    print("Detector not found")
-    return
-  if(response.status_code==401):
-    print("ERROR: You are not authorized to call the API. Please check that you are using your user API token.")
+  #get the detector(s) asynchronously
+  get_response = await fetch_get(url)
+  if get_response == "error":
     return
 
-  responseJSON = json.loads(response.text)
-  arrDetectors = getDetectors(responseJSON, arrDetectors)
-  print(f'updated the following detectors: {arrDetectors}')
+  #create an array for printing results
+  updatedDetectors = {}
+  for results in get_response['results']:
+    id = results['id']
+    try:
+      toAdd = { 'type': 'Email', 'email': f'{emailAddress}' }
+      #iterate through the results, adding an email notification to each
+      i = 0
+      for rule in results["rules"]:
+        results["rules"][i]["notifications"].append(toAdd)
+        i += 1
+      updatedDetectors[f"https://api.{realm}.signalfx.com/v2/detector/{id}"] = results
 
+    except Exception as e:
+       print(f'Exception for id {id}: {e}')
+  
+  payload = ''
+  # now send the post   
+  async with aiohttp.ClientSession() as session:
+    tasks = [post_url(session, url, payload) for url, payload in updatedDetectors.items()]
+    results = await asyncio.gather(*tasks)
+
+  #uncomment to print out response results
+  #for url, result in zip(updatedDetectors, results):
+  #  print(f"Response from {url}: {result}")
+
+# entry point
 if __name__ == '__main__':
+
   with open('token.yaml', 'r') as ymlfile:
     cfg = yaml.safe_load(ymlfile)
-  
-  parser = argparse.ArgumentParser(description='Splunk - Add Email to Detectors')
-  parser.add_argument('-e', '--emailAddress', help='email address', required=True)
-  parser.add_argument('-r', '--realm', help='Realm', required=False, default='us1')
-  parser.add_argument('-t', '--token', help='Token', required=False)
-  parser.add_argument('-d', '--detectorName', help='Name of detector, else all detectors will get updated', required=False)
-  parser.add_argument('-l', '--limit', help='Number of results to return from the list of detectors that match your search criteria.', required=False, default=50)
-  parser.add_argument('-o', '--offset', help='Index, in the list of detectors that match your search criteria, at which you want to start downloading results.', required=False, default=0)
-  args = parser.parse_args()
 
-  token = cfg['access_token'] if args.token is None else args.token
-  realm = cfg['realm'] if args.realm is None else args.realm
-  emailAddress = args.emailAddress
-  detectorName = args.detectorName
-  limit = args.limit
-  offset = args.offset
+  token = cfg['access_token'] 
+  realm = cfg['realm'] 
+  emailAddress = cfg['emailAddress'] 
+  detectorName = cfg['detectorName'] 
+  if cfg['limit']:
+    limit = cfg['limit']
+
+  if cfg['offset']:
+    offset = cfg['offset']
 
   headers = {"Content-Type": "application/json", "X-SF-TOKEN": f"{token}" }
-  callAPI(detectorName, limit, offset)
+  asyncio.run(main())
