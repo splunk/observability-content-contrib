@@ -10,7 +10,6 @@ resource "signalfx_detector" "azure_SQL_errors" {
     E = data('cpu_percent', filter=filter('resource_type', 'Microsoft.Sql/servers/elasticpools')).stddev(over='5m').publish(label='E', enable=False)
     F = data('physical_data_read_percent', filter=filter('resource_type', 'Microsoft.Sql/servers/databases')).stddev(over='5m').publish(label='F', enable=False)
     G = data('physical_data_read_percent', filter=filter('resource_type', 'Microsoft.Sql/servers/elasticpools')).stddev(over='5m').publish(label='G', enable=False)
-    detect((when(A > 99)) or (when(B > 99))).publish('Azure CPU % has been at 100% for the past 5 minutes')
     against_periods.detector_mean_std(stream=A, window_to_compare='10m', space_between_windows='3h', num_windows=4, fire_num_stddev=4, clear_num_stddev=3, discard_historical_outliers=True, orientation='above').publish('Azure SQL database CPU % is significantly greater than the last 3 hours')
     against_periods.detector_mean_std(stream=B, window_to_compare='10m', space_between_windows='3h', num_windows=4, fire_num_stddev=4, clear_num_stddev=3, discard_historical_outliers=True, orientation='above').publish('Azure SQL elasticpools CPU % is significantly greater than the last 3 hours')
     detect(when(C > 80)).publish('Azure SQL DTU Consumption is greater than 80% over the past 10 minutes')
@@ -34,6 +33,11 @@ resource "signalfx_detector" "azure_SQL_errors" {
   }
   rule {
     detect_label       = "Azure SQL physical data read above 95%"
+    severity           = "Warning"
+    parameterized_body = var.message_body
+  }
+  rule {
+    detect_label       = "Azure SQL database CPU % is significantly greater than the last 3 hours"
     severity           = "Warning"
     parameterized_body = var.message_body
   }
