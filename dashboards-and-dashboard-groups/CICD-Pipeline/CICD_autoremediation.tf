@@ -3,18 +3,18 @@ provider "signalfx" {
   auth_token = var.access_token
 }
 
-# signalfx_event_feed_chart.CICD_autoremediation_0:
-resource "signalfx_event_feed_chart" "CICD_autoremediation_0" {
+# signalfx_event_feed_chart.CICD_pipeline_0:
+resource "signalfx_event_feed_chart" "CICD_pipeline_0" {
   name         = "Event Feed"
   program_text = <<-EOF
         C = events(eventType='Automated Rollback initiated').publish(label='C')
-        B = events(eventType='canary push event').publish(label='B')
+        B = events(eventType='${var.push_event_name}').publish(label='B')
         A = alerts(detector_name='CI/CD Service Outlier').publish(label='A')
     EOF
   time_range   = 900
 }
-# signalfx_single_value_chart.CICD_autoremediation_1:
-resource "signalfx_single_value_chart" "CICD_autoremediation_1" {
+# signalfx_single_value_chart.CICD_pipeline_1:
+resource "signalfx_single_value_chart" "CICD_pipeline_1" {
   color_by                = "Scale"
   is_timestamp_hidden     = true
   max_delay               = 0
@@ -68,8 +68,8 @@ resource "signalfx_single_value_chart" "CICD_autoremediation_1" {
     value_unit   = "Millisecond"
   }
 }
-# signalfx_time_chart.CICD_autoremediation_2:
-resource "signalfx_time_chart" "CICD_autoremediation_2" {
+# signalfx_time_chart.CICD_pipeline_2:
+resource "signalfx_time_chart" "CICD_pipeline_2" {
   axes_include_zero         = false
   axes_precision            = 0
   color_by                  = "Dimension"
@@ -95,8 +95,8 @@ resource "signalfx_time_chart" "CICD_autoremediation_2" {
     label        = "A"
   }
 }
-# signalfx_list_chart.CICD_autoremediation_3:
-resource "signalfx_list_chart" "CICD_autoremediation_3" {
+# signalfx_list_chart.CICD_pipeline_3:
+resource "signalfx_list_chart" "CICD_pipeline_3" {
   color_by                = "Dimension"
   disable_sampling        = false
   hide_missing_values     = false
@@ -127,7 +127,7 @@ resource "signalfx_list_chart" "CICD_autoremediation_3" {
   }
   legend_options_fields {
     enabled  = true
-    property = "customer"
+    property = var.custom_dimension
   }
 
   viz_options {
@@ -136,8 +136,8 @@ resource "signalfx_list_chart" "CICD_autoremediation_3" {
     value_unit   = "Millisecond"
   }
 }
-# signalfx_heatmap_chart.CICD_autoremediation_4:
-resource "signalfx_heatmap_chart" "CICD_autoremediation_4" {
+# signalfx_heatmap_chart.CICD_pipeline_4:
+resource "signalfx_heatmap_chart" "CICD_pipeline_4" {
   disable_sampling   = true
   group_by           = []
   hide_timestamp     = false
@@ -185,8 +185,8 @@ resource "signalfx_heatmap_chart" "CICD_autoremediation_4" {
     lte   = 700
   }
 }
-# signalfx_single_value_chart.CICD_autoremediation_5:
-resource "signalfx_single_value_chart" "CICD_autoremediation_5" {
+# signalfx_single_value_chart.CICD_pipeline_5:
+resource "signalfx_single_value_chart" "CICD_pipeline_5" {
   color_by                = "Scale"
   is_timestamp_hidden     = false
   max_delay               = 0
@@ -225,8 +225,8 @@ resource "signalfx_single_value_chart" "CICD_autoremediation_5" {
     label        = "A"
   }
 }
-# signalfx_time_chart.CICD_autoremediation_6:
-resource "signalfx_time_chart" "CICD_autoremediation_6" {
+# signalfx_time_chart.CICD_pipeline_6:
+resource "signalfx_time_chart" "CICD_pipeline_6" {
   axes_include_zero  = false
   axes_precision     = 0
   color_by           = "Dimension"
@@ -259,8 +259,8 @@ resource "signalfx_time_chart" "CICD_autoremediation_6" {
     label        = "A"
   }
 }
-# signalfx_time_chart.CICD_autoremediation_7:
-resource "signalfx_time_chart" "CICD_autoremediation_7" {
+# signalfx_time_chart.CICD_pipeline_7:
+resource "signalfx_time_chart" "CICD_pipeline_7" {
   axes_include_zero  = false
   axes_precision     = 0
   color_by           = "Dimension"
@@ -298,7 +298,7 @@ resource "signalfx_time_chart" "CICD_autoremediation_7" {
   }
   legend_options_fields {
     enabled  = true
-    property = "customer"
+    property = var.custom_dimension
   }
   legend_options_fields {
     enabled  = true
@@ -312,8 +312,8 @@ resource "signalfx_time_chart" "CICD_autoremediation_7" {
     value_unit   = "Millisecond"
   }
 }
-# signalfx_single_value_chart.CICD_autoremediation_8:
-resource "signalfx_single_value_chart" "CICD_autoremediation_8" {
+# signalfx_single_value_chart.CICD_pipeline_8:
+resource "signalfx_single_value_chart" "CICD_pipeline_8" {
   color_by                = "Scale"
   is_timestamp_hidden     = false
   max_delay               = 5
@@ -353,11 +353,11 @@ resource "signalfx_single_value_chart" "CICD_autoremediation_8" {
     value_unit   = "Millisecond"
   }
 }
-# signalfx_log_view.CICD_autoremediation_9:
-resource "signalfx_log_view" "CICD_autoremediation_9" {
-  default_connection = var.log_observer_connect_endpoint
+# signalfx_log_view.CICD_pipeline_9:
+resource "signalfx_log_view" "CICD_pipeline_9" {
+  default_connection = var.log_observer_connect_connection
   name               = "CI/CD Logs"
-  program_text       = "logs(index='${var.log_observer_connect_index}', filter=field('user') == '${var.username}').publish()"
+  program_text       = "logs(index=['${var.log_observer_connect_index}'], filter=field('user') == '${var.username}').publish()"
   time_range         = 900
 
   columns {
@@ -370,90 +370,86 @@ resource "signalfx_log_view" "CICD_autoremediation_9" {
     name = "_raw"
   }
 }
-# signalfx_dashboard.CICD_autoremediation:
-resource "signalfx_dashboard" "CICD_autoremediation" {
+# signalfx_dashboard.CICD_pipeline:
+resource "signalfx_dashboard" "CICD_pipeline" {
   charts_resolution = "default"
   dashboard_group   = var.dashboard_group
-  name              = "CI/CD - Autoremediation"
+  name              = var.dashboard_name
   time_range        = "-3m"
 
   chart {
-    chart_id = signalfx_single_value_chart.CICD_autoremediation_5.id
+    chart_id = signalfx_single_value_chart.CICD_pipeline_5.id
     column   = 2
     height   = 1
     row      = 1
     width    = 2
   }
   chart {
-    chart_id = signalfx_time_chart.CICD_autoremediation_7.id
+    chart_id = signalfx_time_chart.CICD_pipeline_7.id
     column   = 7
     height   = 1
     row      = 1
     width    = 3
   }
   chart {
-    chart_id = signalfx_single_value_chart.CICD_autoremediation_1.id
+    chart_id = signalfx_single_value_chart.CICD_pipeline_1.id
     column   = 2
     height   = 1
     row      = 0
     width    = 2
   }
   chart {
-    chart_id = signalfx_event_feed_chart.CICD_autoremediation_0.id
+    chart_id = signalfx_event_feed_chart.CICD_pipeline_0.id
     column   = 0
     height   = 2
     row      = 0
     width    = 2
   }
   chart {
-    chart_id = signalfx_single_value_chart.CICD_autoremediation_8.id
+    chart_id = signalfx_single_value_chart.CICD_pipeline_8.id
     column   = 10
     height   = 1
     row      = 1
     width    = 2
   }
   chart {
-    chart_id = signalfx_time_chart.CICD_autoremediation_2.id
+    chart_id = signalfx_time_chart.CICD_pipeline_2.id
     column   = 4
     height   = 1
     row      = 0
     width    = 3
   }
   chart {
-    chart_id = signalfx_heatmap_chart.CICD_autoremediation_4.id
+    chart_id = signalfx_heatmap_chart.CICD_pipeline_4.id
     column   = 10
     height   = 1
     row      = 0
     width    = 2
   }
   chart {
-    chart_id = signalfx_list_chart.CICD_autoremediation_3.id
+    chart_id = signalfx_list_chart.CICD_pipeline_3.id
     column   = 7
     height   = 1
     row      = 0
     width    = 3
   }
   chart {
-    chart_id = signalfx_time_chart.CICD_autoremediation_6.id
+    chart_id = signalfx_time_chart.CICD_pipeline_6.id
     column   = 4
     height   = 1
     row      = 1
     width    = 3
   }
   chart {
-    chart_id = signalfx_log_view.CICD_autoremediation_9.id
+    chart_id = signalfx_log_view.CICD_pipeline_9.id
     column   = 0
     height   = 3
     row      = 2
     width    = 12
   }
 
-  # permissions {
-  #     parent = "Fw0O4zIA4AE"
-  # }j
-
   selected_event_overlay {
-    signal = "canary push event"
+    signal = var.push_event_name
     type   = "eventTimeSeries"
   }
   selected_event_overlay {
