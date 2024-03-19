@@ -355,9 +355,9 @@ resource "signalfx_single_value_chart" "CICD_autoremediation_8" {
 }
 # signalfx_log_view.CICD_autoremediation_9:
 resource "signalfx_log_view" "CICD_autoremediation_9" {
-  default_connection = "o11y-suite-us1.stg.splunkcloud.com"
+  default_connection = var.log_observer_connect_endpoint
   name               = "CI/CD Logs"
-  program_text       = "logs(index='o11y-demo-us', filter=field('user') == '${var.username}').publish()"
+  program_text       = "logs(index='${var.log_observer_connect_index}', filter=field('user') == '${var.username}').publish()"
   time_range         = 900
 
   columns {

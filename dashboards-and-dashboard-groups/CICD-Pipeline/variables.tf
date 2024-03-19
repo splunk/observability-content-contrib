@@ -11,3 +11,9 @@ variable "username" {
 
 variable "dashboard_group" {
 }
+
+variable "log_observer_connect_endpoint" {
+}
+
+variable "log_observer_connect_index" {
+}
