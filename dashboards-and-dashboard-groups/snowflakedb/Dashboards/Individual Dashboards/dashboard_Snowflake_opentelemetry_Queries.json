@@ -1,0 +1,1262 @@
+{
+  "chartExports": [
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Total Queries (1h Sum)",
+        "id": "GJNSMVFA4Ak",
+        "importOf": "GJMhXG8AwDE",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Total Queries",
+        "options": {
+          "colorBy": "Metric",
+          "colorScale": null,
+          "colorScale2": null,
+          "maximumPrecision": null,
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": 0,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "A",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "None",
+          "showSparkLine": false,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "timestampHidden": false,
+          "type": "SingleValue",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('snowflake.database.query.count').sum().sum(over='1h').publish(label='A')",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Total Errors (1h Sum)",
+        "id": "GJNSMVFA4Ao",
+        "importOf": "GJMhXG8AwF4",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Errors",
+        "options": {
+          "colorBy": "Metric",
+          "colorScale": null,
+          "colorScale2": null,
+          "maximumPrecision": 1,
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": 0,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "A",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "None",
+          "showSparkLine": false,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "timestampHidden": false,
+          "type": "SingleValue",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('snowflake.database.query.count', filter=filter('error_message', '*'), extrapolation='zero').sum(over='1h').sum().publish(label='A')",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Queries by Warehouse",
+        "id": "GJNSMVFA4As",
+        "importOf": "GJMhXG8AwAc",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Queries by Warehouse",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            },
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "AreaChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": [
+              {
+                "enabled": false,
+                "property": "sf_originatingMetric"
+              },
+              {
+                "enabled": false,
+                "property": "sf_metric"
+              },
+              {
+                "enabled": true,
+                "property": "warehouse_name"
+              }
+            ]
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": "warehouse_name",
+            "showLegend": true
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "Queries",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": true,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('snowflake.database.query.count', extrapolation='zero', maxExtrapolations=2, resolution=900000).sum(by=['warehouse_name']).publish(label='A')",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Blocked Queries (1h Sum)",
+        "id": "GJNSMVFA4A8",
+        "importOf": "GJMhXG8AwBc",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Blocked Queries",
+        "options": {
+          "colorBy": "Metric",
+          "colorScale": null,
+          "colorScale2": null,
+          "maximumPrecision": null,
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": 0,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "snowflake.query.blocked - Sum(1h)",
+              "label": "F",
+              "paletteIndex": 13,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "None",
+          "showSparkLine": false,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "timestampHidden": false,
+          "type": "SingleValue",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "F = data('snowflake.query.blocked', extrapolation='zero').sum(over='1h').publish(label='F')",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Queued (Overload) Queries (1h Sum)",
+        "id": "GJNSMVFA4BE",
+        "importOf": "GJMhXG8AwFE",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Queued (Overload)",
+        "options": {
+          "colorBy": "Metric",
+          "colorScale": null,
+          "colorScale2": null,
+          "maximumPrecision": null,
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": 0,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "snowflake.query.queued_overload - Count - Sum(1h)",
+              "label": "F",
+              "paletteIndex": 13,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "None",
+          "showSparkLine": false,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "timestampHidden": false,
+          "type": "SingleValue",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "F = data('snowflake.query.queued_overload').sum(over='1h').above(0.00001, inclusive=True).count().publish(label='F')",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Queries by Query Type (1h Sum)",
+        "id": "GJNSMVFA4Bg",
+        "importOf": "GJMhXG8AwDA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Queries by Query Type",
+        "options": {
+          "colorBy": "Dimension",
+          "colorScale2": null,
+          "hideMissingValues": true,
+          "legendOptions": {
+            "fields": [
+              {
+                "enabled": false,
+                "property": "sf_originatingMetric"
+              },
+              {
+                "enabled": false,
+                "property": "sf_metric"
+              },
+              {
+                "enabled": true,
+                "property": "user_name"
+              },
+              {
+                "enabled": true,
+                "property": "os.type"
+              },
+              {
+                "enabled": true,
+                "property": "azure.resourcegroup.name"
+              },
+              {
+                "enabled": true,
+                "property": "execution_status"
+              },
+              {
+                "enabled": true,
+                "property": "azure.vm.name"
+              },
+              {
+                "enabled": true,
+                "property": "host.name"
+              },
+              {
+                "enabled": true,
+                "property": "snowflake.account.name"
+              },
+              {
+                "enabled": true,
+                "property": "cloud.platform"
+              },
+              {
+                "enabled": true,
+                "property": "host.id"
+              },
+              {
+                "enabled": true,
+                "property": "azure.vm.size"
+              },
+              {
+                "enabled": true,
+                "property": "azure_resource_id"
+              },
+              {
+                "enabled": true,
+                "property": "cloud.region"
+              },
+              {
+                "enabled": true,
+                "property": "query_type"
+              },
+              {
+                "enabled": true,
+                "property": "cloud.provider"
+              },
+              {
+                "enabled": true,
+                "property": "cloud.account.id"
+              },
+              {
+                "enabled": true,
+                "property": "warehouse_name"
+              },
+              {
+                "enabled": true,
+                "property": "error_message"
+              },
+              {
+                "enabled": true,
+                "property": "database_name"
+              },
+              {
+                "enabled": true,
+                "property": "warehouse_size"
+              },
+              {
+                "enabled": true,
+                "property": "schema_name"
+              }
+            ]
+          },
+          "maximumPrecision": 1,
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "snowflake.database.query.count - Sum by query_type - Sum(1h)",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "None",
+          "sortBy": "-value",
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "type": "List",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('snowflake.database.query.count').sum(by=['query_type']).sum(over='1h').publish(label='A')",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "GJNSMVFA4CM",
+        "importOf": "GJMhXG8AwCE",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": ".",
+        "options": {
+          "markdown": "<table width=\"100%\" height=\"10%\" rules=\"none\"><tr><td valign=\"middle\" align=\"center\" bgcolor=\"#59a200\">\n<font size=\"5\" color=\"white\">Queries</font>\n</td></tr></table>\n\n<p align=\"center\" ><br /><font>Charts below refer to the health of your Queries. Use the filters at the top to narrow down by Warehouse Size, Database, Schema, User, or Query.",
+          "type": "Text"
+        },
+        "packageSpecifications": "",
+        "programText": "",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Executed Queries (1h Sum)",
+        "id": "GJNSMVFA4Cc",
+        "importOf": "GJMhXG8AwFk",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Executed Queries",
+        "options": {
+          "colorBy": "Metric",
+          "colorScale": null,
+          "colorScale2": null,
+          "maximumPrecision": null,
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": 0,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "A",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "None",
+          "showSparkLine": false,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "timestampHidden": false,
+          "type": "SingleValue",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('snowflake.database.query.count', filter=filter('execution_status', 'SUCCESS')).sum(by=['execution_status']).sum().sum(over='1h').publish(label='A')",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Total Errors by Database Name (1h Sum)",
+        "id": "GJNSMVFA4DA",
+        "importOf": "GJMhXG8AwA4",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Errors by DB & User",
+        "options": {
+          "groupBy": [
+            "database_name"
+          ],
+          "groupBySort": "Descending",
+          "hideMissingValues": true,
+          "legendOptions": {
+            "fields": [
+              {
+                "enabled": true,
+                "property": "database_name"
+              },
+              {
+                "enabled": true,
+                "property": "user_name"
+              },
+              {
+                "enabled": true,
+                "property": "error_message"
+              },
+              {
+                "enabled": false,
+                "property": "sf_originatingMetric"
+              },
+              {
+                "enabled": false,
+                "property": "sf_metric"
+              },
+              {
+                "enabled": false,
+                "property": "query_id"
+              },
+              {
+                "enabled": true,
+                "property": "execution_status"
+              },
+              {
+                "enabled": false,
+                "property": "os.type"
+              },
+              {
+                "enabled": false,
+                "property": "system.type"
+              },
+              {
+                "enabled": true,
+                "property": "query_type"
+              },
+              {
+                "enabled": false,
+                "property": "azure.resourcegroup.name"
+              },
+              {
+                "enabled": true,
+                "property": "warehouse_name"
+              },
+              {
+                "enabled": false,
+                "property": "host.name"
+              },
+              {
+                "enabled": false,
+                "property": "cloud.platform"
+              },
+              {
+                "enabled": false,
+                "property": "host.id"
+              },
+              {
+                "enabled": false,
+                "property": "azure.vm.size"
+              },
+              {
+                "enabled": false,
+                "property": "azure_resource_id"
+              },
+              {
+                "enabled": false,
+                "property": "cloud.region"
+              },
+              {
+                "enabled": true,
+                "property": "schema_name"
+              },
+              {
+                "enabled": false,
+                "property": "cloud.provider"
+              },
+              {
+                "enabled": false,
+                "property": "cloud.account.id"
+              },
+              {
+                "enabled": false,
+                "property": "warehouse_size"
+              }
+            ]
+          },
+          "maximumPrecision": 1,
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": 0,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "Error Count",
+              "label": "A",
+              "valuePrefix": "",
+              "valueSuffix": "",
+              "valueUnit": null
+            }
+          ],
+          "refreshInterval": null,
+          "sortBy": "-value",
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "timestampHidden": false,
+          "type": "TableChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('snowflake.database.query.count', filter=filter('error_message', '*')).sum(over='1h').publish(label='A')",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Queries by execution status",
+        "id": "GJNSMVFA4Ec",
+        "importOf": "GJMhXG8AwFI",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Queries by Status",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            },
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "AreaChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": [
+              {
+                "enabled": true,
+                "property": "execution_status"
+              },
+              {
+                "enabled": false,
+                "property": "sf_originatingMetric"
+              },
+              {
+                "enabled": false,
+                "property": "sf_metric"
+              }
+            ]
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": "execution_status",
+            "showLegend": true
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "snowflake.database.query.count - Sum by execution_status",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": true,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('snowflake.database.query.count', extrapolation='zero', maxExtrapolations=2, resolution=900000).sum(by=['execution_status']).publish(label='A')",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Queued (Provisioning) Queries (1h Sum)",
+        "id": "GJNSMVFA4FA",
+        "importOf": "GJMhXG8AwEQ",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Queued (Provisioning)",
+        "options": {
+          "colorBy": "Metric",
+          "colorScale": null,
+          "colorScale2": null,
+          "maximumPrecision": null,
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": 0,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "snowflake.query.queued_overload - Sum(1h) - Exclude x < 0.00001 - Count",
+              "label": "F",
+              "paletteIndex": 13,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "None",
+          "showSparkLine": false,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "timestampHidden": false,
+          "type": "SingleValue",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "F = data('snowflake.query.queued_overload').sum(over='1h').above(0.00001, inclusive=True).count().publish(label='F')",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Total Errors by Database Name",
+        "id": "GJNSMVFA4Fs",
+        "importOf": "GJMhXG8AwBw",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Query Errors by Database Name",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            },
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "AreaChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": [
+              {
+                "enabled": true,
+                "property": "database_name"
+              },
+              {
+                "enabled": false,
+                "property": "error_message"
+              },
+              {
+                "enabled": false,
+                "property": "sf_originatingMetric"
+              },
+              {
+                "enabled": true,
+                "property": "sf_metric"
+              },
+              {
+                "enabled": false,
+                "property": "user_name"
+              },
+              {
+                "enabled": false,
+                "property": "query_id"
+              },
+              {
+                "enabled": false,
+                "property": "execution_status"
+              },
+              {
+                "enabled": false,
+                "property": "os.type"
+              },
+              {
+                "enabled": false,
+                "property": "system.type"
+              },
+              {
+                "enabled": true,
+                "property": "query_type"
+              },
+              {
+                "enabled": true,
+                "property": "azure.resourcegroup.name"
+              },
+              {
+                "enabled": true,
+                "property": "warehouse_name"
+              },
+              {
+                "enabled": true,
+                "property": "host.name"
+              },
+              {
+                "enabled": true,
+                "property": "cloud.platform"
+              },
+              {
+                "enabled": true,
+                "property": "host.id"
+              },
+              {
+                "enabled": true,
+                "property": "azure.vm.size"
+              },
+              {
+                "enabled": true,
+                "property": "warehouse_size"
+              },
+              {
+                "enabled": true,
+                "property": "azure_resource_id"
+              },
+              {
+                "enabled": true,
+                "property": "cloud.region"
+              },
+              {
+                "enabled": true,
+                "property": "schema_name"
+              },
+              {
+                "enabled": true,
+                "property": "cloud.provider"
+              },
+              {
+                "enabled": true,
+                "property": "cloud.account.id"
+              }
+            ]
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": "database_name",
+            "showLegend": true
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": 0,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "DB Errors",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "Non-DB Errors",
+              "label": "B",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": true,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('snowflake.database.query.count', filter=filter('error_message', '*'), extrapolation='zero', maxExtrapolations=2, resolution=900000).sum(by=['database_name']).publish(label='A')\nB = data('snowflake.database.query.count', filter=filter('error_message', '*') and (not filter('database_name', '*')), extrapolation='zero', resolution=900000).sum().publish(label='B')",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    }
+  ],
+  "dashboardExport": {
+    "dashboard": {
+      "authorizedWriters": null,
+      "chartDensity": "DEFAULT",
+      "charts": [
+        {
+          "chartId": "GJNSMVFA4CM",
+          "column": 0,
+          "height": 1,
+          "row": 0,
+          "width": 12
+        },
+        {
+          "chartId": "GJNSMVFA4Ak",
+          "column": 0,
+          "height": 1,
+          "row": 1,
+          "width": 2
+        },
+        {
+          "chartId": "GJNSMVFA4Cc",
+          "column": 2,
+          "height": 1,
+          "row": 1,
+          "width": 2
+        },
+        {
+          "chartId": "GJNSMVFA4FA",
+          "column": 8,
+          "height": 1,
+          "row": 1,
+          "width": 2
+        },
+        {
+          "chartId": "GJNSMVFA4BE",
+          "column": 10,
+          "height": 1,
+          "row": 1,
+          "width": 2
+        },
+        {
+          "chartId": "GJNSMVFA4Ao",
+          "column": 4,
+          "height": 1,
+          "row": 1,
+          "width": 2
+        },
+        {
+          "chartId": "GJNSMVFA4A8",
+          "column": 6,
+          "height": 1,
+          "row": 1,
+          "width": 2
+        },
+        {
+          "chartId": "GJNSMVFA4Bg",
+          "column": 10,
+          "height": 1,
+          "row": 2,
+          "width": 2
+        },
+        {
+          "chartId": "GJNSMVFA4As",
+          "column": 0,
+          "height": 1,
+          "row": 2,
+          "width": 3
+        },
+        {
+          "chartId": "GJNSMVFA4Ec",
+          "column": 3,
+          "height": 1,
+          "row": 2,
+          "width": 3
+        },
+        {
+          "chartId": "GJNSMVFA4Fs",
+          "column": 6,
+          "height": 1,
+          "row": 2,
+          "width": 4
+        },
+        {
+          "chartId": "GJNSMVFA4DA",
+          "column": 0,
+          "height": 2,
+          "row": 3,
+          "width": 12
+        }
+      ],
+      "created": 0,
+      "creator": null,
+      "customProperties": null,
+      "description": "",
+      "discoveryOptions": null,
+      "eventOverlays": null,
+      "filters": {
+        "sources": null,
+        "time": {
+          "end": "Now",
+          "start": "-3h"
+        },
+        "variables": [
+          {
+            "alias": "Warehouse",
+            "applyIfExists": false,
+            "description": "",
+            "preferredSuggestions": [],
+            "property": "warehouse_name",
+            "propertyMappings": [
+              "warehouse_name"
+            ],
+            "replaceOnly": false,
+            "required": false,
+            "restricted": false,
+            "value": null
+          },
+          {
+            "alias": "Warehouse Size",
+            "applyIfExists": false,
+            "description": "",
+            "preferredSuggestions": [],
+            "property": "warehouse_size",
+            "propertyMappings": [
+              "warehouse_size"
+            ],
+            "replaceOnly": false,
+            "required": false,
+            "restricted": false,
+            "value": null
+          },
+          {
+            "alias": "Database name",
+            "applyIfExists": false,
+            "description": "",
+            "preferredSuggestions": [],
+            "property": "database_name",
+            "propertyMappings": [
+              "database_name"
+            ],
+            "replaceOnly": false,
+            "required": false,
+            "restricted": false,
+            "value": null
+          },
+          {
+            "alias": "query_type",
+            "applyIfExists": false,
+            "description": "",
+            "preferredSuggestions": [],
+            "property": "query_type",
+            "propertyMappings": [
+              "query_type"
+            ],
+            "replaceOnly": false,
+            "required": false,
+            "restricted": false,
+            "value": null
+          },
+          {
+            "alias": "User",
+            "applyIfExists": false,
+            "description": "",
+            "preferredSuggestions": [],
+            "property": "user_name",
+            "propertyMappings": [
+              "user_name"
+            ],
+            "replaceOnly": false,
+            "required": false,
+            "restricted": false,
+            "value": null
+          }
+        ]
+      },
+      "groupId": "GJNSMVFA4Ac",
+      "groupName": "Snowflake (SRE) Dashboard Group",
+      "id": "GJNSMVFA4Gs",
+      "importOf": "GJMhXG8AwGo",
+      "lastUpdated": 0,
+      "lastUpdatedBy": null,
+      "maxDelayOverride": null,
+      "name": "Snowflake Queries",
+      "permissions": null,
+      "selectedEventOverlays": [],
+      "tags": null
+    }
+  },
+  "hashCode": -2025038137,
+  "id": "GJNSMVFA4Gs",
+  "modelVersion": 1,
+  "packageType": "DASHBOARD"
+}

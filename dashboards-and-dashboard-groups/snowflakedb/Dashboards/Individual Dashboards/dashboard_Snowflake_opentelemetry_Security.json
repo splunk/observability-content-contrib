@@ -1,0 +1,800 @@
+{
+  "chartExports": [
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Failed Logins Breakdown (1h Sum)",
+        "id": "GJNSMVFA4CI",
+        "importOf": "GJMhXG8AwEE",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Failed Logins Breakdown - By user & Error Message",
+        "options": {
+          "groupBy": [
+            "None"
+          ],
+          "groupBySort": "Descending",
+          "hideMissingValues": true,
+          "legendOptions": {
+            "fields": [
+              {
+                "enabled": true,
+                "property": "user_name"
+              },
+              {
+                "enabled": true,
+                "property": "error_message"
+              },
+              {
+                "enabled": true,
+                "property": "reported_client_type"
+              },
+              {
+                "enabled": false,
+                "property": "azure_resource_id"
+              },
+              {
+                "enabled": false,
+                "property": "azure.resourcegroup.name"
+              },
+              {
+                "enabled": false,
+                "property": "azure.vm.size"
+              },
+              {
+                "enabled": false,
+                "property": "cloud.account.id"
+              },
+              {
+                "enabled": false,
+                "property": "cloud.platform"
+              },
+              {
+                "enabled": false,
+                "property": "cloud.provider"
+              },
+              {
+                "enabled": false,
+                "property": "cloud.region"
+              },
+              {
+                "enabled": false,
+                "property": "host.id"
+              },
+              {
+                "enabled": false,
+                "property": "host.name"
+              },
+              {
+                "enabled": false,
+                "property": "sf_originatingMetric"
+              },
+              {
+                "enabled": false,
+                "property": "os.type"
+              },
+              {
+                "enabled": false,
+                "property": "sf_metric"
+              },
+              {
+                "enabled": false,
+                "property": "system.type"
+              }
+            ]
+          },
+          "maximumPrecision": null,
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "Failed Logins",
+              "label": "A",
+              "valuePrefix": "",
+              "valueSuffix": "",
+              "valueUnit": null
+            },
+            {
+              "displayName": "Successful Logins",
+              "label": "B",
+              "valuePrefix": "",
+              "valueSuffix": "",
+              "valueUnit": null
+            },
+            {
+              "displayName": "Login Failure Rate %",
+              "label": "E",
+              "valuePrefix": "",
+              "valueSuffix": "",
+              "valueUnit": null
+            }
+          ],
+          "refreshInterval": null,
+          "sortBy": "-Login Failure Rate %",
+          "time": {
+            "range": 86400000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "timestampHidden": false,
+          "type": "TableChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('snowflake.logins.total', filter=filter('is_success', 'NO'), rollup='sum').sum(by=['reported_client_type', 'error_message']).sum(over='1h').publish(label='A')\nB = data('snowflake.logins.total', filter=filter('is_success', '*'), rollup='sum').sum(by=['reported_client_type', 'error_message']).sum(over='1h').publish(label='B', enable=False)\nE = ((B/A)*100).sum(by=['reported_client_type', 'error_message']).sum(over='1h').publish(label='E', enable=False)",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Total Logins",
+        "id": "GJNSMVFA4Co",
+        "importOf": "GJMhXG8AwBM",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Total Logins",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            },
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "AreaChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": [
+              {
+                "enabled": false,
+                "property": "azure_resource_id"
+              },
+              {
+                "enabled": false,
+                "property": "azure.resourcegroup.name"
+              },
+              {
+                "enabled": false,
+                "property": "azure.vm.size"
+              },
+              {
+                "enabled": false,
+                "property": "cloud.account.id"
+              },
+              {
+                "enabled": false,
+                "property": "cloud.platform"
+              },
+              {
+                "enabled": false,
+                "property": "cloud.provider"
+              },
+              {
+                "enabled": false,
+                "property": "cloud.region"
+              },
+              {
+                "enabled": true,
+                "property": "error_message"
+              },
+              {
+                "enabled": false,
+                "property": "host.id"
+              },
+              {
+                "enabled": false,
+                "property": "host.name"
+              },
+              {
+                "enabled": true,
+                "property": "is_success"
+              },
+              {
+                "enabled": false,
+                "property": "sf_originatingMetric"
+              },
+              {
+                "enabled": false,
+                "property": "os.type"
+              },
+              {
+                "enabled": false,
+                "property": "sf_metric"
+              },
+              {
+                "enabled": true,
+                "property": "reported_client_type"
+              },
+              {
+                "enabled": false,
+                "property": "system.type"
+              },
+              {
+                "enabled": true,
+                "property": "user_name"
+              }
+            ]
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": "sf_metric",
+            "showLegend": true
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "Failed Logins",
+              "label": "A",
+              "paletteIndex": 5,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "Successful Logins",
+              "label": "B",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": true,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('snowflake.logins.total', rollup='sum', extrapolation='last_value', maxExtrapolations=2).sum().publish(label='A')\nB = data('snowflake.logins.total', rollup='sum', extrapolation='last_value', maxExtrapolations=2).sum().publish(label='B')",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Total Sessions by Username (1h Sum)",
+        "id": "GJNSMVFA4DU",
+        "importOf": "GJMhXG8AwEA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Sessions by User",
+        "options": {
+          "groupBy": [],
+          "groupBySort": "Descending",
+          "hideMissingValues": true,
+          "legendOptions": {
+            "fields": [
+              {
+                "enabled": true,
+                "property": "user_name"
+              },
+              {
+                "enabled": true,
+                "property": "error_message"
+              },
+              {
+                "enabled": true,
+                "property": "reported_client_type"
+              },
+              {
+                "enabled": false,
+                "property": "azure_resource_id"
+              },
+              {
+                "enabled": false,
+                "property": "azure.resourcegroup.name"
+              },
+              {
+                "enabled": false,
+                "property": "azure.vm.size"
+              },
+              {
+                "enabled": false,
+                "property": "cloud.account.id"
+              },
+              {
+                "enabled": false,
+                "property": "cloud.platform"
+              },
+              {
+                "enabled": false,
+                "property": "cloud.provider"
+              },
+              {
+                "enabled": false,
+                "property": "cloud.region"
+              },
+              {
+                "enabled": false,
+                "property": "host.id"
+              },
+              {
+                "enabled": false,
+                "property": "host.name"
+              },
+              {
+                "enabled": false,
+                "property": "sf_originatingMetric"
+              },
+              {
+                "enabled": false,
+                "property": "os.type"
+              },
+              {
+                "enabled": false,
+                "property": "sf_metric"
+              },
+              {
+                "enabled": false,
+                "property": "system.type"
+              }
+            ]
+          },
+          "maximumPrecision": null,
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "Sessions",
+              "label": "Sessions",
+              "valuePrefix": "",
+              "valueSuffix": "",
+              "valueUnit": null
+            }
+          ],
+          "refreshInterval": null,
+          "sortBy": "",
+          "time": {
+            "range": 86400000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "timestampHidden": false,
+          "type": "TableChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('snowflake.session_id.count', extrapolation='zero').sum(by=['user_name']).sum(over='1h').publish(label='Sessions')",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Total Failed Logins (1h Sum)",
+        "id": "GJNSMVFA4D0",
+        "importOf": "GJMhXG8AwA8",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Total Failed Logins",
+        "options": {
+          "colorBy": "Dimension",
+          "colorScale": null,
+          "colorScale2": null,
+          "maximumPrecision": 1,
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "snowflake.logins.fail.count - Sum - Sum(1h)",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "None",
+          "showSparkLine": false,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "timestampHidden": false,
+          "type": "SingleValue",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('snowflake.logins.total', filter=filter('is_success', 'NO'), rollup='sum', extrapolation='zero', maxExtrapolations=2, resolution=900000).sum().sum(over='1h').publish(label='A')",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Total Logins (1h Sum)",
+        "id": "GJNSMVFA4EA",
+        "importOf": "GJMhXG8AwDY",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Total Logins",
+        "options": {
+          "colorBy": "Dimension",
+          "colorScale": null,
+          "colorScale2": null,
+          "maximumPrecision": 1,
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "snowflake.logins.total - Sum - Sum(1h)",
+              "label": "C",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "None",
+          "showSparkLine": false,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "timestampHidden": false,
+          "type": "SingleValue",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "C = data('snowflake.logins.total', filter=filter('is_success', '*'), rollup='sum', extrapolation='zero', maxExtrapolations=2, resolution=900000).sum().sum(over='1h').publish(label='C')",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Total Failed Logins",
+        "id": "GJNSMVFA4Eg",
+        "importOf": "GJMhXG8AwCY",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Total Failed Logins",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            },
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "AreaChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": null
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": null,
+            "showLegend": false
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "Failed Logins",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('snowflake.logins.total', filter=filter('is_success', 'NO'), rollup='sum', extrapolation='zero', resolution=900000).sum().publish(label='A')",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "GJNSMVFA4GY",
+        "importOf": "GJMhXG8AwCs",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": ".",
+        "options": {
+          "markdown": "<table width=\"100%\" height=\"10%\" rules=\"none\"><tr><td valign=\"middle\" align=\"center\" bgcolor=\"#59a200\">\n<font size=\"5\" color=\"white\">Monitor Security & Misconfigurations</font>\n</td></tr></table>\n\n<p align=\"center\" ><br /><font>Charts below refer to the health of your Snowflake Infra. Use the filters at the top to narrow down Warehouses by Warehouse Size, Database, Schema, User, or Query.",
+          "type": "Text"
+        },
+        "packageSpecifications": "",
+        "programText": "",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    }
+  ],
+  "dashboardExport": {
+    "dashboard": {
+      "authorizedWriters": null,
+      "chartDensity": "DEFAULT",
+      "charts": [
+        {
+          "chartId": "GJNSMVFA4GY",
+          "column": 0,
+          "height": 1,
+          "row": 0,
+          "width": 12
+        },
+        {
+          "chartId": "GJNSMVFA4Eg",
+          "column": 8,
+          "height": 1,
+          "row": 1,
+          "width": 4
+        },
+        {
+          "chartId": "GJNSMVFA4EA",
+          "column": 0,
+          "height": 1,
+          "row": 1,
+          "width": 2
+        },
+        {
+          "chartId": "GJNSMVFA4Co",
+          "column": 2,
+          "height": 1,
+          "row": 1,
+          "width": 4
+        },
+        {
+          "chartId": "GJNSMVFA4D0",
+          "column": 6,
+          "height": 1,
+          "row": 1,
+          "width": 2
+        },
+        {
+          "chartId": "GJNSMVFA4DU",
+          "column": 6,
+          "height": 2,
+          "row": 2,
+          "width": 6
+        },
+        {
+          "chartId": "GJNSMVFA4CI",
+          "column": 0,
+          "height": 2,
+          "row": 2,
+          "width": 6
+        }
+      ],
+      "created": 0,
+      "creator": null,
+      "customProperties": null,
+      "description": "",
+      "discoveryOptions": null,
+      "eventOverlays": null,
+      "filters": {
+        "sources": null,
+        "time": {
+          "end": "Now",
+          "start": "-3h"
+        },
+        "variables": [
+          {
+            "alias": "Warehouse",
+            "applyIfExists": false,
+            "description": "",
+            "preferredSuggestions": [],
+            "property": "warehouse_name",
+            "propertyMappings": [
+              "warehouse_name"
+            ],
+            "replaceOnly": false,
+            "required": false,
+            "restricted": false,
+            "value": null
+          },
+          {
+            "alias": "Database",
+            "applyIfExists": false,
+            "description": "",
+            "preferredSuggestions": [],
+            "property": "database_name",
+            "propertyMappings": [
+              "database_name"
+            ],
+            "replaceOnly": false,
+            "required": false,
+            "restricted": false,
+            "value": null
+          },
+          {
+            "alias": "Schema",
+            "applyIfExists": false,
+            "description": "",
+            "preferredSuggestions": [],
+            "property": "schema_name",
+            "propertyMappings": [
+              "schema_name"
+            ],
+            "replaceOnly": false,
+            "required": false,
+            "restricted": false,
+            "value": null
+          },
+          {
+            "alias": "User",
+            "applyIfExists": false,
+            "description": "",
+            "preferredSuggestions": [],
+            "property": "user_name",
+            "propertyMappings": [
+              "user_name"
+            ],
+            "replaceOnly": false,
+            "required": false,
+            "restricted": false,
+            "value": null
+          }
+        ]
+      },
+      "groupId": "GJNSMVFA4Ac",
+      "groupName": "Snowflake (SRE) Dashboard Group",
+      "id": "GJNSMVFA4G0",
+      "importOf": "GJMhXG8AwGw",
+      "lastUpdated": 0,
+      "lastUpdatedBy": null,
+      "maxDelayOverride": null,
+      "name": "Snowflake Security",
+      "permissions": null,
+      "selectedEventOverlays": [],
+      "tags": null
+    }
+  },
+  "hashCode": -1898547050,
+  "id": "GJNSMVFA4G0",
+  "modelVersion": 1,
+  "packageType": "DASHBOARD"
+}
