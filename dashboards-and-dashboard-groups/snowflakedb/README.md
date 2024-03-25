@@ -1,10 +1,18 @@
 # SnowflakeDB Dashboards
 
-This folder contains a Dashboard Group and individual Dashboards for Snowflake along with OpenTelemetry configuration examples.
+This folder contains a Dashboard Group and individual Dashboards for Snowflake along with OpenTelemetry configuration examples for [Smart Agent receiver](https://docs.splunk.com/observability/en/gdi/monitors-databases/sql.html#collect-snowflake-performance-and-usage-metrics) and the OpenTelemetry contributed [Snowflake receiver](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/snowflakereceiver).
 
 ## Configuration
 
 ### OpenTelemetry Agent Configuration
+
+#### Snowflake Receiver (OpenTelemetry Contrib)
+Setup according to [receiver documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/snowflakereceiver) or use the provided configurations as guidance:
+1.  [`agent_config.yaml`](./Configuration/snowflake-receiver/agent_config.yaml) Contains receiver, exporter, pipeline configuration
+    - The receiver entries for Snowflake can be found under `snowflake`
+2. [`splunk-otel-collector.conf`](./Configuration/snowflake-receiver/splunk-otel-collector.conf) Contains referenced variables like snowflake username / password, and Splunk Observability token, etc
+
+#### Smart Agent Receiver (Legacy)
 1. [`agent_config.yaml`](./Configuration/agent_config.yaml) Contains receiver, exporter, pipeline configuration
     - The receiver entries for Snowflake can be found under `smartagent/sql`
 2. [`splunk-otel-collector.conf`](./Configuration/splunk-otel-collector.conf) Contains referenced variables like snowflake username / password, and Splunk Observability token, etc
@@ -46,7 +54,7 @@ This folder contains a Dashboard Group and individual Dashboards for Snowflake a
   - Chart over time for logins and failed logins
   - Tables for investigation of login failures by user and sessions by user
 
-### Snowflake Query Details:
+### Snowflake Query Details [legacy Smart Agent only]:
 - **NOTE:** This dashboard will be empty unless you replace the DB metrics set of SQL queries in [`snowflake-metrics.yaml`](./Configuration/snowflake-metrics.yaml) with the high cardinality queries from [`snowflake-other-metrics.yaml`](./Configuration/snowflake-other-metrics.yaml) in your OTEL collector configuration that produces *high cardinality* metrics with a dimension for `query_id`
 - Provides 
   - Top queries by length of time
@@ -55,6 +63,7 @@ This folder contains a Dashboard Group and individual Dashboards for Snowflake a
   - Queries by partitions scanned
 
 ## Detectors
+**Note:** Detectors currently use Smart Agent naming for metrics
 Detectors for Snowflake in Splunk Observability can be found in the [detectors folder](../../detectors/snowflakedb/) of this repository.
 
 ## Troubleshooting 
