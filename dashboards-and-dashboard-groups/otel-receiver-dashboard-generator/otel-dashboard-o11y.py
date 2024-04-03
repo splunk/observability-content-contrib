@@ -7,7 +7,7 @@ parser.add_argument('--file_path', metavar='file_path', type=str, default="", he
 
 args = parser.parse_args()
 
-def create_shart_resources(metrics):
+def create_chart_resources(metrics):
     """Creat chart resources from provided dict of metrics from the provided yaml
 
     Returns:
@@ -84,7 +84,7 @@ def process_yaml_file(file_path):
             type = data.get("type", str)
 
             # Generate chart resources for each metric
-            terraform_chart_configs = create_shart_resources(metrics)
+            terraform_chart_configs = create_chart_resources(metrics)
 
             # Join Terraform configurations into a single string
             terraform_chart_str = "\n".join(terraform_chart_configs)
