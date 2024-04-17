@@ -12,7 +12,7 @@ The `entrypoint.sh` is essential for sourcing environment variables from the `in
 
 To build, run from the `splunk-otel-dotnet-docker` directory:
 ```
-docker build -t multistagedocker:latest .
+docker build -f MultiStageDocker/Dockerfile -t multistagedocker:latest .
 ```
 
 To execute:
