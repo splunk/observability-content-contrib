@@ -32,8 +32,6 @@ Alternatively run points 1-3 manually:
 1. Open your browser and navigate to `http://localhost:8181`.
 1. Verify the execution of instrumentation by examining the container logs, which should now include Activity information. (Refer to the sample output below.)
 
-Sample log output:
-
 ```txt
 2023-12-01 15:34:28 info: Microsoft.Hosting.Lifetime[14]
 2023-12-01 15:34:28       Now listening on: http://[::]:8080
@@ -73,6 +71,21 @@ Sample log output:
 2023-12-01 15:34:32     telemetry.sdk.version: 1.6.0
 2023-12-01 15:34:32
 ```
+
+To send the traces to an OTLP receiver just define the endpoint via ENV.
+```
+docker run -d \
+  -e OTEL_DOTNET_AUTO_TRACES_CONSOLE_EXPORTER_ENABLED=true \
+  -e OTEL_SERVICE_NAME=service_name \
+  -e OTEL_EXPORTER_OTLP_ENDPOINT=http://otelcol.lan:4318
+  -e OTEL_RESOURCE_ATTRIBUTES=deployment.environment=dev,service.version=1
+  -p 8181:8080 \
+  multistagedocker:latest
+```
+
+
+   
+Sample log output:
 
 ## Common known issues
 
