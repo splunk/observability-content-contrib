@@ -23,8 +23,7 @@ def run(hostname, realm, token):
   headers = {"Content-Type": "application/json", "X-SF-TOKEN": "{}".format(token) }
   response = requests.get(url, headers=headers)
   responseJSON = json.loads(response.text)
-  #print(response.text)
-
+  
   # If the result count is > limit, say so and exit
   try:
     cnt = responseJSON["count"]
