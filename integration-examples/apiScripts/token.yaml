@@ -1,4 +1,4 @@
-# these values are used by the addEmailToDetectors.py script
+# these values are used by the apiScripts
 access_token:  #required. User API Access Token from your Splunk Observability Cloud Organization
 realm:  #required. Realm for your Splunk Observability Cloud Organization (ex: us1)
 emailAddress:   # required. Email address that you would like to add to the detector(s)
