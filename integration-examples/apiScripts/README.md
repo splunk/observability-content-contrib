@@ -13,3 +13,5 @@ Usage: python3 getMetricsForHost.py -h <HOST_NAME> -r <realm> -t <token>
 
 # muteAllAutoDetectors.py
 This script will mute all auto-detectors. It can also be used to re-enable (unmute) all detectors. (NOTE: Unmuting won't distinguish those you muted with the script or muted manually.)
+Usage: python3 muteAllAutoDetectors.py (to mute all)
+       python3 muteAllAutoDetectors.py -e (to enable all)
