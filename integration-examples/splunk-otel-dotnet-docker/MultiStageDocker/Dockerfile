@@ -10,8 +10,8 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["MultiStageDocker/MultiStageDocker.csproj", "MultiStageDocker/"]
 RUN dotnet restore "./MultiStageDocker/./MultiStageDocker.csproj"
-COPY . .
 WORKDIR "/src/MultiStageDocker"
+COPY . .
 RUN dotnet build "./MultiStageDocker.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Add dependencies for splunk-otel-dotnet-install.sh
@@ -36,7 +36,7 @@ COPY --from=build /root/.splunk-otel-dotnet/ .
 
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY --from=build /src/MultiStageDocker/entrypoint.sh .
+COPY MultiStageDocker/entrypoint.sh .
 
 ENTRYPOINT ["sh", "entrypoint.sh"]
 CMD ["dotnet", "MultiStageDocker.dll"]
