@@ -12,17 +12,11 @@ extensions:
       endpoint: "${SPLUNK_API_URL}"
       # Use instead when sending to gateway
       #endpoint: "${SPLUNK_GATEWAY_URL}"
-  smartagent:
-    bundleDir: "${SPLUNK_BUNDLE_DIR}"
-    collectd:
-      configDir: "${SPLUNK_COLLECTD_DIR}"
   zpages:
   memory_ballast:
     size_mib: ${SPLUNK_BALLAST_SIZE_MIB}
 
 receivers:
-  fluentforward:
-    endpoint: 127.0.0.1:8006
   hostmetrics:
     collection_interval: 10s
     scrapers:
@@ -63,33 +57,59 @@ receivers:
           - source_labels: [ __name__ ]
             regex: '.*grpc_io.*'
             action: drop
-  smartagent/signalfx-forwarder:
-    type: signalfx-forwarder
-    listenAddress: 0.0.0.0:9080
   ### This is where the fun begins.
-  ### Your Snowflake receiver uses the `smartagent/sql` receiver
-  ### The following settings also reference variables from `splunk-otel-collector.conf`
-  smartagent/sql:
-    type: sql
-    intervalSeconds: 3600
-    dbDriver: snowflake
-    params:
-      ### `account` is of the `account_identifier` from
-      ### this format `<account_identifier>.snowflakecomputing.com`
-      ### Azure Example: NP06963.canada-central.azure 
-      ### AWS Example: HRB42034.us-east-1
-      account: HRB42034.us-east-1
-      database: "SNOWFLAKE"
-      schema: "ACCOUNT_USAGE"
-      ### Use `ACCOUNTADMIN` or another role with access to the `SNOWFLAKE/ACCOUNT_USAGE` view
-      role: "ACCOUNTADMIN"
-      ### The following settings also reference variables from `splunk-otel-collector.conf`
-      user: ${SNOWFLAKE_USER}
-      password: ${SNOWFLAKE_PASS}
-    connectionString: "{{.user}}:{{.password}}@{{.account}}/{{.database}}/{{.schema}}?role={{.role}}"
-    ### Queries references your `snowflake-metrics.yaml` file path
-    queries: 
-      ${include:/etc/otel/collector/snowflake-metrics.yaml}
+  ### Your Snowflake receiver uses the `snowflake` receiver
+  snowflake:
+    username: ${SNOWFLAKE_USER}
+    password: ${SNOWFLAKE_PASS}
+    ### `account` is of the `account_identifier` from the login screen url for snowflake
+    ### this format `<account_identifier>.snowflakecomputing.com`
+    ### Azure Example: NP06963.canada-central.azure 
+    ### AWS Example: xnb00000.us-east-1
+    account: xnb00000.us-east-1 
+    # Default is `COMPUTE_WH`
+    warehouse: COMPUTE_WH
+    collection_interval: 10m
+    ### Enable non-default metrics
+    metrics:
+      snowflake.billing.cloud_service.total:
+        enabled: true
+      snowflake.billing.total_credit.total:
+        enabled: true
+      snowflake.billing.virtual_warehouse.total:
+        enabled: true
+      snowflake.billing.warehouse.cloud_service.total:
+        enabled: true
+      snowflake.billing.warehouse.total_credit.total:
+        enabled: true
+      snowflake.billing.warehouse.virtual_warehouse.total:
+        enabled: true
+      snowflake.logins.total:
+        enabled: true 
+      snowflake.query.bytes_spilled.local.avg:
+        enabled: true 
+      snowflake.query.bytes_spilled.remote.avg:
+        enabled: true
+      snowflake.query.data_scanned_cache.avg:
+        enabled: true 
+      snowflake.query.partitions_scanned.avg:
+        enabled: true
+      snowflake.rows_inserted.avg:
+        enabled: true
+      snowflake.rows_deleted.avg:
+        enabled: true
+      snowflake.rows_produced.avg:
+        enabled: true
+      snowflake.rows_unloaded.avg:
+        enabled: true
+      snowflake.rows_updated.avg:
+        enabled: true
+      snowflake.session_id.count:
+        enabled: true
+      snowflake.pipe.credits_used.total:
+        enabled: true
+      snowflake.storage.failsafe_bytes.total:
+        enabled: true 
   signalfx:
     endpoint: 0.0.0.0:9943
   zipkin:
@@ -145,7 +165,7 @@ service:
   extensions: [health_check, http_forwarder, zpages, memory_ballast]
   pipelines:
     traces:
-      receivers: [jaeger, otlp, smartagent/signalfx-forwarder, zipkin]
+      receivers: [jaeger, otlp, zipkin]
       processors:
       - memory_limiter
       - batch
@@ -154,8 +174,8 @@ service:
       # Use instead when sending to gateway
       #exporters: [otlp, signalfx]
     metrics:
-      ### This pipline uses our `smartagent/sql` receiver and sends our Snowflake metrics
-      receivers: [hostmetrics, otlp, signalfx, smartagent/signalfx-forwarder, smartagent/sql]
+      ### This pipline uses our `snowflake` receiver and sends our Snowflake metrics
+      receivers: [snowflake, hostmetrics, otlp, signalfx]
       processors: [memory_limiter, batch, resourcedetection]
       exporters: [signalfx]
       # Use instead when sending to gateway
@@ -169,6 +189,6 @@ service:
     logs/signalfx:
       receivers: [signalfx]
       processors: [memory_limiter, batch]
-      exporters: [signalfx]
+      exporters: [splunk_hec]
       # Use instead when sending to gateway
       #exporters: [otlp]
