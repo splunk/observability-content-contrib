@@ -83,9 +83,45 @@ docker run -d \
   multistagedocker:latest
 ```
 
+## Alternative Option:  NuGet Package
 
-   
-Sample log output:
+As an alternative to downloading the Splunk distribution of OpenTelemetry .NET 
+in the Dockerfile and installing it, you can instead install a NuGet package 
+in the Docker file: 
+
+```bash
+RUN dotnet add "./MultiStageDocker.csproj" package Splunk.OpenTelemetry.AutoInstrumentation --prerelease
+```
+
+Refer to [NuGet package installation considerations](https://docs.splunk.com/observability/en/gdi/get-data-in/application/otel-dotnet/instrumentation/instrument-dotnet-application.html#nuget-package-installation-considerations) 
+to determine if the NuGet option is preferable for your specific scenario. 
+
+To build this option, run from the `splunk-otel-dotnet-docker` directory:
+```
+docker build -f MultiStageDockerNuGetOption/Dockerfile -t multistagedockernuget:latest .
+```
+
+To execute:
+
+```bash
+docker run -d \
+  -e OTEL_DOTNET_AUTO_TRACES_CONSOLE_EXPORTER_ENABLED=true \
+  -p 8181:8080 \
+  multistagedockernuget:latest
+```
+
+This option requires a Runtime Identifier (RID) to be passed into the `dotnet build` 
+and `dotnet publish` commands in the Dockerfile: 
+
+```bash
+RUN dotnet build "./MultiStageDocker.csproj" -r linux-x64 -c $BUILD_CONFIGURATION -o /app/build
+...
+RUN dotnet publish "./MultiStageDocker.csproj" -r linux-x64 -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+```
+
+You might need to update the runtime identifier value for your target environment. Refer 
+to [Find the runtime identifier for your .NET applications](https://docs.splunk.com/observability/en/gdi/get-data-in/application/otel-dotnet/troubleshooting/common-dotnet-troubleshooting.html#find-the-runtime-identifier-for-your-net-applications)
+for further details.
 
 ## Common known issues
 
