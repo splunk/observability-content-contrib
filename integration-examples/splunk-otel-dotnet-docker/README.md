@@ -85,18 +85,30 @@ docker run -d \
 
 ## Alternative Option:  NuGet Package
 
-As an alternative to downloading the Splunk distribution of OpenTelemetry .NET 
-in the Dockerfile and installing it, you can instead install a NuGet package 
-in the Docker file: 
+You can also deploy the Splunk Distribution of the OpenTelemetry .NET instrumentation automatically using the official NuGet packages.
+
+Refer to [NuGet package installation considerations](https://docs.splunk.com/observability/en/gdi/get-data-in/application/otel-dotnet/instrumentation/instrument-dotnet-application.html#nuget-package-installation-considerations)
+to determine if the NuGet option is preferable for your specific scenario.
+
+Generally, it's best to add the NuGet package as part of the application development process. 
+This is done by adding the NuGet packages with the following command, replacing \<project\> 
+with the .csproj file name:
+````
+dotnet add <project> package Splunk.OpenTelemetry.AutoInstrumentation --prerelease
+````
+
+Installing this NuGet package results in multiple dependencies added to the project, along with 
+version changes for existing dependencies, which should all be tested locally before dockerizing 
+and deploying to a higher environment. 
+
+If this isn't possible, then you might consider adding this step to the Dockerfile instead:
 
 ```bash
 RUN dotnet add "./MultiStageDocker.csproj" package Splunk.OpenTelemetry.AutoInstrumentation --prerelease
 ```
 
-Refer to [NuGet package installation considerations](https://docs.splunk.com/observability/en/gdi/get-data-in/application/otel-dotnet/instrumentation/instrument-dotnet-application.html#nuget-package-installation-considerations) 
-to determine if the NuGet option is preferable for your specific scenario. 
 
-To build this option, run from the `splunk-otel-dotnet-docker` directory:
+To build the example Docker image with this option, run from the `splunk-otel-dotnet-docker` directory:
 ```
 docker build -f MultiStageDockerNuGetOption/Dockerfile -t multistagedockernuget:latest .
 ```
