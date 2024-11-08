@@ -1,0 +1,63 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1727093437101,
+    "creator": "GRtepaIAICg",
+    "customProperties": null,
+    "description": "",
+    "detectorOrigin": "Standard",
+    "id": "GYJpVTXAEAA",
+    "labelResolutions": {
+        "Hardware - Tape drive needs cleaning": 1000
+    },
+    "lastUpdated": 1727093437495,
+    "lastUpdatedBy": "AAAAAAAAAAA",
+    "maxDelay": null,
+    "minDelay": null,
+    "name": "Hardware - Tape drive needs cleaning",
+    "overMTSLimit": false,
+    "packageSpecifications": "",
+    "programText": "A = data('hw.status', filter=filter('state', 'needs_cleaning')).publish(label='A')\ndetect(when(A > threshold(0))).publish('Hardware - Tape drive needs cleaning')",
+    "rules": [
+        {
+            "description": "The value of hw.status is above 0.",
+            "detectLabel": "Hardware - Tape drive needs cleaning",
+            "disabled": false,
+            "notifications": [],
+            "parameterizedBody": "{{#if anomalous}}\n###Cleaning needed\nTape drive **{{dimensions.[name]}}** needs cleaning on **{{dimensions.[host.name]}}** in **{{dimensions.site}}**.\n\n###Consequence\nRegular tape drive cleaning helps in long-term reliability, prevents read/write errors and should be conducted on a scheduled cycle as well as when requested by the drive.\n\n###Recommended action\nWait for any running operation to finish, eject the tape and clean the drive.\n{{else}}\nTape drive no longer needs cleaning. \n{{/if}}\n\n###Device Details\n**Name: ** {{dimensions.[name]}}\n**ID:** {{dimensions.id}}\n**Vendor:** {{dimensions.vendor}}\n**Model:** {{dimensions.model}}\n**Serial Number:** {{dimensions.serial_number}}\n**Information:** {{dimensions.info}}",
+            "parameterizedSubject": "ape drive {{dimensions.[name]}} needs cleaning",
+            "runbookUrl": "",
+            "severity": "Warning",
+            "tip": ""
+        }
+    ],
+    "sf_metricsInObjectProgramText": [
+        "hw.status"
+    ],
+    "status": "ACTIVE",
+    "tags": [],
+    "teams": [],
+    "timezone": "",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "hw.status",
+                "label": "A",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": false,
+        "time": {
+            "range": 86400000,
+            "rangeEnd": 0,
+            "type": "relative"
+        }
+    }
+}

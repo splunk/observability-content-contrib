@@ -1,0 +1,80 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1727102464663,
+    "creator": "GRtepaIAICg",
+    "customProperties": null,
+    "description": "",
+    "detectorOrigin": "Standard",
+    "id": "GYKN4UQAAA4",
+    "labelResolutions": {
+        "Hardware - High temperature": 120000
+    },
+    "lastUpdated": 1729855807557,
+    "lastUpdatedBy": "AAAAAAAAAAA",
+    "maxDelay": 0,
+    "minDelay": 0,
+    "name": "Hardware - High temperature",
+    "overMTSLimit": false,
+    "packageSpecifications": "",
+    "programText": "A = data('hw.temperature').publish(label='A', enable=False)\nB = data('hw.temperature.limit', filter=filter('limit_type', 'high.degraded')).publish(label='B', enable=False)\nC = (A-B).publish(label='C')\ndetect(when(C > threshold(0))).publish('Hardware - High temperature')",
+    "rules": [
+        {
+            "description": "The value of A-B is above 0.",
+            "detectLabel": "Hardware - High temperature",
+            "disabled": false,
+            "notifications": [],
+            "parameterizedBody": "{{#if anomalous}}\n## High temperature\nTemperature is high for **{{dimensions.[name]}}** on **{{dimensions.[host.name]}}** in **{{dimensions.site}}**\n\n## Consequence\nAn out-of-range temperature may lead to a system crash or even damaged hardware.\n\n## Recommended action\nCheck why the temperature is out of the normal range (it may be due to a fan failure, a severe system overload or a failure in the data center cooling system).\n{{else}}\nRecovered temperature level.\n{{/if}}\n\n###Device Details\n**Name: ** {{dimensions.[name]}}\n**ID:** {{dimensions.id}}\n**Information:** {{dimensions.info}}",
+            "parameterizedSubject": "Hardware - High temperature on {{dimensions.[host.name]}}",
+            "runbookUrl": "",
+            "severity": "Warning",
+            "tip": ""
+        }
+    ],
+    "sf_metricsInObjectProgramText": [
+        "hw.temperature.limit",
+        "hw.temperature"
+    ],
+    "status": "ACTIVE",
+    "tags": [],
+    "teams": [],
+    "timezone": "",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "hw.temperature",
+                "label": "A",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            },
+            {
+                "displayName": "hw.temperature.limit",
+                "label": "B",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            },
+            {
+                "displayName": "A-B",
+                "label": "C",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": false,
+        "time": {
+            "range": 86400000,
+            "rangeEnd": 0,
+            "type": "relative"
+        }
+    }
+}

@@ -1,0 +1,69 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1727095352339,
+    "creator": "GRtepaIAICg",
+    "customProperties": null,
+    "description": "",
+    "detectorOrigin": "Standard",
+    "id": "GYJxNpHAIAA",
+    "labelResolutions": {
+        "Hardware - Low fan speed (%)": 1000
+    },
+    "lastUpdated": 1727096537448,
+    "lastUpdatedBy": "AAAAAAAAAAA",
+    "maxDelay": 0,
+    "minDelay": 0,
+    "name": "Hardware - Low fan speed (%)",
+    "overMTSLimit": false,
+    "packageSpecifications": "",
+    "programText": "A = data('hw.fan.speed_ratio').publish(label='A', enable=False)\nB = data('A*100').publish(label='B')\ndetect(when(B < threshold(10))).publish('Hardware - Low fan speed (%)')",
+    "rules": [
+        {
+            "description": "The value of A*100 is below 10.",
+            "detectLabel": "Hardware - Low fan speed (%)",
+            "disabled": false,
+            "notifications": [],
+            "parameterizedBody": "{{#if anomalous}}\n###Low fan speed\nFan speed for **{{dimensions.[name]}}** is abnormally low on  **{{dimensions.[host.name]}}** in **{{dimensions.site}}**.\n\n###Consequence\nThe temperature of the chip, component or device that was cooled down by this fan, may rise rapidly. This could lead to severe hardware damage and system crashes.\n\n###Recommended action\nCheck if the fan no longer cools down the system. If so, replace the fan.\n{{else}}\nRecovered fan speed.\n{{/if}}\n\n###Device Details\n**Name: ** {{dimensions.[name]}}\n**ID:** {{dimensions.id}}\n**Information:** {{dimensions.info}}",
+            "parameterizedSubject": "Low fan speed",
+            "severity": "Warning"
+        }
+    ],
+    "sf_metricsInObjectProgramText": [
+        "A*100"
+    ],
+    "status": "ACTIVE",
+    "tags": [],
+    "teams": [],
+    "timezone": "",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "hw.fan.speed_ratio",
+                "label": "A",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            },
+            {
+                "displayName": "A*100",
+                "label": "B",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": false,
+        "time": {
+            "range": 86400000,
+            "rangeEnd": 0,
+            "type": "relative"
+        }
+    }
+}

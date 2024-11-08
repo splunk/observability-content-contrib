@@ -1,0 +1,61 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1726836391594,
+    "creator": "GRtepaIAICg",
+    "customProperties": null,
+    "description": "",
+    "detectorOrigin": "Standard",
+    "id": "GX6ZxEYAAAA",
+    "labelResolutions": {
+        "Hardware - Missing device": 5000
+    },
+    "lastUpdated": 1727976755429,
+    "lastUpdatedBy": "AAAAAAAAAAA",
+    "maxDelay": 0,
+    "minDelay": 0,
+    "name": "Hardware - Missing device",
+    "overMTSLimit": false,
+    "packageSpecifications": "",
+    "programText": "AB = alerts(detector_name='Hardware - Missing Device').publish(label='AB')\nA = data('hw.status', filter=filter('state', 'present'), rollup='min').publish(label='A')\ndetect(when(A < threshold(1))).publish('Hardware - Missing device')",
+    "rules": [
+        {
+            "description": "The value of hw.status is below 1.",
+            "detectLabel": "Hardware - Missing device",
+            "disabled": false,
+            "notifications": [],
+            "parameterizedBody": "{{#if anomalous}}\n###Missing  {{dimensions.[hw.type]}}\n\n**{{dimensions.name}}** is no longer detected on on **{{dimensions.[host.name]}}** in **{{dimensions.site}}**.\n\n###Recommended action\nCheck whether the device was intentionally removed from the system or if it is not responding. \n{{else}}\nThe device has recovered. \n{{/if}}\n\n###Device Details\n**Name:** {{dimensions.[name]}}\n**ID:** {{dimensions.id}}\n**Type:** {{dimensions.[hw.type]}}\n**Information:** {{dimensions.info}}",
+            "parameterizedSubject": "Missing {{dimensions.[hw.type]}} on **{{dimensions.[host.name]}}**",
+            "severity": "Major"
+        }
+    ],
+    "sf_metricsInObjectProgramText": [
+        "hw.status"
+    ],
+    "status": "ACTIVE",
+    "tags": [],
+    "teams": [],
+    "timezone": "",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "hw.status",
+                "label": "A",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": false,
+        "time": {
+            "range": 86400000,
+            "rangeEnd": 0,
+            "type": "relative"
+        }
+    }
+}
