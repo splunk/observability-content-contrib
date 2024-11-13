@@ -24,5 +24,7 @@ Subscribers to **MetricsHub** gain access to the **MetricsHub Support Desk**, wh
 - Patches and updates
 - Knowledge base access
 
+For more information, visit the [MetricsHub](https://metricshub.com/) website.
+
 Splunk does not provide support for these detectors and users should contact Sentry Software's support with any support requests.
 
