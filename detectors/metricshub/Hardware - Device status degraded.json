@@ -1,0 +1,63 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1726835785724,
+    "creator": "GRtepaIAICg",
+    "customProperties": null,
+    "description": "",
+    "detectorOrigin": "Standard",
+    "id": "GX6QUA7AAAA",
+    "labelResolutions": {
+        "Hardware - Device status degraded": 180000
+    },
+    "lastUpdated": 1730114326958,
+    "lastUpdatedBy": "AAAAAAAAAAA",
+    "maxDelay": 0,
+    "minDelay": 0,
+    "name": "Hardware - Device status degraded",
+    "overMTSLimit": false,
+    "packageSpecifications": "",
+    "programText": "A = data('hw.status', filter=filter('state', 'degraded'), rollup='min').publish(label='A')\ndetect(when(A > threshold(0), lasting='5m'), auto_resolve_after='15m').publish('Hardware - Device status degraded')",
+    "rules": [
+        {
+            "description": "The value of hw.status is above 0.",
+            "detectLabel": "Hardware - Device status degraded",
+            "disabled": false,
+            "notifications": [],
+            "parameterizedBody": "{{#if anomalous}}\n###Degraded {{dimensions.[hw.type]}}.\n\n**{{dimensions.name}}** is degraded on **{{dimensions.[host.name]}}** in **{{dimensions.site}}** at {{dateTimeFormat timestamp format=\"full\"}}.\n{{else}}\nRecovered {{dimensions.[hw.type]}} **{{dimensions.name}}** from **degraded** status at {{dateTimeFormat timestamp format=\"full\"}}.\n{{/if}}\n\n###Device Details\n**Name:** {{dimensions.[name]}}\n**ID:** {{dimensions.id}}\n**Type:** {{dimensions.[hw.type]}}\n**Information:** {{dimensions.info}}",
+            "parameterizedSubject": "[Hardware] Status degraded for {{dimensions.[hw.type]}} of {{dimensions.[host.name]}} in {{dimensions.site}}",
+            "runbookUrl": "",
+            "severity": "Warning",
+            "tip": ""
+        }
+    ],
+    "sf_metricsInObjectProgramText": [
+        "hw.status"
+    ],
+    "status": "ACTIVE",
+    "tags": [],
+    "teams": [],
+    "timezone": "",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "hw.status",
+                "label": "A",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": false,
+        "time": {
+            "range": 86400000,
+            "rangeEnd": 0,
+            "type": "relative"
+        }
+    }
+}

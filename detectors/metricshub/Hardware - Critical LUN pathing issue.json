@@ -1,0 +1,63 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1727101400682,
+    "creator": "GRtepaIAICg",
+    "customProperties": null,
+    "description": "",
+    "detectorOrigin": "Standard",
+    "id": "GYKRRPGAAAA",
+    "labelResolutions": {
+        "Hardware - Critical LUN pathing issue": 180000
+    },
+    "lastUpdated": 1730952952374,
+    "lastUpdatedBy": "AAAAAAAAAAA",
+    "maxDelay": null,
+    "minDelay": null,
+    "name": "Hardware - Critical LUN pathing issue",
+    "overMTSLimit": false,
+    "packageSpecifications": "",
+    "programText": "A = data('hw.lun.paths').publish(label='A')\ndetect(when(A < threshold(1))).publish('Hardware - Critical LUN pathing issue')",
+    "rules": [
+        {
+            "description": "The value of hw.lun.paths is below 1.",
+            "detectLabel": "Hardware - Critical LUN pathing issue",
+            "disabled": false,
+            "notifications": [],
+            "parameterizedBody": "{{#if anomalous}}\n## Lost data access\nLUN **{{dimensions.[name]}}** is no longer available on **{{dimensions.[host.name]}}** in **{{dimensions.site}}**\n\n## Consequence\nOne or more filesystems are no longer available (possible data loss).\n\n## Recommended action\nVerify the status of the underlying HBA and its connectivity. Verify the reachability of the storage system and whether any configuration change has been made to the corresponding storage volume.\n{{else}}\nRecovered available LUN paths.\n{{/if}}\n\n###Device Details\n**Name: ** {{dimensions.[name]}}\n**ID:** {{dimensions.id}}\n**Information:** {{dimensions.info}}",
+            "parameterizedSubject": "Critical LUN pathing issue",
+            "runbookUrl": "",
+            "severity": "Major",
+            "tip": ""
+        }
+    ],
+    "sf_metricsInObjectProgramText": [
+        "hw.lun.paths"
+    ],
+    "status": "ACTIVE",
+    "tags": [],
+    "teams": [],
+    "timezone": "",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "hw.lun.paths",
+                "label": "A",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": false,
+        "time": {
+            "range": 86400000,
+            "rangeEnd": 0,
+            "type": "relative"
+        }
+    }
+}

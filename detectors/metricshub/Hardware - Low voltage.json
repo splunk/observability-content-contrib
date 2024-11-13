@@ -1,0 +1,79 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1727094964746,
+    "creator": "GRtepaIAICg",
+    "customProperties": null,
+    "description": "",
+    "detectorOrigin": "Standard",
+    "id": "GYKAGp3AEAI",
+    "labelResolutions": {
+        "Hardware - Low voltage": 120000
+    },
+    "lastUpdated": 1728649477630,
+    "lastUpdatedBy": "AAAAAAAAAAA",
+    "maxDelay": 0,
+    "minDelay": 0,
+    "name": "Hardware - Low voltage",
+    "overMTSLimit": false,
+    "packageSpecifications": "",
+    "programText": "A = data('hw.voltage').publish(label='A', enable=False)\nB = data('hw.voltage.limit', filter=filter('limit_type', 'low.critical')).publish(label='B', enable=False)\nD = (A-B).publish(label='D')\ndetect(when(A < threshold(0))).publish('Hardware - Low voltage')",
+    "rules": [
+        {
+            "description": "The value of hw.voltage is below 0.",
+            "detectLabel": "Hardware - Low voltage",
+            "disabled": false,
+            "notifications": [],
+            "parameterizedBody": "{{#if anomalous}}\n###Low voltage\nVoltage is critically low for  {{dimensions.[host.name]}} on {{host.name}} in {{dimensions.site}}.\n\n###Consequence\nAn out-of-range voltage may lead to a system crash.\n\n###Recommended action\nCheck why the voltage is out of the normal range (a feeble power supply unit, an unstable power converter, or a severe power overload owing to too many devices within the system). \n{{else}}\nRecovered voltage level.\n{{/if}}\n\n###Device Details\n**Name: ** {{dimensions.[name]}}\n**ID:** {{dimensions.id}}\n**Information:** {{dimensions.info}}",
+            "parameterizedSubject": "Low voltage",
+            "runbookUrl": "",
+            "severity": "Major",
+            "tip": ""
+        }
+    ],
+    "sf_metricsInObjectProgramText": [
+        "hw.voltage"
+    ],
+    "status": "ACTIVE",
+    "tags": [],
+    "teams": [],
+    "timezone": "",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "hw.voltage",
+                "label": "A",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            },
+            {
+                "displayName": "hw.voltage.limit",
+                "label": "B",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            },
+            {
+                "displayName": "A-B",
+                "label": "D",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": false,
+        "time": {
+            "range": 86400000,
+            "rangeEnd": 0,
+            "type": "relative"
+        }
+    }
+}

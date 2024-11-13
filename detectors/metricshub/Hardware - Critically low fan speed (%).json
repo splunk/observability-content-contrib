@@ -1,0 +1,61 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1727095467806,
+    "creator": "GRtepaIAICg",
+    "customProperties": null,
+    "description": "",
+    "detectorOrigin": "Standard",
+    "id": "GYKAGp3AEAs",
+    "labelResolutions": {
+        "Hardware - Critically low fan speed (%)": 1000
+    },
+    "lastUpdated": 1729906605545,
+    "lastUpdatedBy": "AAAAAAAAAAA",
+    "maxDelay": 0,
+    "minDelay": 0,
+    "name": "Hardware - Critically low fan speed (%)",
+    "overMTSLimit": false,
+    "packageSpecifications": "",
+    "programText": "A = data('hw.fan.speed').publish(label='A')\ndetect(when(A < threshold(1))).publish('Hardware - Critically low fan speed (%)')",
+    "rules": [
+        {
+            "description": "The value of hw.fan.speed is below 1.",
+            "detectLabel": "Hardware - Critically low fan speed (%)",
+            "disabled": false,
+            "notifications": [],
+            "parameterizedBody": "{{#if anomalous}}\n###Low fan speed\nFan speed for **{{dimensions.[name]}}** is critically low on  **{{dimensions.[host.name]}}** in **{{dimensions.site}}**.\n\n###Consequence\nThe temperature of the chip, component or device that was cooled down by this fan, may rise rapidly. This could lead to severe hardware damage and system crashes.\n\n###Recommended action\nCheck if the fan no longer cools down the system. If so, replace the fan.\n{{else}}\nRecovered fan speed.\n{{/if}}\n\n###Device Details\n**Name: ** {{dimensions.[name]}}\n**ID:** {{dimensions.id}}\n**Information:** {{dimensions.info}}",
+            "parameterizedSubject": "Critically low fan speed (%)",
+            "severity": "Minor"
+        }
+    ],
+    "sf_metricsInObjectProgramText": [
+        "hw.fan.speed"
+    ],
+    "status": "ACTIVE",
+    "tags": [],
+    "teams": [],
+    "timezone": "",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "hw.fan.speed",
+                "label": "A",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": false,
+        "time": {
+            "range": 86400000,
+            "rangeEnd": 0,
+            "type": "relative"
+        }
+    }
+}

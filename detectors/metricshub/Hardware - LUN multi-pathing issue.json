@@ -1,0 +1,63 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1727101189016,
+    "creator": "GRtepaIAICg",
+    "customProperties": null,
+    "description": "",
+    "detectorOrigin": "Standard",
+    "id": "GYKMWWkAAAA",
+    "labelResolutions": {
+        "Hardware - LUN multi-pathing issue": 180000
+    },
+    "lastUpdated": 1730986249546,
+    "lastUpdatedBy": "GRtepaIAICg",
+    "maxDelay": 0,
+    "minDelay": 0,
+    "name": "Hardware - LUN multi-pathing issue",
+    "overMTSLimit": false,
+    "packageSpecifications": "",
+    "programText": "A = data('hw.lun.paths').publish(label='A')\ndetect(when(A < threshold(2))).publish('Hardware - LUN multi-pathing issue')",
+    "rules": [
+        {
+            "description": "The value of hw.lun.paths is below 2.",
+            "detectLabel": "Hardware - LUN multi-pathing issue",
+            "disabled": false,
+            "notifications": [],
+            "parameterizedBody": "{{#if anomalous}}\n## Lost redundancy\nOnly 1 remaining path in multipathing configuration for LUN **{{dimensions.[name]}}** on **{{dimensions.[host.name]}}** in **{{dimensions.site}}**\n\n## Consequence\nThe performance of the system may be affected and the risk of losing access to data is high.\n\n## Recommended action\nVerify on the SAN switches which links are broken (link down, or zone exclusion, etc.). Check the mapping and masking configuration of the corresponding storage volume in the storage system.\n{{else}}\nRecovered available LUN paths.\n{{/if}}\n\n###Device Details\n**Name: ** {{dimensions.[name]}}\n**ID:** {{dimensions.id}}\n**Information:** {{dimensions.info}}",
+            "parameterizedSubject": "Hardware - LUN multi-pathing issue",
+            "runbookUrl": "",
+            "severity": "Warning",
+            "tip": ""
+        }
+    ],
+    "sf_metricsInObjectProgramText": [
+        "hw.lun.paths"
+    ],
+    "status": "ACTIVE",
+    "tags": [],
+    "teams": [],
+    "timezone": "",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "hw.lun.paths",
+                "label": "A",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": false,
+        "time": {
+            "range": 86400000,
+            "rangeEnd": 0,
+            "type": "relative"
+        }
+    }
+}

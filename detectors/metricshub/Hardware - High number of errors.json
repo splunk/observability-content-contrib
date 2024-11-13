@@ -1,0 +1,61 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1727103358641,
+    "creator": "GRtepaIAICg",
+    "customProperties": null,
+    "description": "",
+    "detectorOrigin": "Standard",
+    "id": "GYKN4UQAABo",
+    "labelResolutions": {
+        "Hardware - High number of errors": 1000
+    },
+    "lastUpdated": 1730894451575,
+    "lastUpdatedBy": "AAAAAAAAAAA",
+    "maxDelay": 0,
+    "minDelay": 0,
+    "name": "Hardware - High number of errors",
+    "overMTSLimit": false,
+    "packageSpecifications": "",
+    "programText": "A = data('hw.errors', filter=filter('hw.type', 'physical_disk', 'memory')).publish(label='A')\ndetect(when(A > threshold(1))).publish('Hardware - High number of errors')",
+    "rules": [
+        {
+            "description": "The value of hw.errors is above 1.",
+            "detectLabel": "Hardware - High number of errors",
+            "disabled": false,
+            "notifications": [],
+            "parameterizedBody": "{{#if anomalous}}\n## Errors\n**{{dimensions.[name]}}** encountered  internal error(s) on {{dimensions.[host.name]}} in **{{dimensions.site}}**\n\n{{else}}\n{{dimensions.[hw.type]}} {{dimensions.[name]}} is no longer reporting errors.\n{{/if}}\n\n###Device Details\n**Name: ** {{dimensions.[name]}}\n**ID:** {{dimensions.id}}\n**Information:** {{dimensions.info}}",
+            "parameterizedSubject": "Hardware - Errors {{dimensions.[hw.type]}} {{dimensions.[name]}}",
+            "severity": "Warning"
+        }
+    ],
+    "sf_metricsInObjectProgramText": [
+        "hw.errors"
+    ],
+    "status": "ACTIVE",
+    "tags": [],
+    "teams": [],
+    "timezone": "",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "hw.errors",
+                "label": "A",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": false,
+        "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+        }
+    }
+}
