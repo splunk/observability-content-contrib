@@ -16,3 +16,13 @@ Two options exist:
   ```
 2. Copy the detector's JSON and paste it into your own Detector [via the UI](https://docs.splunk.com/Observability/alerts-detectors-notifications/create-detectors-for-alerts.html#nav-Create-detectors-to-trigger-alerts)
 
+# Support
+
+Subscribers to **MetricsHub** gain access to the **MetricsHub Support Desk**, which provides:
+
+- Technical support
+- Patches and updates
+- Knowledge base access
+
+Splunk does not provide support for these detectors and users should contact Sentry Software's support with any support requests.
+
