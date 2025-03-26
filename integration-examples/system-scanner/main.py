@@ -40,83 +40,83 @@ def format_output(data: Dict[str, Any], output_format: str) -> str:
 
 
 def generate_text_report(data: Dict[str, Any]) -> str:
-    """
-    Generates a formatted text report from the collected data.
-    Uses string.Template for easier formatting.
-    """
-
     template = """
 ==================================================
 SYSTEM SCANNER REPORT
 Generated: ${timestamp}
 ==================================================
 
-RUNTIME VERSIONS:
---------------------------------------------------
-${runtime_versions}
---------------------------------------------------
+${os_info}
 
-OPENTELEMETRY COLLECTOR INFORMATION:
---------------------------------------------------
-Version: ${otel_version}
-Path: ${otel_path}
---------------------------------------------------
+${runtime_versions}
+
+${otel_collector}
+
 ${kubernetes_info}
 
 ${health_check}
 """
 
-    # Runtime Versions formatting
-    runtime_versions_str = "\n".join(
-        f"  {runtime}: {version}"
-        for runtime, version in data["runtime_versions"].items()
-    )
-
-    # OTEL formatting
-    otel_version = f"{data['otel_collector']['version']}"
-    otel_path = (
-        f"{data['otel_collector']['path']}"
-        if data["otel_collector"]["path"]
-        else "Not found"
-    )
-
-    # Kubernetes formatting
-    kubernetes_info_str = ""
-    if "kubernetes_info" in data:
-        kubernetes_info_str = "KUBERNETES INFORMATION:\n"
-        if "otel_configmaps" in data["kubernetes_info"]:
-            otel_maps = data["kubernetes_info"]["otel_configmaps"]
-            if isinstance(otel_maps, list):
-                kubernetes_info_str += (
-                    f"  OpenTelemetry ConfigMaps found: {len(otel_maps)}\n"
-                )
-                kubernetes_info_str += "\n".join(
-                    f"  - {cm['namespace']}/{cm['name']}" for cm in otel_maps
-                )
-            else:
-                kubernetes_info_str += f"  OpenTelemetry ConfigMaps: {otel_maps}\n"
-        kubernetes_info_str += "\n--------------------------------------------------"
-
-    # Health Check formatting
-    health_check_str = ""
-    if "health_check" in data:
-        health_check_str = "SYSTEM HEALTH:\n"
-        health_check_str += "\n".join(
-            f"  {check}: {'✓' if status else '✗'}"
-            for check, status in data["health_check"].items()
-        )
-        health_check_str += "\n--------------------------------------------------"
-
     report_data = {
-        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "runtime_versions": runtime_versions_str,
-        "otel_version": otel_version,
-        "otel_path": otel_path,
-        "kubernetes_info": kubernetes_info_str.strip(),
-        "health_check": health_check_str.strip(),
+        "timestamp": get_formatted_timestamp(),
+        "os_info": format_os_info(data),
+        "runtime_versions": format_runtime_versions(data),
+        "otel_collector": format_otel_info(data),
+        "kubernetes_info": format_kubernetes_info(data),
+        "health_check": format_health_check(data),
     }
 
     return Template(template).substitute(report_data)
+
+def get_formatted_timestamp():
+    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+def format_os_info(data: Dict[str, Any]) -> str:
+    return f"""OPERATING SYSTEM INFORMATION:
+--------------------------------------------------
+System: {data['os_info']['system']}
+Version: {data['os_info']['version']}
+Architecture: {data['os_info']['architecture']}
+Flavor: {data['os_info']['flavor']}
+--------------------------------------------------"""
+
+def format_runtime_versions(data: Dict[str, Any]) -> str:
+    versions = "\n".join(f"  {runtime}: {version}" for runtime, version in data["runtime_versions"].items())
+    return f"""RUNTIME VERSIONS:
+--------------------------------------------------
+{versions}
+--------------------------------------------------"""
+
+def format_otel_info(data: Dict[str, Any]) -> str:
+    otel_version = data['otel_collector']['version']
+    otel_path = data['otel_collector']['path'] if data['otel_collector']['path'] else "Not found"
+    return f"""OPENTELEMETRY COLLECTOR INFORMATION:
+--------------------------------------------------
+Version: {otel_version}
+Path: {otel_path}
+--------------------------------------------------"""
+
+def format_kubernetes_info(data: Dict[str, Any]) -> str:
+    if "kubernetes_info" not in data:
+        return ""
+
+    kubernetes_info_str = "KUBERNETES INFORMATION:\n"
+    if "otel_configmaps" in data["kubernetes_info"]:
+        otel_maps = data["kubernetes_info"]["otel_configmaps"]
+        if isinstance(otel_maps, list):
+            kubernetes_info_str += f"  OpenTelemetry ConfigMaps found: {len(otel_maps)}\n"
+            kubernetes_info_str += "\n".join(f"  - {cm['namespace']}/{cm['name']}" for cm in otel_maps)
+        else:
+            kubernetes_info_str += f"  OpenTelemetry ConfigMaps: {otel_maps}\n"
+    return f"{kubernetes_info_str}\n--------------------------------------------------"
+
+def format_health_check(data: Dict[str, Any]) -> str:
+    if "health_check" not in data:
+        return ""
+
+    health_check_str = "SYSTEM HEALTH:\n"
+    health_check_str += "\n".join(f"  {check}: {'✓' if status else '✗'}" for check, status in data["health_check"].items())
+    return f"{health_check_str}\n--------------------------------------------------"
 
 
 def main():
