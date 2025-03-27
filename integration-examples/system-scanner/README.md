@@ -6,6 +6,10 @@ This project is designed to check and report information about the operating sys
 
 **PLEASE NOTE: This project is currently in early development stages and is considered a rough work in progress.**
 
+## TODO
+
+- **Kubernetes Deployment**: Containerizing the scanner to ensure it can run inside a Kubernetes pod and gather relevant info.
+
 ## Features
 
 - Check operating system information (including OS flavor details)

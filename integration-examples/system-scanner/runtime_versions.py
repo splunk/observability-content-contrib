@@ -100,7 +100,12 @@ class RuntimeFactory:
 
     def is_running_in_kubernetes(self):
         """Check if we're running inside a Kubernetes environment"""
-        return os.path.exists("/var/run/secrets/kubernetes.io/serviceaccount/token")
+        k8s_indicators = [
+            os.path.exists("/var/run/secrets/kubernetes.io/serviceaccount/token"),
+            "KUBERNETES_SERVICE_HOST" in os.environ,
+            "KUBERNETES_PORT" in os.environ
+        ]
+        return any(k8s_indicators)
 
     def get_otel_configmaps(self):
         """Get OpenTelemetry collector ConfigMaps using only standard libraries"""
