@@ -4,7 +4,7 @@ resource "synthetics_create_api_check_v2" "synthetics_example_graphql_api_check"
     automatic_retries   = 0
     device_id           = 34
     frequency           = 1440
-    location_ids        = ["aws-ca-central-1", "aws-us-east-1", "aws-us-west-1", "aws-us-west-2"]
+    location_ids        = ["aws-us-east-1", "aws-us-west-1"]
     name                = "Canada - Languages - Number of States"
     scheduling_strategy = "round_robin"
     requests {

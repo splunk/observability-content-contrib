@@ -1,10 +1,14 @@
+# __generated__ by Terraform
+# Please review these resources and move them into your main configuration files.
+
+# __generated__ by Terraform from "1551624"
 resource "synthetics_create_api_check_v2" "synthetics_token_expiration_api_check" {
   test {
     active              = true
     automatic_retries   = 0
     device_id           = 1
     frequency           = 60
-    location_ids        = ["aws-ca-central-1", "aws-us-east-1", "aws-us-west-1", "aws-us-west-2"]
+    location_ids        = ["aws-us-east-1", "aws-us-west-1"]
     name                = "org-token-expiration-to-count-metrics"
     scheduling_strategy = "round_robin"
     requests {
@@ -56,7 +60,7 @@ resource "synthetics_create_api_check_v2" "synthetics_token_expiration_api_check
       }
       validations {
         actual     = null
-        code       = "const sevenDayTokenArray = custom[\"7daytokenarray\"] ? JSON.parse(custom[\"7daytokenarray\"]) || [] : [];\nconst thirtyDayTokenArray = custom[\"30daytokenarray\"] ? JSON.parse(custom[\"30daytokenarray\"]) || [] : [];\n\nfunction generateGaugeJSON(...tokenArrays) {\n    const result = { gauge: [] };\n    const metrics = [\"tokens.expiring.7days\", \"tokens.expiring.30days\"];\n\n    tokenArrays.forEach((array, index) => {\n        if (metrics[index]) { \n            array.forEach(token => {\n                result.gauge.push({\n                    metric: metrics[index],\n                    dimensions: { token_names: token },\n                    value: \"1\"\n                });\n            });\n        }\n    });\n\n    custom.body_json = result;\n    return result;\n}\n\ngenerateGaugeJSON(sevenDayTokenArray, thirtyDayTokenArray);"
+        code       = "const sevenDayTokens = {\n    metric: \"tokens.expiring.7days\",\n    tokens: custom[\"7daytokenarray\"] ? JSON.parse(custom[\"7daytokenarray\"]) || [] : []\n};\n\nconst thirtyDayTokens = {\n    metric: \"tokens.expiring.30days\",\n    tokens: custom[\"30daytokenarray\"] ? JSON.parse(custom[\"30daytokenarray\"]) || [] : []\n};\n\nfunction generateGaugeJSON(...tokenObjects) {\n    const result = { gauge: [] };\n    \n    tokenObjects.forEach(tokenObject => {\n        const { metric, tokens } = tokenObject;\n        tokens.forEach(token => {\n            result.gauge.push({\n                metric: metric,\n                dimensions: { token_names: token },\n                value: \"1\"\n            });\n        });\n    });\n\n    custom.body_json = result;\n    return result;\n}\n\ngenerateGaugeJSON(sevenDayTokens, thirtyDayTokens);"
         comparator = null
         expected   = null
         extractor  = null

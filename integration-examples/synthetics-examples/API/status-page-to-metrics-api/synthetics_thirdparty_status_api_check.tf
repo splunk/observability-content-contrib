@@ -4,7 +4,7 @@ resource "synthetics_create_api_check_v2" "synthetics_thirdparty_status_api_chec
     automatic_retries   = 0
     device_id           = 34
     frequency           = 60
-    location_ids        = ["aws-ca-central-1", "aws-us-east-1", "aws-us-west-1", "aws-us-west-2"]
+    location_ids        = ["aws-us-east-1", "aws-us-west-1"]
     name                = "Cloudflare Status API"
     scheduling_strategy = "round_robin"
     requests {

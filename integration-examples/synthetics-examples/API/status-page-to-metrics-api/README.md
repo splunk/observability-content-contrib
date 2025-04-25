@@ -16,7 +16,7 @@ These metrics include dimensions for description of any impact to status and an 
 ![alt text](image.png)
 
 ### Required Splunk Synthetic Global Variables
-The following global variables are **REQUIRED** to run the included API test.
+The following [global variables](https://docs.splunk.com/observability/en/synthetics/test-config/global-variables.html) are **REQUIRED** to run the included API test.
 - `org_ingest_token`: A provisioned INGEST token
 ![required synthetic variables](synthetic-variables.png)
 
