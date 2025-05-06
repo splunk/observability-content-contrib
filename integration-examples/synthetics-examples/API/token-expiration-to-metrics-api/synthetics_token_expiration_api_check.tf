@@ -1,7 +1,3 @@
-# __generated__ by Terraform
-# Please review these resources and move them into your main configuration files.
-
-# __generated__ by Terraform from "1551624"
 resource "synthetics_create_api_check_v2" "synthetics_token_expiration_api_check" {
   test {
     active              = true

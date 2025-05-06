@@ -12,5 +12,6 @@ The synthetic API test will call the OpenAI status page and report any current a
 ### Required Splunk Synthetic Global Variables
 The following [global variables](https://docs.splunk.com/observability/en/synthetics/test-config/global-variables.html) are **REQUIRED** to run the included API test.
 - `splunk_hec_url`: The url to your hec raw ingest (E.G. `https://hec-inputs-for-my-service.mysplunkinstance.com:443/services/collector/raw`)
+    - **Terraform apply will fail if this global variable does not exist in your environment!**
 - `hec_token`: A provisioned hec token for basic auth (E.G. `Splunk 123412-3123-1234-abcd-1234123412abc`)
 

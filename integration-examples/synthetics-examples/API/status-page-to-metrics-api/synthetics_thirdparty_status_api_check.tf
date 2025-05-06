@@ -11,7 +11,7 @@ resource "synthetics_create_api_check_v2" "synthetics_thirdparty_status_api_chec
       configuration {
         body           = null
         headers        = {}
-        name           = "curl https://www.cloudflarestatus.com/api/v2/status.json"
+        name           = "https://www.cloudflarestatus.com/api/v2/status.json"
         request_method = "GET"
         url            = "https://www.cloudflarestatus.com/api/v2/status.json"
       }
