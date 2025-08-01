@@ -4,6 +4,10 @@ This script will return all RUM urls present in Splunk Observability Cloud.
 The script expects you to provide both the application and environment you want to get the urls for. These settings are required.
 Use this an input to create of fine tune URL grouping rules.
 
+## Prerequisites
+This script expects both `curl` and `jq` to be installed.
+This script has onoly been tested on MacOS.
+
 ## Environment Variables
 This script relies on environment variables.
 Set the following:
