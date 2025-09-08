@@ -32,27 +32,77 @@ To look at the options for the script, run the following command:
 docker run import-tf-script --help
 ```
 
+Currently supported options -
+
+```
+❯ docker run import-tf-script --help
+Usage: /app/main [options]
+  -add-var-file
+        Add variables.tf file to the directory. This file only defines variabled the generated terraform code uses.
+  -add-versions-file
+        Add versions.tf file to the directory. This file will have terraform block with version requirements.
+  -allow-chart-name-conflict
+        Allow charts with the same name in a dashboard. This will add an index at the end of the chart's name attribute and resource name to resolve conflict in naming. It is recommended to rename charts when you export the dashboards to TF for the first time.
+  -api-token string
+        API token for authentication
+  -api-url string
+        The API URL for Splunk Observability (default "https://app.us0.signalfx.com")
+  -dir string
+        Working directory where TF files will be written.
+  -groups string
+        Comma-separated list  dashboard group IDs in Splunk Observability to import. Required.
+  -tf-path string
+        The path to the Terraform binary (default "terraform")
+```
+
 ### Quick Start
 
 For a quick start cmd to generate terraform code for dashboard group, run the following make command:
 
 ```sh
-SIGNALFX_AUTH_TOKEN=<SIGNALFX API TOKEN> GROUP_IDS=<ID1,ID2> RELATIVE_DIR_PATH=resources/Synthetics-Dashboards make import-dashboard-group
+SIGNALFX_AUTH_TOKEN=<SIGNALFX API TOKEN> SIGNALFX_API_URL=<API_URL> GROUP_IDS=<ID1,ID2> RELATIVE_DIR_PATH=resources/Dashboards make import-dashboard-group
 ```
 
 This will generate a bunch of `.tf` files. There will be a file for each dashboard group, and a different file for dashboards in the groups. The dashboard file will have the dashboard and chart resources.
+
+### Environment Variables
+
+The following environment variables can be used with the `make import-dashboard-group` command:
+
+- `SIGNALFX_AUTH_TOKEN` (required): Your Splunk Observability API token
+- `SIGNALFX_API_URL` (optional): The API URL for your realm. Defaults to `https://app.us0.signalfx.com`. Common values:
+  - US0: `https://app.us0.signalfx.com` (default)
+  - US1: `https://app.us1.signalfx.com`  
+  - EU0: `https://app.eu0.signalfx.com`
+- `GROUP_IDS` (required): Comma-separated list of dashboard group IDs (e.g., `ID1,ID2,ID3`)
+- `RELATIVE_DIR_PATH` (optional): Directory path where generated files will be written. Defaults to `"generated-dashboards"`
 
 ### Example to run with custom options
 
 ```sh
 cd ${REPO_ROOT}
 docker run -v $(pwd):/app import-tf-script \
---auth-token <TOKEN> \
+--api-token <TOKEN> \
 --api-url <API URL> \
---group-ids <ID1,ID2> \
+--groups <ID1,ID2,ID3> \
 --dir /app/resources/APM \
 --allow-chart-name-conflict
 ```
+
+### Supported Chart Types
+
+The following chart types are supported by the import script:
+- **Heatmap** - `signalfx_heatmap_chart`
+- **List** - `signalfx_list_chart` 
+- **SingleValue** - `signalfx_single_value_chart`
+- **Text** - `signalfx_text_chart`
+- **TimeSeriesChart** - `signalfx_time_chart`
+- **TableChart** - `signalfx_table_chart`
+- **Line** - `signalfx_line_chart`
+- **Event** - `signalfx_event_feed_chart`
+
+The following chart types are **NOT** currently supported and will cause the script to fail with an "unsupported chart type" error:
+- **Log query charts** - Any charts that query log data for e.g. the `signalfx_log_timeline` chart
 
 ### Additional Notes
 

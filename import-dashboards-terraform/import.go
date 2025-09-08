@@ -78,7 +78,7 @@ func parseArgs() Args {
 	var groups string
 
 	flag.StringVar(&args.APIToken, "api-token", "", "API token for authentication")
-	flag.StringVar(&args.APIURL, "api-url", "https://mon.signalfx.com", "The API URL for Splunk Observability")
+	flag.StringVar(&args.APIURL, "api-url", "https://app.us0.signalfx.com", "The API URL for Splunk Observability")
 	flag.StringVar(&args.Directory, "dir", "", "Working directory where TF files will be written.")
 	flag.StringVar(&groups, "groups", "", "Comma-separated list  dashboard group IDs in Splunk Observability to import. Required.")
 	flag.StringVar(&args.TFPath, "tf-path", "terraform", "The path to the Terraform binary")
@@ -177,9 +177,9 @@ func writeProviderTF(dir, apiToken, apiURL string) (string, error) {
 	requiredProvidersBody := requiredProviders.Body()
 	requiredProvidersBody.SetAttributeValue("signalfx", cty.ObjectVal(map[string]cty.Value{
 		"source":  cty.StringVal("splunk-terraform/signalfx"),
-		"version": cty.StringVal("~> 9.2.1"),
+		"version": cty.StringVal("~> 9.20.0"),
 	}))
-	terraformBody.SetAttributeValue("required_version", cty.StringVal("~> 1.5"))
+	terraformBody.SetAttributeValue("required_version", cty.StringVal("~> 1.6"))
 	rootBody.AppendNewline()
 
 	if apiToken != "" && apiURL != "" {

@@ -37,9 +37,7 @@ import-dashboard-group: clean build
 
 .PHONY: clean
 clean:
-ifeq ($(shell docker images -q ${IMAGE_NAME} 2> /dev/null),)
-	@echo "No image to remove"
-else
-	@docker rmi $(IMAGE_NAME) -f
-endif
+	@echo "Cleaning up containers and image for $(IMAGE_NAME)"
+	@docker ps -a -q --filter ancestor=$(IMAGE_NAME) | xargs -r docker rm -f 2>/dev/null || true
+	@docker rmi $(IMAGE_NAME) -f 2>/dev/null || true
 endif
