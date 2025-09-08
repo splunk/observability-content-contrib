@@ -6,6 +6,30 @@ This folder contains helper scripts for importing SignalFx dashboard groups. alo
 
 This script, given dashboard group ids, will generate mostly usable terraform code for dashboard groups, and any associated dashboards/charts.
 
+### Quick Start
+
+For a quick start cmd to generate terraform code for dashboard group, run the following make command:
+
+```sh
+SIGNALFX_AUTH_TOKEN=<SIGNALFX_API_TOKEN> SIGNALFX_API_URL=<API_URL> GROUP_IDS=ID1,ID2,ID3 RELATIVE_DIR_PATH=resources/Dashboards make import-dashboard-group
+```
+
+**Note**: Angle brackets `< >` in examples indicate placeholders that should be replaced with actual values.
+
+This will generate a bunch of `.tf` files. There will be a file for each dashboard group, and a different file for dashboards in the groups. The dashboard file will have the dashboard and chart resources.
+
+### Environment Variables
+
+The following environment variables can be used with the `make import-dashboard-group` command:
+
+- `SIGNALFX_AUTH_TOKEN` (required): Your Splunk Observability API token
+- `SIGNALFX_API_URL` (optional): The API URL for your realm. Defaults to `https://app.us0.signalfx.com`. Common values:
+  - US0: `https://app.us0.signalfx.com` (default)
+  - US1: `https://app.us1.signalfx.com`  
+  - EU0: `https://app.eu0.signalfx.com`
+- `GROUP_IDS` (required): Comma-separated list of dashboard group IDs without spaces (e.g., `GJsIuOtA4Ag,ABC123def,XYZ789ghi`)
+- `RELATIVE_DIR_PATH` (optional): Directory path where generated files will be written. Defaults to `"generated-dashboards"`
+
 ### Building the Docker Image
 
 To build docker image with the script binary and terraform installed, run the following command:
@@ -55,39 +79,20 @@ Usage: /app/main [options]
         The path to the Terraform binary (default "terraform")
 ```
 
-### Quick Start
-
-For a quick start cmd to generate terraform code for dashboard group, run the following make command:
-
-```sh
-SIGNALFX_AUTH_TOKEN=<SIGNALFX API TOKEN> SIGNALFX_API_URL=<API_URL> GROUP_IDS=<ID1,ID2> RELATIVE_DIR_PATH=resources/Dashboards make import-dashboard-group
-```
-
-This will generate a bunch of `.tf` files. There will be a file for each dashboard group, and a different file for dashboards in the groups. The dashboard file will have the dashboard and chart resources.
-
-### Environment Variables
-
-The following environment variables can be used with the `make import-dashboard-group` command:
-
-- `SIGNALFX_AUTH_TOKEN` (required): Your Splunk Observability API token
-- `SIGNALFX_API_URL` (optional): The API URL for your realm. Defaults to `https://app.us0.signalfx.com`. Common values:
-  - US0: `https://app.us0.signalfx.com` (default)
-  - US1: `https://app.us1.signalfx.com`  
-  - EU0: `https://app.eu0.signalfx.com`
-- `GROUP_IDS` (required): Comma-separated list of dashboard group IDs (e.g., `ID1,ID2,ID3`)
-- `RELATIVE_DIR_PATH` (optional): Directory path where generated files will be written. Defaults to `"generated-dashboards"`
-
 ### Example to run with custom options
 
 ```sh
 cd ${REPO_ROOT}
 docker run -v $(pwd):/app import-tf-script \
 --api-token <TOKEN> \
---api-url <API URL> \
---groups <ID1,ID2,ID3> \
+--api-url <API_URL> \
+--groups ID1,ID2,ID3 \
 --dir /app/resources/APM \
 --allow-chart-name-conflict
 ```
+
+**Note**: 
+- Angle brackets `< >` in examples indicate placeholders that should be replaced with actual values
 
 ### Supported Chart Types
 
