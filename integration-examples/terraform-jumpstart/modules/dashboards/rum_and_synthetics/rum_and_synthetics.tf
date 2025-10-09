@@ -89,7 +89,7 @@ resource "signalfx_single_value_chart" "rum_and_synthetics_3" {
         lte   = 6.5
     }
     color_scale {
-        color = "vivid_yellow"
+        color = "yellow"
         gt    = 2.5
         gte   = 340282346638528860000000000000000000000
         lt    = 340282346638528860000000000000000000000
@@ -136,7 +136,7 @@ resource "signalfx_single_value_chart" "rum_and_synthetics_4" {
         lte   = 6.5
     }
     color_scale {
-        color = "vivid_yellow"
+        color = "yellow"
         gt    = 2.5
         gte   = 340282346638528860000000000000000000000
         lt    = 340282346638528860000000000000000000000
@@ -322,7 +322,7 @@ resource "signalfx_single_value_chart" "rum_and_synthetics_8" {
         lte   = 400
     }
     color_scale {
-        color = "vivid_yellow"
+        color = "yellow"
         gt    = 100
         gte   = 340282346638528860000000000000000000000
         lt    = 340282346638528860000000000000000000000
@@ -366,7 +366,7 @@ resource "signalfx_single_value_chart" "rum_and_synthetics_9" {
         lte   = 0.5
     }
     color_scale {
-        color = "vivid_yellow"
+        color = "yellow"
         gt    = 0.1
         gte   = 340282346638528860000000000000000000000
         lt    = 340282346638528860000000000000000000000
@@ -583,7 +583,7 @@ resource "signalfx_single_value_chart" "rum_and_synthetics_15" {
         lte   = 0.5
     }
     color_scale {
-        color = "vivid_yellow"
+        color = "yellow"
         gt    = 0.1
         gte   = 340282346638528860000000000000000000000
         lt    = 340282346638528860000000000000000000000
@@ -662,7 +662,7 @@ resource "signalfx_list_chart" "rum_and_synthetics_17" {
         lte   = 6.5
     }
     color_scale {
-        color = "vivid_yellow"
+        color = "yellow"
         gt    = 2.5
         gte   = 340282346638528860000000000000000000000
         lt    = 340282346638528860000000000000000000000
