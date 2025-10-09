@@ -1,0 +1,63 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1726834590194,
+    "creator": "GRtepaIAICg",
+    "customProperties": null,
+    "description": "",
+    "detectorOrigin": "Standard",
+    "id": "GX6UimfAAEk",
+    "labelResolutions": {
+        "Hardware - Device status failed": 120000
+    },
+    "lastUpdated": 1730972332658,
+    "lastUpdatedBy": "AAAAAAAAAAA",
+    "maxDelay": 0,
+    "minDelay": 0,
+    "name": "Hardware - Device status failed",
+    "overMTSLimit": false,
+    "packageSpecifications": "",
+    "programText": "A = data('hw.status', filter=filter('state', 'failed'), rollup='max').publish(label='A')\ndetect(when(A > threshold(0))).publish('Hardware - Device status failed')",
+    "rules": [
+        {
+            "description": "The value of hw.status is above 0.",
+            "detectLabel": "Hardware - Device status failed",
+            "disabled": false,
+            "notifications": [],
+            "parameterizedBody": "{{#if anomalous}}\n###Failed {{dimensions.[hw.type]}}.\n\n**{{dimensions.name}}** has failed on **{{dimensions.[host.name]}}** in **{{dimensions.site}}** at {{dateTimeFormat timestamp format=\"full\"}}.\n{{else}}\nRecovered {{dimensions.[hw.type]}} **{{dimensions.name}}** from **failed** status at {{dateTimeFormat timestamp format=\"full\"}}.\n{{/if}}\n\n###Device Details\n**Name:** {{dimensions.[name]}}\n**ID:** {{dimensions.id}}\n**Type:** {{dimensions.[hw.type]}}\n**Information:** {{dimensions.info}}",
+            "parameterizedSubject": "[Hardware] Status failed for {{dimensions.[hw.type]}} of {{dimensions.[host.name]}} in {{dimensions.site}}",
+            "runbookUrl": "",
+            "severity": "Major",
+            "tip": ""
+        }
+    ],
+    "sf_metricsInObjectProgramText": [
+        "hw.status"
+    ],
+    "status": "ACTIVE",
+    "tags": [],
+    "teams": [],
+    "timezone": "",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "hw.status",
+                "label": "A",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": false,
+        "time": {
+            "range": 43200000,
+            "rangeEnd": 0,
+            "type": "relative"
+        }
+    }
+}

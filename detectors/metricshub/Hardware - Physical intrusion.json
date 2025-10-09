@@ -1,0 +1,63 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1726844670799,
+    "creator": "GRtepaIAICg",
+    "customProperties": null,
+    "description": "",
+    "detectorOrigin": "Standard",
+    "id": "GX64jrUAEB0",
+    "labelResolutions": {
+        "Hardware - Physical intrusion": 120000
+    },
+    "lastUpdated": 1730969153413,
+    "lastUpdatedBy": "AAAAAAAAAAA",
+    "maxDelay": null,
+    "minDelay": null,
+    "name": "Hardware - Physical intrusion",
+    "overMTSLimit": false,
+    "packageSpecifications": "",
+    "programText": "A = data('hw.status', filter=filter('state', 'open'), rollup='max').publish(label='A')\ndetect(when(A > threshold(0))).publish('Hardware - Physical intrusion')",
+    "rules": [
+        {
+            "description": "The value of hw.status is above 0.",
+            "detectLabel": "Hardware - Physical intrusion",
+            "disabled": false,
+            "notifications": [],
+            "parameterizedBody": "{{#if anomalous}}\n###Intrusion\nEnclosure {{dimensions.[name]}} is open ({{dimensions.[host.name]}} in {{dimensions.site}}).\n\n###Consequence\nThis could mean that somebody is accessing the hardware components in the enclosure, including the harddisks which may contain private information.\n\n###Recommended action\nMake sure the enclosure has been opened by authorized personnel only and close it as soon as possible.\n{{else}}\nEnclosure is now closed.\n{{/if}}\n\n###Device Details\n**Name: ** {{dimensions.[name]}}\n**ID:** {{dimensions.id}}\n**Vendor:** {{dimensions.vendor}}\n**Model:** {{dimensions.model}}\n**Serial Number:** {{dimensions.serial_number}}\n**Information:** {{dimensions.info}}",
+            "parameterizedSubject": "Intrusion in {{dimensions.[host.name]}}'s enclosure",
+            "runbookUrl": "",
+            "severity": "Major",
+            "tip": ""
+        }
+    ],
+    "sf_metricsInObjectProgramText": [
+        "hw.status"
+    ],
+    "status": "ACTIVE",
+    "tags": [],
+    "teams": [],
+    "timezone": "",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "hw.status",
+                "label": "A",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": false,
+        "time": {
+            "range": 86400000,
+            "rangeEnd": 0,
+            "type": "relative"
+        }
+    }
+}

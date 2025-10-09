@@ -1,0 +1,61 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1727082785650,
+    "creator": "GRtepaIAICg",
+    "customProperties": null,
+    "description": "",
+    "detectorOrigin": "Standard",
+    "id": "GYJAKjwAEAA",
+    "labelResolutions": {
+        "Hardware - Networking link down": 180000
+    },
+    "lastUpdated": 1728507098084,
+    "lastUpdatedBy": "AAAAAAAAAAA",
+    "maxDelay": 0,
+    "minDelay": 0,
+    "name": "Hardware - Networking link down",
+    "overMTSLimit": false,
+    "packageSpecifications": "",
+    "programText": "A = data('hw.network.up', rollup='min').publish(label='A')\ndetect(when(A < threshold(1))).publish('Hardware - Networking link down')",
+    "rules": [
+        {
+            "description": "The value of hw.network.up is below 1.",
+            "detectLabel": "Hardware - Networking link down",
+            "disabled": false,
+            "notifications": [],
+            "parameterizedBody": "{{#if anomalous}}\n###Link down\n\nInterface **{{dimensions.name}}** is disconnected on **{{dimensions.[host.name]}}** in **{{dimensions.site}}**.\n\n###Consequence\nThe network traffic (if any) that was processed by this adapter is no longer being handled, or is overloading another network adapter.\n\n###Recommended action\nCheck that the network cable (if any) is not unplugged or broken/cut, and that it is properly plugged into the network card. Ensure that the network hub/switch/router is working properly.\n{{else}}\nLink restored for {{dimensions.name}}.\n{{/if}}\n\n###Device Details\n**Name:** {{dimensions.[name]}}\n**ID:** {{dimensions.id}}\n**Type:** {{dimensions.[hw.type]}}\n**Physical Address:** {{dimensions.physical_address}}\n**Information:** {{dimensions.info}}",
+            "parameterizedSubject": "Network link down for **{{dimensions.[host.name]}}**",
+            "severity": "Warning"
+        }
+    ],
+    "sf_metricsInObjectProgramText": [
+        "hw.network.up"
+    ],
+    "status": "ACTIVE",
+    "tags": [],
+    "teams": [],
+    "timezone": "",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "hw.network.up",
+                "label": "A",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": false,
+        "time": {
+            "range": 86400000,
+            "rangeEnd": 0,
+            "type": "relative"
+        }
+    }
+}

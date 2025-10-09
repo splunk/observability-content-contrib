@@ -1,0 +1,80 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1727160109345,
+    "creator": "GRtepaIAICg",
+    "customProperties": null,
+    "description": "",
+    "detectorOrigin": "Standard",
+    "id": "GYN3fkqAAAQ",
+    "labelResolutions": {
+        "Hardware - Critically low fan speed": 1000
+    },
+    "lastUpdated": 1729905886358,
+    "lastUpdatedBy": "AAAAAAAAAAA",
+    "maxDelay": null,
+    "minDelay": null,
+    "name": "Hardware - Critically low fan speed",
+    "overMTSLimit": false,
+    "packageSpecifications": "",
+    "programText": "A = data('hw.fan.speed').publish(label='A', enable=False)\nB = data('hw.fan.speed.limit', filter=filter('limit_type', 'low.critical')).publish(label='B', enable=False)\nC = (A-B).publish(label='C')\ndetect(when(C < threshold(0))).publish('Hardware - Critically low fan speed')",
+    "rules": [
+        {
+            "description": "The value of A-B is below 0.",
+            "detectLabel": "Hardware - Critically low fan speed",
+            "disabled": false,
+            "notifications": [],
+            "parameterizedBody": "{{#if anomalous}}\n## Low fan speed\nFan speed is critically low for **{{dimensions.[name]}}** on **{{dimensions.[host.name]}}** in **{{dimensions.site}}**.\n\n## Consequence\nThe temperature of the chip, component or device that was cooled down by this fan, may rise rapidly. This could lead to severe hardware damage and system crashes.\n\n## Recommended action\nCheck if the fan no longer cools down the system. If so, replace the fan.\n{{else}}\nRecovered fan speed. \n{{/if}}\n\n###Device Details\n**Name: ** {{dimensions.[name]}}\n**ID:** {{dimensions.id}}\n**Information:** {{dimensions.info}}",
+            "parameterizedSubject": "Hardware - Critically low fan speed",
+            "runbookUrl": "",
+            "severity": "Major",
+            "tip": ""
+        }
+    ],
+    "sf_metricsInObjectProgramText": [
+        "hw.fan.speed",
+        "hw.fan.speed.limit"
+    ],
+    "status": "ACTIVE",
+    "tags": [],
+    "teams": [],
+    "timezone": "",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "hw.fan.speed",
+                "label": "A",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            },
+            {
+                "displayName": "hw.fan.speed.limit",
+                "label": "B",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            },
+            {
+                "displayName": "A-B",
+                "label": "C",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": false,
+        "time": {
+            "range": 86400000,
+            "rangeEnd": 0,
+            "type": "relative"
+        }
+    }
+}

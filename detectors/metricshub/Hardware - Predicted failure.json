@@ -1,0 +1,61 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1726843486243,
+    "creator": "GRtepaIAICg",
+    "customProperties": null,
+    "description": "",
+    "detectorOrigin": "Standard",
+    "id": "GX6tR8qAEBQ",
+    "labelResolutions": {
+        "Hardware - Predicted Failure": 180000
+    },
+    "lastUpdated": 1729905705828,
+    "lastUpdatedBy": "AAAAAAAAAAA",
+    "maxDelay": 0,
+    "minDelay": 0,
+    "name": "Hardware - Predicted failure",
+    "overMTSLimit": false,
+    "packageSpecifications": "",
+    "programText": "AB = alerts(detector_name='Hardware - Predicted Failure').publish(label='AB')\nA = data('hw.status', filter=filter('state', 'predicted_failure'), rollup='max').publish(label='A')\ndetect(when(A > threshold(0))).publish('Hardware - Predicted Failure')",
+    "rules": [
+        {
+            "description": "The value of hw.status is above 0.",
+            "detectLabel": "Hardware - Predicted Failure",
+            "disabled": false,
+            "notifications": [],
+            "parameterizedBody": "{{#if anomalous}}\n###Predicted {{dimensions.[hw.type]}} failure\n\n**{{dimensions.name}}** is predicted to fail soon on **{{dimensions.[host.name]}}** in **{{dimensions.site}}**.\n{{else}}\nFailure is no longer predicted for {{dimensions.[hw.type]}} **{{dimensions.name}}** since{{dateTimeFormat timestamp format=\"full\"}}.\n{{/if}}\n\n###Device Details\n**Name:** {{dimensions.[name]}}\n**ID:** {{dimensions.id}}\n**Type:** {{dimensions.[hw.type]}}\n**Information:** {{dimensions.info}}",
+            "parameterizedSubject": "Predicted failure for {{dimensions.[hw.type]}} {{dimensions.name}}",
+            "severity": "Warning"
+        }
+    ],
+    "sf_metricsInObjectProgramText": [
+        "hw.status"
+    ],
+    "status": "ACTIVE",
+    "tags": [],
+    "teams": [],
+    "timezone": "",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "hw.status",
+                "label": "A",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": false,
+        "time": {
+            "range": 86400000,
+            "rangeEnd": 0,
+            "type": "relative"
+        }
+    }
+}

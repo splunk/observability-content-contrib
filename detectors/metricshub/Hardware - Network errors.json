@@ -1,0 +1,61 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1727083108813,
+    "creator": "GRtepaIAICg",
+    "customProperties": null,
+    "description": "",
+    "detectorOrigin": "Standard",
+    "id": "GYJPupTAAAA",
+    "labelResolutions": {
+        "Hardware - Network errors": 1000
+    },
+    "lastUpdated": 1727083147113,
+    "lastUpdatedBy": "AAAAAAAAAAA",
+    "maxDelay": 0,
+    "minDelay": 0,
+    "name": "Hardware - Network errors",
+    "overMTSLimit": false,
+    "packageSpecifications": "",
+    "programText": "A = data('hw.errors', filter=filter('hw.type', 'network')).publish(label='A')\ndetect(when(A > threshold(0))).publish('Hardware - Network errors')",
+    "rules": [
+        {
+            "description": "The value of hw.errors is above 0.",
+            "detectLabel": "Hardware - Network errors",
+            "disabled": false,
+            "notifications": [],
+            "parameterizedBody": "{{#if anomalous}}\n###Network errors\n\nInterface **{{dimensions.name}}** is encountering or generating a high number of errors of received or transmitted packets) on **{{dimensions.[host.name]}}** in **{{dimensions.site}}**.\n\n###Consequence\nThis strongly impacts the network performance.\n\n###Recommended action\nCheck the network cable, the driver settings, the speed and duplex mode of the link. If everything seems normal, you may have to replace this network adapter. \n{{else}}\nThe network card no longer encounters or generates errors. \n{{/if}}\n\n###Device Details\n**Name:** {{dimensions.[name]}}\n**ID:** {{dimensions.id}}\n**Type:** {{dimensions.[hw.type]}}\n**Physical Address:** {{dimensions.physical_address}}\n**Information:** {{dimensions.info}}",
+            "parameterizedSubject": "Hardware - Network errors on {{dimensions.[host.name]}}",
+            "severity": "Warning"
+        }
+    ],
+    "sf_metricsInObjectProgramText": [
+        "hw.errors"
+    ],
+    "status": "ACTIVE",
+    "tags": [],
+    "teams": [],
+    "timezone": "",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "hw.errors",
+                "label": "A",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": false,
+        "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+        }
+    }
+}

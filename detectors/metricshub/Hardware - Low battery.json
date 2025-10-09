@@ -1,0 +1,69 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1727098749573,
+    "creator": "GRtepaIAICg",
+    "customProperties": null,
+    "description": "",
+    "detectorOrigin": "Standard",
+    "id": "GYKAzuVAIAU",
+    "labelResolutions": {
+        "Hardware - Low battery": 240000
+    },
+    "lastUpdated": 1727178856192,
+    "lastUpdatedBy": "AAAAAAAAAAA",
+    "maxDelay": 0,
+    "minDelay": 0,
+    "name": "Hardware - Low battery",
+    "overMTSLimit": false,
+    "packageSpecifications": "",
+    "programText": "A = data('hw.battery.charge').publish(label='A', enable=False)\nB = (A*100).publish(label='B')\ndetect(when(B < threshold(50))).publish('Hardware - Low battery')",
+    "rules": [
+        {
+            "description": "The value of A*100 is below 50.",
+            "detectLabel": "Hardware - Low battery",
+            "disabled": false,
+            "notifications": [],
+            "parameterizedBody": "{{#if anomalous}}\n###Low battery\nBattery **{{dimensions.[name]}}** charge is abnormally low on  **{{dimensions.[host.name]}}** in **{{dimensions.site}}**.\n\n###Consequence\nA low charge battery may lead to data loss in case of a power outage.\n\n###Recommended action\nCheck why the battery is not fully charged (it may be due to a power outage or an unplugged power cable) and fully recharge the battery when possible.\n{{else}}\nThe battery charge is back within the normal operational range.\n{{/if}}\n\n###Device Details\n**Name: ** {{dimensions.[name]}}\n**ID:** {{dimensions.id}}\n**Vendor:** {{dimensions.vendor}}\n**Model:** {{dimensions.model}}\n**Serial Number:** {{dimensions.serial_number}}\n**Information:** {{dimensions.info}}",
+            "parameterizedSubject": "Low battery",
+            "severity": "Warning"
+        }
+    ],
+    "sf_metricsInObjectProgramText": [
+        "hw.battery.charge"
+    ],
+    "status": "ACTIVE",
+    "tags": [],
+    "teams": [],
+    "timezone": "",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "hw.battery.charge",
+                "label": "A",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            },
+            {
+                "displayName": "A*100",
+                "label": "B",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": false,
+        "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+        }
+    }
+}

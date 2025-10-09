@@ -1,0 +1,78 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1727101939427,
+    "creator": "GRtepaIAICg",
+    "customProperties": null,
+    "description": "",
+    "detectorOrigin": "Standard",
+    "id": "GYKSNnkAIAg",
+    "labelResolutions": {
+        "Hardware - High voltage": 180000
+    },
+    "lastUpdated": 1727436502742,
+    "lastUpdatedBy": "AAAAAAAAAAA",
+    "maxDelay": 0,
+    "minDelay": 0,
+    "name": "Hardware - High voltage",
+    "overMTSLimit": false,
+    "packageSpecifications": "",
+    "programText": "A = data('hw.voltage').publish(label='A', enable=False)\nB = data('hw.voltage.limit', filter=filter('limit_type', 'high.critical')).publish(label='B', enable=False)\nC = (A-B).publish(label='C')\ndetect(when(C > threshold(0))).publish('Hardware - High voltage')",
+    "rules": [
+        {
+            "description": "The value of A-B is above 0.",
+            "detectLabel": "Hardware - High voltage",
+            "disabled": false,
+            "notifications": [],
+            "parameterizedBody": "{{#if anomalous}}\n###High voltage\nVoltage is critically high for  {{dimensions.[host.name]}} on {{host.name}} in {{dimensions.site}}.\n\n###Consequence\nAn out-of-range voltage may lead to a system crash.\n\n###Recommended action\nCheck why the voltage is out of the normal range (a feeble power supply unit, an unstable power converter, or a severe power overload owing to too many devices within the system). \n{{else}}\nRecovered voltage level.\n{{/if}}\n\n###Device Details\n**Name: ** {{dimensions.[name]}}\n**ID:** {{dimensions.id}}\n**Information:** {{dimensions.info}}",
+            "parameterizedSubject": "Hardware - High voltage",
+            "severity": "Major"
+        }
+    ],
+    "sf_metricsInObjectProgramText": [
+        "hw.voltage",
+        "hw.voltage.limit"
+    ],
+    "status": "ACTIVE",
+    "tags": [],
+    "teams": [],
+    "timezone": "",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "hw.voltage",
+                "label": "A",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            },
+            {
+                "displayName": "hw.voltage.limit",
+                "label": "B",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            },
+            {
+                "displayName": "A-B",
+                "label": "C",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": false,
+        "time": {
+            "range": 86400000,
+            "rangeEnd": 0,
+            "type": "relative"
+        }
+    }
+}

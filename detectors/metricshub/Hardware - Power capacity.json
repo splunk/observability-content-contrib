@@ -1,0 +1,71 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1726838542874,
+    "creator": "GRtepaIAICg",
+    "customProperties": null,
+    "description": "",
+    "detectorOrigin": "Standard",
+    "id": "GX6fO4BAIAE",
+    "labelResolutions": {
+        "Hardware - Maxed-out power usage": 1000
+    },
+    "lastUpdated": 1726844093896,
+    "lastUpdatedBy": "AAAAAAAAAAA",
+    "maxDelay": 0,
+    "minDelay": 0,
+    "name": "Hardware - Power capacity",
+    "overMTSLimit": false,
+    "packageSpecifications": "",
+    "programText": "A = data('hw.power_supply.utilization').publish(label='A', enable=False)\nB = (A*100).publish(label='B')\ndetect(when(B > threshold(99))).publish('Hardware - Maxed-out power usage')",
+    "rules": [
+        {
+            "description": "The value of A*100 is above 99.",
+            "detectLabel": "Hardware - Maxed-out power usage",
+            "disabled": false,
+            "notifications": [],
+            "parameterizedBody": "{{#if anomalous}}\n###High power usage on {{dimensions.[host.name]}}\nThe capacity of the power supply **{{dimensions.name}}** is maxed-out on {{dimensions.[host.name]}} in {{dimensions.site}}.\n\n###Consequence\nOverloading a power supply may lead to voltage instability and system crashes. It can also cause severe damage to the power supply.\n\n###Recommended Action\nFind out why the power used by the system has increased this much (typically: new hard-drives). Upgrade to a power supply that can support such a power demand.\n{{else}}\nThe power utilization has decreased and the power supply should now be able to support the power demand.\n{{/if}}\n\n###Device Details\n**Name:**  {{dimensions.[name]}}\n**ID:** {{dimensions.id}}\n**Type:** {{dimensions.power_supply_type}}\n**Information:** {{dimensions.info}}",
+            "parameterizedSubject": "High power usage on **{{dimensions.[host.name]}}**",
+            "runbookUrl": "",
+            "severity": "Critical",
+            "tip": ""
+        }
+    ],
+    "sf_metricsInObjectProgramText": [
+        "hw.power_supply.utilization"
+    ],
+    "status": "ACTIVE",
+    "tags": [],
+    "teams": [],
+    "timezone": "",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "hw.power_supply.utilization",
+                "label": "A",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            },
+            {
+                "displayName": "A*100",
+                "label": "B",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": false,
+        "time": {
+            "range": 86400000,
+            "rangeEnd": 0,
+            "type": "relative"
+        }
+    }
+}

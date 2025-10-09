@@ -1,0 +1,1375 @@
+{
+  "chartExports": [
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "Ghy2SJKA0AA",
+        "importOf": "GcijDS_CUAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Requests per minute - Errors",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            },
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "LineChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": [
+              {
+                "enabled": true,
+                "property": "deployment.environment"
+              },
+              {
+                "enabled": false,
+                "property": "sf_originatingMetric"
+              },
+              {
+                "enabled": false,
+                "property": "sf_metric"
+              },
+              {
+                "enabled": false,
+                "property": "service.name"
+              },
+              {
+                "enabled": false,
+                "property": "sf_environment"
+              },
+              {
+                "enabled": true,
+                "property": "sf_error"
+              },
+              {
+                "enabled": true,
+                "property": "sf_httpMethod"
+              },
+              {
+                "enabled": true,
+                "property": "sf_kind"
+              },
+              {
+                "enabled": true,
+                "property": "sf_operation"
+              },
+              {
+                "enabled": false,
+                "property": "sf_service"
+              }
+            ]
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": null,
+            "showLegend": false
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": 0,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "Errors",
+              "label": "Errors",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = histogram('inferred.services', filter=filter('sf_service', '*') and filter('sf_environment', '*') and filter('sf_error', 'true')).count(by=['sf_operation', 'sf_environment', 'sf_service']).sum(over='1m')\nB = (A if A is not None else 0).publish('Errors')",
+        "relatedDetectorIds": [],
+        "tags": []
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "per Endpoint",
+        "id": "Ghy3iVKA4AA",
+        "importOf": "GcZ5HwoCUAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Requests per minute",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": true
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            },
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "LineChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": null
+          },
+          "lineChartOptions": {
+            "showDataMarkers": true
+          },
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": "sf_operation",
+            "showLegend": true
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": 0,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "Requests / min",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": "",
+              "valueSuffix": "",
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = histogram('inferred.services', filter=filter('sf_service', '*') and filter('sf_environment', '*')).count(by=['sf_operation', 'sf_environment', 'sf_service']).sum(over='1m').publish(label='A')",
+        "relatedDetectorIds": [],
+        "tags": []
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "Ghy3p4MAwAE",
+        "importOf": "GcZ3-3CCQAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Max Latency by Endpoint/Operation",
+        "options": {
+          "colorBy": "Dimension",
+          "colorScale2": null,
+          "hideMissingValues": true,
+          "legendOptions": {
+            "fields": [
+              {
+                "enabled": false,
+                "property": "deployment.environment"
+              },
+              {
+                "enabled": false,
+                "property": "sf_originatingMetric"
+              },
+              {
+                "enabled": false,
+                "property": "sf_metric"
+              },
+              {
+                "enabled": false,
+                "property": "service.name"
+              },
+              {
+                "enabled": false,
+                "property": "sf_environment"
+              },
+              {
+                "enabled": false,
+                "property": "sf_error"
+              },
+              {
+                "enabled": true,
+                "property": "sf_httpMethod"
+              },
+              {
+                "enabled": false,
+                "property": "sf_kind"
+              },
+              {
+                "enabled": true,
+                "property": "sf_operation"
+              },
+              {
+                "enabled": false,
+                "property": "sf_service"
+              }
+            ]
+          },
+          "maximumPrecision": 3,
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": 0,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "inferred.services",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": "Nanosecond",
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "Sparkline",
+          "sortBy": "-value",
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "type": "List",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = histogram('inferred.services', filter=filter('sf_service', '*') and filter('sf_environment', '*')).max(by=['sf_operation', 'sf_environment', 'sf_service']).publish(label='A')",
+        "relatedDetectorIds": [],
+        "tags": []
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "p90",
+        "id": "Ghy3p7fA0AA",
+        "importOf": "Gco2TG_CUAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "P90 Latency by Endpoint/Operation",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            },
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "LineChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": [
+              {
+                "enabled": false,
+                "property": "deployment.environment"
+              },
+              {
+                "enabled": false,
+                "property": "sf_originatingMetric"
+              },
+              {
+                "enabled": true,
+                "property": "sf_metric"
+              },
+              {
+                "enabled": false,
+                "property": "service.name"
+              },
+              {
+                "enabled": false,
+                "property": "sf_environment"
+              },
+              {
+                "enabled": true,
+                "property": "sf_error"
+              },
+              {
+                "enabled": true,
+                "property": "sf_httpMethod"
+              },
+              {
+                "enabled": false,
+                "property": "sf_kind"
+              },
+              {
+                "enabled": true,
+                "property": "sf_operation"
+              },
+              {
+                "enabled": false,
+                "property": "sf_service"
+              }
+            ]
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": "sf_operation",
+            "showLegend": true
+          },
+          "programOptions": {
+            "disableSampling": true,
+            "maxDelay": 0,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "Latency for Operation/Endpoint (1 min avg)",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": "Nanosecond",
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = histogram('inferred.services', filter=filter('sf_service', '*') and filter('sf_environment', '*')).percentile(pct=90, by=['sf_operation', 'sf_environment', 'sf_service', 'sf_error']).publish(label='A')",
+        "relatedDetectorIds": [],
+        "tags": []
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "Ghy3yvYA4AA",
+        "importOf": "GcigufxCUAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Requests per minute - Successful",
+        "options": {
+          "colorBy": "Dimension",
+          "colorScale2": null,
+          "hideMissingValues": false,
+          "legendOptions": {
+            "fields": [
+              {
+                "enabled": true,
+                "property": "deployment.environment"
+              },
+              {
+                "enabled": false,
+                "property": "sf_originatingMetric"
+              },
+              {
+                "enabled": false,
+                "property": "sf_metric"
+              },
+              {
+                "enabled": false,
+                "property": "service.name"
+              },
+              {
+                "enabled": false,
+                "property": "sf_environment"
+              },
+              {
+                "enabled": true,
+                "property": "sf_error"
+              },
+              {
+                "enabled": true,
+                "property": "sf_httpMethod"
+              },
+              {
+                "enabled": true,
+                "property": "sf_kind"
+              },
+              {
+                "enabled": true,
+                "property": "sf_operation"
+              },
+              {
+                "enabled": false,
+                "property": "sf_service"
+              }
+            ]
+          },
+          "maximumPrecision": null,
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": 0,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "inferred.services - Sum(1m)",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": "",
+              "valueSuffix": "",
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "Sparkline",
+          "sortBy": "-value",
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "type": "List",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = histogram('inferred.services', filter=filter('sf_service', '*') and filter('sf_environment', '*') and filter('sf_error', 'false')).count(by=['sf_operation', 'sf_environment', 'sf_service']).sum(over='1m').publish(label='A')",
+        "relatedDetectorIds": [],
+        "tags": []
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "Ghy4EsXAwAA",
+        "importOf": "GcijC4oCYAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Requests per minute",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": true
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            },
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "LineChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": null
+          },
+          "lineChartOptions": {
+            "showDataMarkers": true
+          },
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": "sf_metric",
+            "showLegend": true
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": 0,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "Total Requests / min",
+              "label": "A",
+              "paletteIndex": 14,
+              "plotType": null,
+              "valuePrefix": "",
+              "valueSuffix": "",
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "Successful Requests / min",
+              "label": "B",
+              "paletteIndex": 6,
+              "plotType": "AreaChart",
+              "valuePrefix": "",
+              "valueSuffix": "",
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "Errors / min",
+              "label": "C",
+              "paletteIndex": 8,
+              "plotType": "AreaChart",
+              "valuePrefix": "",
+              "valueSuffix": "",
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = histogram('inferred.services', filter=filter('sf_service', '*') and filter('sf_environment', '*')).count(by=['sf_environment', 'sf_service']).sum(over='1m').publish(label='A')\nB = histogram('inferred.services', filter=filter('sf_service', '*') and filter('sf_environment', '*') and filter('sf_error', 'false')).count(by=['sf_environment', 'sf_service']).sum(over='1m').publish(label='B')\nC = histogram('inferred.services', filter=filter('sf_service', '*') and filter('sf_environment', '*') and filter('sf_error', 'true')).count(by=['sf_environment', 'sf_service']).sum(over='1m').publish(label='C')",
+        "relatedDetectorIds": [],
+        "tags": []
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "Ghy4RPKA0AA",
+        "importOf": "GcikKVpCQAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Error Rate per minute",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": true
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "% error rate",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            },
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "LineChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": null
+          },
+          "lineChartOptions": {
+            "showDataMarkers": true
+          },
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": "sf_metric",
+            "showLegend": true
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": 0,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "Total Requests / min",
+              "label": "A",
+              "paletteIndex": 14,
+              "plotType": null,
+              "valuePrefix": "",
+              "valueSuffix": "",
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "Successful Requests / min",
+              "label": "B",
+              "paletteIndex": 6,
+              "plotType": "AreaChart",
+              "valuePrefix": "",
+              "valueSuffix": "",
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "Errors / min",
+              "label": "C",
+              "paletteIndex": 8,
+              "plotType": "AreaChart",
+              "valuePrefix": "",
+              "valueSuffix": "",
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "Error rate / min",
+              "label": "D",
+              "paletteIndex": 2,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": "%",
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = histogram('inferred.services', filter=filter('sf_service', '*') and filter('sf_environment', '*')).count(by=['sf_environment', 'sf_service']).sum(over='1m').publish(label='A', enable=False)\nB = histogram('inferred.services', filter=filter('sf_service', '*') and filter('sf_environment', '*') and filter('sf_error', 'false')).count(by=['sf_environment', 'sf_service']).sum(over='1m').publish(label='B', enable=False)\nC = histogram('inferred.services', filter=filter('sf_service', '*') and filter('sf_environment', '*') and filter('sf_error', 'true')).count(by=['sf_environment', 'sf_service']).sum(over='1m').publish(label='C', enable=False)\nD = combine(100*((C if C is not None else 0) / A)).publish(label='D')",
+        "relatedDetectorIds": [],
+        "tags": []
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "Ghy4kSNA4AA",
+        "importOf": "GcjIssrCYAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Latency (all requests)",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            },
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "LineChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": [
+              {
+                "enabled": false,
+                "property": "deployment.environment"
+              },
+              {
+                "enabled": false,
+                "property": "sf_originatingMetric"
+              },
+              {
+                "enabled": false,
+                "property": "sf_metric"
+              },
+              {
+                "enabled": false,
+                "property": "service.name"
+              },
+              {
+                "enabled": false,
+                "property": "sf_environment"
+              },
+              {
+                "enabled": false,
+                "property": "sf_error"
+              },
+              {
+                "enabled": true,
+                "property": "sf_httpMethod"
+              },
+              {
+                "enabled": false,
+                "property": "sf_kind"
+              },
+              {
+                "enabled": true,
+                "property": "sf_operation"
+              },
+              {
+                "enabled": false,
+                "property": "sf_service"
+              }
+            ]
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": "sf_metric",
+            "showLegend": true
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": 0,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "Mean",
+              "label": "A",
+              "paletteIndex": 9,
+              "plotType": "AreaChart",
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": "Nanosecond",
+              "yAxis": 0
+            },
+            {
+              "displayName": "P99",
+              "label": "B",
+              "paletteIndex": 5,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": "Nanosecond",
+              "yAxis": 0
+            },
+            {
+              "displayName": "P90",
+              "label": "C",
+              "paletteIndex": 2,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": "Nanosecond",
+              "yAxis": 0
+            },
+            {
+              "displayName": "P50",
+              "label": "D",
+              "paletteIndex": 14,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": "Nanosecond",
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = histogram('inferred.services', filter=filter('sf_service', '*') and filter('sf_environment', '*')).mean(by=['sf_environment', 'sf_service']).publish(label='A')\nB = histogram('inferred.services').percentile(pct=99, by=['sf_environment', 'sf_service']).publish(label='B')\nC = histogram('inferred.services').percentile(pct=90, by=['sf_environment', 'sf_service']).publish(label='C')\nD = histogram('inferred.services').percentile(pct=50, by=['sf_environment', 'sf_service']).publish(label='D')",
+        "relatedDetectorIds": [],
+        "tags": []
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "1 minute average",
+        "id": "Ghy53jPAwAA",
+        "importOf": "GconURMCQAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Max Latency by Endpoint/Operation",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            },
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "LineChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": [
+              {
+                "enabled": false,
+                "property": "deployment.environment"
+              },
+              {
+                "enabled": false,
+                "property": "sf_originatingMetric"
+              },
+              {
+                "enabled": true,
+                "property": "sf_metric"
+              },
+              {
+                "enabled": false,
+                "property": "service.name"
+              },
+              {
+                "enabled": false,
+                "property": "sf_environment"
+              },
+              {
+                "enabled": true,
+                "property": "sf_error"
+              },
+              {
+                "enabled": true,
+                "property": "sf_httpMethod"
+              },
+              {
+                "enabled": false,
+                "property": "sf_kind"
+              },
+              {
+                "enabled": true,
+                "property": "sf_operation"
+              },
+              {
+                "enabled": false,
+                "property": "sf_service"
+              }
+            ]
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "onChartLegendOptions": {
+            "dimensionInLegend": "sf_operation",
+            "showLegend": true
+          },
+          "programOptions": {
+            "disableSampling": true,
+            "maxDelay": 0,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "Latency for Operation/Endpoint (1 min avg)",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": "Nanosecond",
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = histogram('inferred.services', filter=filter('sf_service', '*') and filter('sf_environment', '*')).max(by=['sf_operation', 'sf_environment', 'sf_service', 'sf_error']).mean(over='1m').publish(label='A')",
+        "relatedDetectorIds": [],
+        "tags": []
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "last minute maximum latency",
+        "id": "Ghy6J0ZA0AE",
+        "importOf": "GcjMN48CQAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Max Latency (all requests)",
+        "options": {
+          "colorBy": "Dimension",
+          "colorScale": null,
+          "colorScale2": null,
+          "maximumPrecision": 3,
+          "noDataOptions": {
+            "linkText": null,
+            "linkUrl": null,
+            "noDataMessage": null
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": 0,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "inferred.services",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": "Nanosecond",
+              "yAxis": 0
+            }
+          ],
+          "refreshInterval": null,
+          "secondaryVisualization": "None",
+          "showSparkLine": false,
+          "time": {
+            "range": 900000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "timestampHidden": false,
+          "type": "SingleValue",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = histogram('inferred.services', filter=filter('sf_service', '*') and filter('sf_environment', '*')).max(by=['sf_environment', 'sf_service']).publish(label='A')",
+        "relatedDetectorIds": [],
+        "tags": []
+      }
+    }
+  ],
+  "crossLinkExports": [
+    {
+      "crossLink": {
+        "aliases": null,
+        "contextId": "Ghy8cz1A4AA",
+        "created": 0,
+        "creator": null,
+        "id": "Ghy8cz1A4AE",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "propertyName": "sf_operation",
+        "targets": [
+          {
+            "url": "https://app.au0.signalfx.com/#/apm/analysis?analyze=latency&endTime={{end_time}}&filters={\"traceFilter\":{\"tags\":[{\"tag\":\"sf_environment\",\"operation\":\"IN\",\"values\":[\"{{properties.[sf_environment]}}\"]}]},\"spanFilters\":[{\"tags\":[{\"tag\":\"sf_service\",\"operation\":\"IN\",\"values\":[\"{{properties.[sf_service]}}\"]},{\"tag\":\"sf_operation\",\"operation\":\"IN\",\"values\":[\"{{value}}\"]}]}]}&selected=[{\"nodeID\":\"mjr3a3\",\"nodeTags\":[{\"tagName\":\"sf_service\",\"value\":\"{{properties.[sf_service]}}\"},{\"tagName\":\"sf_operation\",\"value\":\"{{value}}\"}]}]&serviceTo={{properties.[sf_service]}}&startTime={{start_time}}",
+            "isDefault": false,
+            "minimumTimeWindow": 60000,
+            "name": "Tag Spotlight",
+            "propertyKeyMapping": {},
+            "timeFormat": "ISO8601",
+            "type": "EXTERNAL_LINK"
+          }
+        ]
+      }
+    }
+  ],
+  "dashboardExports": [
+    {
+      "dashboard": {
+        "authorizedWriters": null,
+        "chartDensity": "DEFAULT",
+        "charts": [
+          {
+            "chartId": "Ghy4EsXAwAA",
+            "column": 0,
+            "height": 1,
+            "row": 0,
+            "width": 6
+          },
+          {
+            "chartId": "Ghy4kSNA4AA",
+            "column": 6,
+            "height": 1,
+            "row": 0,
+            "width": 6
+          },
+          {
+            "chartId": "Ghy3p4MAwAE",
+            "column": 9,
+            "height": 1,
+            "row": 1,
+            "width": 3
+          },
+          {
+            "chartId": "Ghy3iVKA4AA",
+            "column": 0,
+            "height": 1,
+            "row": 1,
+            "width": 6
+          },
+          {
+            "chartId": "Ghy6J0ZA0AE",
+            "column": 6,
+            "height": 1,
+            "row": 1,
+            "width": 3
+          },
+          {
+            "chartId": "Ghy4RPKA0AA",
+            "column": 0,
+            "height": 1,
+            "row": 2,
+            "width": 6
+          },
+          {
+            "chartId": "Ghy53jPAwAA",
+            "column": 6,
+            "height": 1,
+            "row": 2,
+            "width": 6
+          },
+          {
+            "chartId": "Ghy3yvYA4AA",
+            "column": 0,
+            "height": 1,
+            "row": 3,
+            "width": 3
+          },
+          {
+            "chartId": "Ghy2SJKA0AA",
+            "column": 3,
+            "height": 1,
+            "row": 3,
+            "width": 3
+          },
+          {
+            "chartId": "Ghy3p7fA0AA",
+            "column": 6,
+            "height": 1,
+            "row": 3,
+            "width": 6
+          }
+        ],
+        "created": 0,
+        "creator": null,
+        "customProperties": null,
+        "description": "",
+        "discoveryOptions": null,
+        "eventOverlays": null,
+        "filters": {
+          "sources": null,
+          "time": null,
+          "variables": [
+            {
+              "alias": "Service (select Inferred service only)",
+              "applyIfExists": false,
+              "description": "",
+              "preferredSuggestions": [],
+              "property": "sf_service",
+              "propertyMappings": [
+                "sf_service"
+              ],
+              "replaceOnly": false,
+              "required": false,
+              "restricted": false,
+              "value": [
+                "*"
+              ]
+            },
+            {
+              "alias": "Environment",
+              "applyIfExists": false,
+              "description": "",
+              "preferredSuggestions": [],
+              "property": "sf_environment",
+              "propertyMappings": [
+                "sf_environment"
+              ],
+              "replaceOnly": false,
+              "required": false,
+              "restricted": false,
+              "value": [
+                "*"
+              ]
+            }
+          ]
+        },
+        "groupId": "Ghy2NcIAwAQ",
+        "groupName": "Inferred Services",
+        "id": "Ghy8cz1A4AA",
+        "importOf": "GcZ4Qx4CUAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "maxDelayOverride": null,
+        "name": "Inferred Services",
+        "permissions": null,
+        "selectedEventOverlays": [
+          {
+            "eventSignal": {
+              "detectorId": null,
+              "eventSearchText": "[sample] Inferred Services - Error Rate per minute",
+              "eventType": "detectorEvents"
+            },
+            "overlayId": null,
+            "sources": []
+          },
+          {
+            "eventSignal": {
+              "detectorId": null,
+              "eventSearchText": "[sample] Inferred Services - Latency Spike",
+              "eventType": "detectorEvents"
+            },
+            "overlayId": null,
+            "sources": []
+          }
+        ],
+        "tags": null
+      }
+    }
+  ],
+  "groupExport": {
+    "group": {
+      "authorizedWriters": null,
+      "created": 0,
+      "creator": null,
+      "dashboardConfigs": [
+        {
+          "configId": "GcZ4Sv3CQAA",
+          "dashboardId": "Ghy8cz1A4AA",
+          "descriptionOverride": null,
+          "filtersOverride": null,
+          "nameOverride": null
+        }
+      ],
+      "dashboards": [
+        "Ghy8cz1A4AA"
+      ],
+      "description": "",
+      "email": null,
+      "id": "Ghy2NcIAwAQ",
+      "importDetails": {
+        "hashCode": 455305895,
+        "importOf": "GcZ4PatCYAA",
+        "importTime": 1737440022697
+      },
+      "importOf": "GcZ4PatCYAA",
+      "lastUpdated": 0,
+      "lastUpdatedBy": null,
+      "name": "Inferred Services",
+      "permissions": null,
+      "teams": null
+    }
+  },
+  "hashCode": 1295828236,
+  "id": "Ghy2NcIAwAQ",
+  "modelVersion": 1,
+  "packageType": "GROUP"
+}

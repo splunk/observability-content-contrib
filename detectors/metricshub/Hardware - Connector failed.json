@@ -1,0 +1,63 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1727160940219,
+    "creator": "GRtepaIAICg",
+    "customProperties": null,
+    "description": "",
+    "detectorOrigin": "Standard",
+    "id": "GYN3h5fAIBw",
+    "labelResolutions": {
+        "Hardware - Connector failed": 1000
+    },
+    "lastUpdated": 1727215761634,
+    "lastUpdatedBy": "AAAAAAAAAAA",
+    "maxDelay": null,
+    "minDelay": null,
+    "name": "Hardware - Connector failed",
+    "overMTSLimit": false,
+    "packageSpecifications": "",
+    "programText": "A = data('metricshub.connector.status', filter=filter('state', 'failed'), rollup='max').publish(label='A')\ndetect(when(A > threshold(0))).publish('Hardware - Connector failed')",
+    "rules": [
+        {
+            "description": "The value of metricshub.connector.status is above 0.",
+            "detectLabel": "Hardware - Connector failed",
+            "disabled": false,
+            "notifications": [],
+            "parameterizedBody": "{{#if anomalous}}\n## Failed connector\nAgent **{{dimensions.[agent.host.name]}}** is failing to use  **{{dimensions.[name]}}** to monitor **{{dimensions.[host.name]}}** in **{{dimensions.site}}**.\n\n## Consequence\nAll of the components that were monitored through this connector can no longer be monitored.\n\n## Recommended action\nMake sure {{dimensions.[agent.host.name]}} can communicate with {{dimensions.[host.name]}} with the protocol used by {{dimensions.[name]}} and that the specified credentials in Metrics Hub's configuration are valid.\n{{else}}\nRecovered monitoring with {{dimensions.[name]}} connector.\n{{/if}}\n\n###Device Details\n**Name: ** {{dimensions.[name]}}\n**ID:** {{dimensions.id}}\n**Information:** {{dimensions.info}}",
+            "parameterizedSubject": "Hardware - Failed connector on {{dimensions.[host.name]}}",
+            "runbookUrl": "",
+            "severity": "Major",
+            "tip": ""
+        }
+    ],
+    "sf_metricsInObjectProgramText": [
+        "metricshub.connector.status"
+    ],
+    "status": "ACTIVE",
+    "tags": [],
+    "teams": [],
+    "timezone": "",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "metricshub.connector.status",
+                "label": "A",
+                "paletteIndex": null,
+                "valuePrefix": null,
+                "valueSuffix": null,
+                "valueUnit": null
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": false,
+        "time": {
+            "range": 86400000,
+            "rangeEnd": 0,
+            "type": "relative"
+        }
+    }
+}
