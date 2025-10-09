@@ -304,7 +304,7 @@ resource "signalfx_list_chart" "APM_IMM-Exec_3" {
     unit_prefix             = "Metric"
 
     color_scale {
-        color = "lime_green"
+        color = "yellowgreen"
         gt    = 340282346638528860000000000000000000000
         gte   = -100
         lt    = 340282346638528860000000000000000000000
@@ -441,7 +441,7 @@ resource "signalfx_list_chart" "APM_IMM-Exec_5" {
         lte   = 10
     }
     color_scale {
-        color = "lime_green"
+        color = "yellowgreen"
         gt    = 340282346638528860000000000000000000000
         gte   = 0
         lt    = 340282346638528860000000000000000000000
@@ -657,7 +657,7 @@ resource "signalfx_list_chart" "APM_IMM-Exec_7" {
         lte   = 100
     }
     color_scale {
-        color = "lime_green"
+        color = "yellowgreen"
         gt    = 340282346638528860000000000000000000000
         gte   = 0
         lt    = 340282346638528860000000000000000000000
