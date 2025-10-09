@@ -285,7 +285,7 @@ resource "signalfx_single_value_chart" "synthetics_with_trends_10" {
     unit_prefix             = "Metric"
 
     color_scale {
-        color = "yellowgreen"
+        color = "green"
         gt    = 340282346638528860000000000000000000000
         gte   = 340282346638528860000000000000000000000
         lt    = 340282346638528860000000000000000000000
@@ -320,7 +320,7 @@ resource "signalfx_single_value_chart" "synthetics_with_trends_11" {
     unit_prefix             = "Metric"
 
     color_scale {
-        color = "yellowgreen"
+        color = "green"
         gt    = 340282346638528860000000000000000000000
         gte   = 340282346638528860000000000000000000000
         lt    = 340282346638528860000000000000000000000
@@ -355,7 +355,7 @@ resource "signalfx_single_value_chart" "synthetics_with_trends_12" {
     unit_prefix             = "Metric"
 
     color_scale {
-        color = "yellowgreen"
+        color = "green"
         gt    = 340282346638528860000000000000000000000
         gte   = 340282346638528860000000000000000000000
         lt    = 340282346638528860000000000000000000000
