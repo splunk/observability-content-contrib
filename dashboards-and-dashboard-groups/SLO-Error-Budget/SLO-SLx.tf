@@ -129,7 +129,7 @@ resource "signalfx_single_value_chart" "SLO-SLx-Investigation_1" {
     unit_prefix             = "Metric"
 
     color_scale {
-        color = "yellowgreen"
+        color = "green"
         gt    = 340282346638528860000000000000000000000
         gte   = 0
         lt    = 340282346638528860000000000000000000000
@@ -241,7 +241,7 @@ resource "signalfx_single_value_chart" "SLO-SLx-Investigation_3" {
     unit_prefix             = "Metric"
 
     color_scale {
-        color = "yellowgreen"
+        color = "green"
         gt    = 395
         gte   = 340282346638528860000000000000000000000
         lt    = 340282346638528860000000000000000000000
@@ -348,7 +348,7 @@ resource "signalfx_single_value_chart" "SLO-SLx-Investigation_5" {
     unit_prefix             = "Metric"
 
     color_scale {
-        color = "yellowgreen"
+        color = "green"
         gt    = 340282346638528860000000000000000000000
         gte   = 0
         lt    = 340282346638528860000000000000000000000
@@ -464,7 +464,7 @@ resource "signalfx_single_value_chart" "SLO-SLx-Investigation_7" {
     unit_prefix             = "Metric"
 
     color_scale {
-        color = "yellowgreen"
+        color = "green"
         gt    = 55
         gte   = 340282346638528860000000000000000000000
         lt    = 340282346638528860000000000000000000000

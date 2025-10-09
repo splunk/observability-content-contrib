@@ -75,7 +75,7 @@ resource "signalfx_single_value_chart" "rum_and_synthetics_3" {
     unit_prefix             = "Metric"
 
     color_scale {
-        color = "yellowgreen"
+        color = "green"
         gt    = 340282346638528860000000000000000000000
         gte   = 0
         lt    = 340282346638528860000000000000000000000
@@ -122,7 +122,7 @@ resource "signalfx_single_value_chart" "rum_and_synthetics_4" {
     unit_prefix             = "Metric"
 
     color_scale {
-        color = "yellowgreen"
+        color = "green"
         gt    = 340282346638528860000000000000000000000
         gte   = 0
         lt    = 340282346638528860000000000000000000000
@@ -308,7 +308,7 @@ resource "signalfx_single_value_chart" "rum_and_synthetics_8" {
     unit_prefix             = "Metric"
 
     color_scale {
-        color = "yellowgreen"
+        color = "green"
         gt    = 340282346638528860000000000000000000000
         gte   = 0
         lt    = 340282346638528860000000000000000000000
@@ -352,7 +352,7 @@ resource "signalfx_single_value_chart" "rum_and_synthetics_9" {
     unit_prefix             = "Metric"
 
     color_scale {
-        color = "yellowgreen"
+        color = "green"
         gt    = 340282346638528860000000000000000000000
         gte   = 0
         lt    = 340282346638528860000000000000000000000
@@ -569,7 +569,7 @@ resource "signalfx_single_value_chart" "rum_and_synthetics_15" {
     unit_prefix             = "Metric"
 
     color_scale {
-        color = "yellowgreen"
+        color = "green"
         gt    = 340282346638528860000000000000000000000
         gte   = 0
         lt    = 340282346638528860000000000000000000000
@@ -648,7 +648,7 @@ resource "signalfx_list_chart" "rum_and_synthetics_17" {
     unit_prefix             = "Metric"
 
     color_scale {
-        color = "yellowgreen"
+        color = "green"
         gt    = 340282346638528860000000000000000000000
         gte   = 0
         lt    = 340282346638528860000000000000000000000
