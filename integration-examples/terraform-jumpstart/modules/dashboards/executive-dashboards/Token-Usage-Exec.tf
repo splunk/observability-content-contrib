@@ -326,7 +326,7 @@ resource "signalfx_list_chart" "TOKEN-USAGE-EXEC_2" {
     unit_prefix             = "Metric"
 
     color_scale {
-        color = "lime_green"
+        color = "yellowgreen"
         gt    = 1
         gte   = 340282346638528860000000000000000000000
         lt    = 340282346638528860000000000000000000000
