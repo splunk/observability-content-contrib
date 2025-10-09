@@ -143,7 +143,7 @@ resource "signalfx_single_value_chart" "SLO-SLx-Investigation_1" {
         lte   = 438
     }
     color_scale {
-        color = "vivid_yellow"
+        color = "yellow"
         gt    = 44
         gte   = 340282346638528860000000000000000000000
         lt    = 340282346638528860000000000000000000000
@@ -255,7 +255,7 @@ resource "signalfx_single_value_chart" "SLO-SLx-Investigation_3" {
         lte   = 219
     }
     color_scale {
-        color = "vivid_yellow"
+        color = "yellow"
         gt    = 219
         gte   = 340282346638528860000000000000000000000
         lt    = 340282346638528860000000000000000000000
@@ -362,7 +362,7 @@ resource "signalfx_single_value_chart" "SLO-SLx-Investigation_5" {
         lte   = 101
     }
     color_scale {
-        color = "vivid_yellow"
+        color = "yellow"
         gt    = 22
         gte   = 340282346638528860000000000000000000000
         lt    = 340282346638528860000000000000000000000
@@ -471,7 +471,7 @@ resource "signalfx_single_value_chart" "SLO-SLx-Investigation_7" {
         lte   = 101
     }
     color_scale {
-        color = "vivid_yellow"
+        color = "yellow"
         gt    = 22
         gte   = 340282346638528860000000000000000000000
         lt    = 340282346638528860000000000000000000000
