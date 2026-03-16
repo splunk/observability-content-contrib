@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: splunk-secrets
+data:
+  accessToken: << FILL IN ACCESS TOKEN IN BASE64 encoding >>
+  realm: << FILL IN ACCESS TOKEN IN BASE64 encoding; us1 = dXMx >> 
+---
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: keda-trigger-auth-splunk-secret
+spec:
+  secretTargetRef:
+    - parameter: accessToken
+      name: splunk-secrets
+      key: accessToken
+    - parameter: realm
+      name: splunk-secrets
+      key: realm
