@@ -1,0 +1,34 @@
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: keda
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nginx
+  pollingInterval: 30
+  cooldownPeriod: 30
+  minReplicaCount: 1
+  maxReplicaCount: 10
+  triggers:
+    - type: splunk-observability
+      metricType: Value
+      metadata:
+        query: "data('demo.trans.count', filter=filter('demo_host', 'server6'), rollup='rate').sum(by=['demo_host']).publish()"
+        duration: "10"
+        targetValue: "300"
+        queryAggregator: "avg"
+        activationTargetValue: "1.1"
+      authenticationRef:
+        name: keda-trigger-auth-splunk-secret
+  advanced:
+    horizontalPodAutoscalerConfig:
+      behavior:
+        scaleDown:
+          stabilizationWindowSeconds: 30 # Shorter window for HPA scale-downs
+          policies:
+          - type: Percent
+            value: 50
+            periodSeconds: 30
