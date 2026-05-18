@@ -1,0 +1,62 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: splunk-argo-rollouts-example
+spec:
+  replicas: 3
+  strategy:
+    canary:
+      analysis:
+        templates:
+          - templateName: check-splunk-metrics
+        startingStep: 2 # delay starting analysis run until setWeight: 40%
+      steps:
+        - setWeight: 20
+        - pause: {duration: 1m}
+        - setWeight: 40
+        - pause: {duration: 1m}
+        - setWeight: 60
+        - pause: {duration: 1m}
+        - setWeight: 80
+        - pause: {duration: 1m}
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: rollouts-demo
+  template:
+    metadata:
+      labels:
+        app: rollouts-demo
+    spec:
+      shareProcessNamespace: true
+      containers:
+        - name: rollouts-demo
+          image: localhost:9999/rollouts-demo:blue
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          resources:
+            requests:
+              memory: 32Mi
+              cpu: 5m
+        - name: autoinstrumentation-go
+          image: otel/autoinstrumentation-go
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_GO_AUTO_TARGET_EXE
+              value: "/rollouts-demo"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://$(NODE_IP):4318"
+            - name: OTEL_SERVICE_NAME
+              value: "argo-rollouts-demo"
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: "deployment.environment=argo-rollouts"
+          securityContext:
+            runAsUser: 0
+            privileged: true
+

@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: check-splunk-metrics
+spec:
+  args:
+    - name: realm
+      value: us1
+    - name: token
+      valueFrom:
+        secretKeyRef:
+          name: splunk-token
+          key: token
+    - name: query
+      value: "(sf_metric:service.request.duration.ns.p99 AND service.name:argo-rollouts-demo)"
+    - name: operator
+      value: lt
+    - name: threshold
+      value: "500000"
+    - name: scope
+      value: any
+  metrics:
+    - name: check-splunk-metrics
+      provider:
+        job:
+          metadata:
+            annotations:
+              foo: bar
+            labels:
+              foo: bar
+          spec:
+            backoffLimit: 1
+            template:
+              spec:
+                restartPolicy: Never
+                containers:
+                  - name: check-splunk-metrics
+                    image: localhost:9999/check-splunk-metrics:latest
+                    imagePullPolicy: Always
+                    command:
+                      - /usr/local/bin/check_splunk_metric.sh
+                      - -r
+                      - "{{args.realm}}"
+                      - -t
+                      - "{{args.token}}"
+                      - -q
+                      - "{{args.query}}"
+                      - -o
+                      - "{{args.operator}}"
+                      - -v
+                      - "{{args.threshold}}"
+                      - --scope
+                      - "{{args.scope}}"
+                    resources:
+                      requests:
+                        cpu: "50m"
+                        memory: "64Mi"
+                      limits:
+                        cpu: "200m"
+                        memory: "128Mi"
