@@ -1,0 +1,16 @@
+{
+  "_comment": "Copy to integrations/<integration-name>.json and fill in. Do not commit files containing secrets.",
+  "name": "",
+  "type": "",
+  "enabled": null,
+  "portal_path": "Integrations → [tile name]",
+  "captured_at": null,
+  "captured_by": "",
+  "settings": {},
+  "secrets_vault_reference": "",
+  "notes": "",
+  "related_inventory": {
+    "alert_rules": [],
+    "outbound_webhooks": []
+  }
+}
