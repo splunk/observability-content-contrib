@@ -2,57 +2,7 @@
 
 A migration toolset for Splunk On-Call (VictorOps). Snapshot and migrate configurations from a source organization to a target organization using an automated inventory discovery and remapping workflow.
 
-## Repository layout
-
-```
-OnCall_Migration/
-├── README.md
-├── requirements.txt
-├── .env.example                  # copy to .env (gitignored)
-├── discovery.py                  # step 1 — export source org
-├── validate_inventory.py         # step 2
-├── generate_remapping.py         # step 3
-├── validate_apply.py             # step 4
-├── apply.py                      # steps 5–6 (dry-run / --apply)
-├── apply_contact_methods_and_policies.py  # step 7 — deferred user settings
-├── utils/
-│   ├── env_loader.py
-│   ├── io.py
-│   ├── cli.py
-│   ├── http_client.py
-│   ├── rate_limiter.py
-│   ├── exceptions.py
-│   ├── migration_types.py
-│   ├── summary_reporter.py
-│   └── team_scope.py
-├── docs/
-│   ├── MIGRATION_GUIDE.md        # deep reference
-│   ├── VALIDATION_REPORT.md      # post-discovery template
-│   └── TROUBLESHOOTING.md        # apply failures and edge cases
-├── tests/
-│   ├── test_discovery.py
-│   ├── test_apply.py
-│   └── …                         # other test_*.py modules
-├── inventory/                    # gitignored — API export + remapping
-│   ├── *_inventory.json
-│   ├── discovery_metadata.json
-│   ├── inventory_summary.md
-│   ├── remapping.json
-│   └── apply_report.json         # written after apply
-├── manual_capture/               # templates tracked; integration JSON captures gitignored
-│   ├── README.md
-│   ├── capture_status.json
-│   ├── integrations/
-│   │   └── integration.example.json
-│   ├── user_permissions/
-│   └── sso/
-└── discovery_run.log             # gitignored — discovery HTTP log
-```
-
-Paths marked **gitignored** (`inventory/`, `.env`, `discovery_run.log`, filled `manual_capture/integrations/*.json`) are local user artifacts. Back them up in case source org access ends. **Do not commit secrets** in those paths.
-
 ## Quick Start
-
 
 
 ### Installation
@@ -137,6 +87,55 @@ All pipeline scripts accept `-h` / `--help` for flags and defaults. See [`docs/M
 
 - **Troubleshooting:** For apply failures and known edge cases (cascade failures, user 409 conflicts, deferring users, idempotency), see [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md).
 
+
+## Repository layout
+
+```
+OnCall_Migration/
+├── README.md
+├── requirements.txt
+├── .env.example                  # copy to .env (gitignored)
+├── discovery.py                  # step 1 — export source org
+├── validate_inventory.py         # step 2
+├── generate_remapping.py         # step 3
+├── validate_apply.py             # step 4
+├── apply.py                      # steps 5–6 (dry-run / --apply)
+├── apply_contact_methods_and_policies.py  # step 7 — deferred user settings
+├── utils/
+│   ├── env_loader.py
+│   ├── io.py
+│   ├── cli.py
+│   ├── http_client.py
+│   ├── rate_limiter.py
+│   ├── exceptions.py
+│   ├── migration_types.py
+│   ├── summary_reporter.py
+│   └── team_scope.py
+├── docs/
+│   ├── MIGRATION_GUIDE.md        # deep reference
+│   ├── VALIDATION_REPORT.md      # post-discovery template
+│   └── TROUBLESHOOTING.md        # apply failures and edge cases
+├── tests/
+│   ├── test_discovery.py
+│   ├── test_apply.py
+│   └── …                         # other test_*.py modules
+├── inventory/                    # gitignored — API export + remapping
+│   ├── *_inventory.json
+│   ├── discovery_metadata.json
+│   ├── inventory_summary.md
+│   ├── remapping.json
+│   └── apply_report.json         # written after apply
+├── manual_capture/               # templates tracked; integration JSON captures gitignored
+│   ├── README.md
+│   ├── capture_status.json
+│   ├── integrations/
+│   │   └── integration.example.json
+│   ├── user_permissions/
+│   └── sso/
+└── discovery_run.log             # gitignored — discovery HTTP log
+```
+
+Paths marked **gitignored** (`inventory/`, `.env`, `discovery_run.log`, filled `manual_capture/integrations/*.json`) are local user artifacts. Back them up in case source org access ends. **Do not commit secrets** in those paths.
 
 
 ## Scope & Reference
