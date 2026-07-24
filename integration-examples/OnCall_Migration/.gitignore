@@ -1,0 +1,14 @@
+# .gitignore
+inventory/
+# manual_capture — operator integration captures may contain secrets
+manual_capture/integrations/*.json
+!manual_capture/integrations/integration.example.json
+venv
+.env
+discovery_run.log
+
+__pycache__/
+*.pyc
+.venv/
+.ruff_cache/
+.DS_Store

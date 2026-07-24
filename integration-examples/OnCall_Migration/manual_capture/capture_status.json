@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "updated_at": null,
+  "categories": {
+    "integrations": {
+      "status": "pending",
+      "last_reviewed": null,
+      "notes": ""
+    },
+    "user_permissions": {
+      "status": "pending",
+      "last_reviewed": null,
+      "notes": ""
+    },
+    "sso_settings": {
+      "status": "pending",
+      "last_reviewed": null,
+      "notes": ""
+    }
+  },
+  "integrations": []
+}
